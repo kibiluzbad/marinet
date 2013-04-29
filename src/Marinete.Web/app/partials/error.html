@@ -1,0 +1,13 @@
+﻿<ul ng-repeat="error in errors">
+    <pre>
+        <p>{{error.CreatedAt}} <strong>{{error.Id}} {{error.Message}}</strong> </p>
+        
+        <strong>Usuario:</strong><span>{{error.CurrentUser}}</span><br/>
+        <strong>OS:</strong><span>{{error.OsVersion}}</span><br/>
+        <strong>Plataform:</strong><span>{{error.Platform}}</span><br/>
+        <strong>Service Pack:</strong><span>{{error.ServicePack}}</span><br/>
+        <strong>Processadores:</strong><span>{{error.Processors}}</span><br/>
+        
+          <code>{{ error.Exception | json }}</code>
+    </pre>
+</ul>

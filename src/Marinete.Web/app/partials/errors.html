@@ -1,0 +1,9 @@
+<ul ng-repeat="error in errors">
+    <pre>
+        <p>{{error.CreatedAt}} <strong><a href="#/{{name}}/errors/{{key}}/{{error.Message}}">{{error.Message}}</a></strong> <span  class="pull-right">{{error.Count}}</span></p>
+        <p>
+            <code>{{ error.Exception | json }}</code>
+            
+        </p>
+    </pre>
+</ul>

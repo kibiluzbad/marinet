@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <caption>Aplicações</caption>
+  <thead>
+    <tr>
+      <th>Aplicação</th>
+      <th>Key</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="app in apps">
+      <td>{{app.Name}}</td>
+      <td>{{app.Key}}</td>
+	  <td>
+	    <a href="#/{{app.Name}}/errors/{{app.Key}}" class="btn  btn-success">Erros</a>
+	  </td>
+    </tr>
+  </tbody>
+</table>

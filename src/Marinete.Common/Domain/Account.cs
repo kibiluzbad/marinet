@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Marinete.Common.Infra;
+
+namespace Marinete.Common.Domain
+{
+    public class Account
+    {
+        public ICollection<Application> Apps { get; set; }
+
+        public Account()
+        {
+            Apps = new HashSet<Application>();
+        }
+
+        public virtual Application CreateApp(string appName)
+        {
+            var app = new Application
+                {
+                    Name = appName,
+                    Key = (ShortGuid) Guid.NewGuid()
+                };
+
+            Apps.Add(app);
+
+            return app;
+        }
+    }
+}
