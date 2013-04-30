@@ -3,74 +3,69 @@
 /* Controllers */
 
 function AppsController($scope, $http) {
-    var url = "http://localhost:5252/api/account/apps?callback=JSON_CALLBACK";
+    var url = "/account/apps";
 
-    $http.jsonp(url).
-    success(function (data, status, headers, config) {
-        if (200 == status)
-            $scope.apps = data;
-    }).
-    error(function (data, status, headers, config) {
-       //TODO: Tratar erros.
-    });
+    $http.get(url).
+        success(function(data, status, headers, config) {
+            if (200 == status)
+                $scope.apps = data;
+        });
 
-    
 }
 //TimesheetController.$inject = ['$scope'];
 
-function ErrorsController($scope, $routeParams, $http, $timeout) {
-
-    var urlToken = "http://localhost:5252/api/account/token?callback=JSON_CALLBACK&appName=" + $routeParams.appName + "&appKey=" + $routeParams.appKey;
-
+function ErrorsController($scope, $routeParams, $http) {
+    $scope.errors = [];
+    $scope.busy = false;
+    $scope.page = 1;
+    $scope.canLoad = true;
     $scope.name = $routeParams.appName;
     $scope.key = $routeParams.appKey;
 
-    var poller = function () {
-        $http.jsonp(urlToken).
-        success(function (data, status, headers, config) {
-            if (200 == status) {
-                var urlErrors = "http://localhost:5252/api/errors?callback=JSON_CALLBACK&tokenKey=" + data;
-                console.log(urlErrors);
-                $http.jsonp(urlErrors).
-                    success(function (data1, status1, headers1, config1) {
-                        if (200 == status) {
-                            console.log(data1);
-                            $scope.errors = data1;
-                        }
-                        $timeout(poller, 1000);
-                    });
-            }
-        });
+    $scope.nextPage = function () {
+        if ($scope.busy || !$scope.canLoad) return;
+        $scope.busy = true;
 
+        var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page;
+        $http.get(urlErrors).
+            success(function (data, status, headers, config) {
+                if (200 == status) {
+                    var items = data.Data;
+                    for (var i = 0; i < items.length; i++) {
+                        $scope.errors.push(items[i]);
+                    }
+                }
+                var pageInfo = data;
+                var next = pageInfo.CurrentPage + 1;
+                $scope.canLoad = pageInfo.TotalPages >= next;
+                $scope.page = pageInfo.TotalPages > next ? next : pageInfo.TotalPages;
+                $scope.busy = false;
+            });
     };
-    poller();
 }
 
-function ErrorController($scope, $routeParams, $http, $timeout) {
-    var urlToken = "http://localhost:5252/api/account/token?callback=JSON_CALLBACK&appName=" + $routeParams.appName + "&appKey=" + $routeParams.appKey;
+function ErrorController($scope, $routeParams, $http) {
 
     $scope.name = $routeParams.appName;
-    $scope.key = $routeParams.appKey;
+    $scope.id = $routeParams.id;
 
-    var poller = function () {
-        $http.jsonp(urlToken).
-        success(function (data, status, headers, config) {
+
+    var urlError = "/error/" + $scope.id;
+    $http.get(urlError).
+        success(function(data, status, headers1, config1) {
             if (200 == status) {
-                var urlError = "http://localhost:5252/api/error?callback=JSON_CALLBACK&tokenKey=" + data + "&message=" + $routeParams.message;
-                console.log(urlError);
-                $http.jsonp(urlError).
-                    success(function (data1, status1, headers1, config1) {
-                        if (200 == status) {
-                            console.log(data1);
-                            $scope.errors = data1;
-                        }
-                        $timeout(poller, 1000);
-                    });
+                $scope.error = data;
             }
         });
+    }
 
-    };
-    poller();
-}
+    function NewAppController($scope, $http) {
+
+        $scope.appName = "";
+        $scope.saveApp = function() {
+            var url = ""
+            $http.post()
+        };
+    }
 
 

@@ -5,9 +5,9 @@ using System.Net;
 using System.Web;
 using System.Web.Http;
 using Marinete.Common.Domain;
+using Marinete.Common.Indexes;
 using Marinete.Web.Api.Filters;
 using Raven.Client;
-using Raven.Client.Indexes;
 
 namespace Marinete.Web.Api.Controllers
 {
@@ -67,41 +67,6 @@ namespace Marinete.Web.Api.Controllers
             var token = GetToken(tokenKey);
             
             _documentSession.Store(error);
-        }
-    }
-
-    public class UniqueVisitorsIndex : AbstractIndexCreationTask<Error, UniqueVisitorsIndex.UniqueError>
-    {
-        public class UniqueError
-        {
-            public string Message { get; set; }
-            public Exception  Exception { get; set; }
-            public string AppName { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public int Count { get; set; }
-        }
-
-        public UniqueVisitorsIndex()
-        {
-            Map = docs => from doc in docs
-                          select new
-                          {
-                              Message = doc.Message,
-                              Exception = doc.Exception,
-                              AppName = doc.AppName,
-                              CreatedAt = doc.CreatedAt,
-                              Count = 1
-                          };
-            Reduce = results => from result in results
-                                group result by result.Message into g
-                                select new
-                                {
-                                    Message = g.Key,
-                                    Count = g.Sum(x=>x.Count),
-                                    AppName = g.Last().AppName,
-                                    CreatedAt = g.Last().CreatedAt,
-                                    Exception = g.Last().Exception
-                                };
         }
     }
 }

@@ -1,18 +1,41 @@
+<a href="#create-app" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-plus icon-white"></i> Nova App</a>
 <table class="table table-striped">
-  <caption>Aplicações</caption>
-  <thead>
-    <tr>
-      <th>Aplicação</th>
-      <th>Key</th>      
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="app in apps">
-      <td>{{app.Name}}</td>
-      <td>{{app.Key}}</td>
-	  <td>
-	    <a href="#/{{app.Name}}/errors/{{app.Key}}" class="btn  btn-success">Erros</a>
-	  </td>
-    </tr>
-  </tbody>
+    <caption>Aplicações</caption>
+    <thead>
+        <tr>
+            <th>Aplicação</th>
+            <th>Key</th>      
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="app in apps">
+            <td>{{app.Name}}</td>
+            <td>{{app.Key}}</td>
+            <td>
+                <a href="#/{{app.Name}}/errors" class="btn  btn-success">Erros</a>
+            </td>
+        </tr>
+    </tbody>
 </table>
+
+<div id="create-app" class="modal hide fade" >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Criar app</h3>
+    </div>
+    
+
+    <div class="modal-body" >
+    <form name="appForm" ng-submit="saveApp()" ng-controller="NewAppController">  
+  <fieldset>
+    <label>Nome:</label>
+      <input type="text" name="appName" ng-model="appName" placeholder="Nome da aplicação…" required />
+      <!--<span class="error" ng-show="appForm.appName.$error.required">Required!</span><br>-->
+  </fieldset>
+</form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Fechar</a>
+    <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ng-controller="NewAppController" ng-click="saveApp()">Salvar</a>
+  </div>
+</div>
