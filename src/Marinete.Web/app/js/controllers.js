@@ -52,19 +52,23 @@ function ErrorController($scope, $routeParams, $http) {
 
     var urlError = "/error/" + $scope.id;
     $http.get(urlError).
-        success(function(data, status, headers1, config1) {
+        success(function(data, status, headers, config) {
             if (200 == status) {
                 $scope.error = data;
             }
         });
     }
 
-    function NewAppController($scope, $http) {
+    function NewAppController($scope, $http, $location) {
 
-        $scope.appName = "";
-        $scope.saveApp = function() {
-            var url = ""
-            $http.post()
+        $scope.appName = "MarineteWeb";
+        $scope.saveApp = function () {
+            var url = "/account/app";
+            $http.post(url, { "Name": $scope.appName }).success(function (data, status, headers, config) {
+                if (200 == status) {
+                    $location.path("/");
+                }
+            });
         };
     }
 

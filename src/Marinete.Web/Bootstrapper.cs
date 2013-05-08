@@ -56,34 +56,34 @@ namespace Marinete.Web
         }
     }
 
-//#pragma warning disable 612,618
-//    public class LoggingErrorHandler : IErrorHandler
-//#pragma warning restore 612,618
-//    {
-//        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+#pragma warning disable 612,618
+    public class LoggingErrorHandler : IErrorHandler
+#pragma warning restore 612,618
+    {
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-//        public bool HandlesStatusCode(HttpStatusCode statusCode, NancyContext context)
-//        {
-//            return statusCode == HttpStatusCode.InternalServerError;
-//        }
+        public bool HandlesStatusCode(HttpStatusCode statusCode, NancyContext context)
+        {
+            return statusCode == HttpStatusCode.InternalServerError;
+        }
 
-//        public void Handle(HttpStatusCode statusCode, NancyContext context)
-//        {
-//            object errorObject;
-//            context.Items.TryGetValue(NancyEngine.ERROR_EXCEPTION, out errorObject);
-//            var error = errorObject as Exception;
+        public void Handle(HttpStatusCode statusCode, NancyContext context)
+        {
+            object errorObject;
+            context.Items.TryGetValue(NancyEngine.ERROR_EXCEPTION, out errorObject);
+            var error = errorObject as Exception;
 
-//            var config = new Marinete.Providers.MarineteConfig
-//                {
-//                    AppKey = "",
-//                    AppName = "MarineteWeb",
-//                    RootUrl = "http://localhost:6262/"
-//                };
+            var config = new Marinete.Providers.MarineteConfig
+                {
+                    AppKey = "_HW6kuKEXEaBTj0JuBCJHw",
+                    AppName = "MarineteWeb",
+                    RootUrl = "http://localhost:6262/"
+                };
 
-//            var provider = new Marinete.Providers.MarineteRestfulProvider(config: config);
-//            provider.Error(new Error { });
+            var provider = new Marinete.Providers.MarineteRestfulProvider(config: config);
+            provider.Error(new Error { CurrentUser = HttpContext.Current.User.Identity.Name, Exception = error.ToString(), Message = error.Message});
 
-//            _logger.Fatal(error.Message, error);
-//        }
-//    }
+            _logger.Fatal(error.Message, error);
+        }
+    }
 }

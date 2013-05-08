@@ -3,6 +3,7 @@ using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Common.Infra;
 using Nancy;
+using Nancy.ModelBinding;
 using Raven.Client;
 
 namespace Marinete.Web.modules
@@ -15,7 +16,7 @@ namespace Marinete.Web.modules
         {
             _documentSession = documentSession;
 
-
+            After += ctx => _documentSession.SaveChanges();
 
             Get["/"] = _ => Response.AsRedirect("/app/index.html");
 
@@ -25,10 +26,29 @@ namespace Marinete.Web.modules
                                                   .FirstOrDefault();
 
                     if (null == account)
+                    {
                         return HttpStatusCode.NotFound;
+                    }
 
                     return Response.AsJson(account.Apps);
                 };
+
+            Post["/account/app"] = _ => 
+            {
+                var account = _documentSession.Query<Account>()
+                                              .FirstOrDefault();
+
+                if (null == account)
+                {
+                    return HttpStatusCode.NotFound;
+                }
+
+                var app = this.Bind<Application>();
+
+                account.CreateApp(app.Name);
+
+                return HttpStatusCode.OK;
+            };
 
             Get["/login"] = _ => Response.AsRedirect("/app/login.html");
                 

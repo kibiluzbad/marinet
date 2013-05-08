@@ -23,19 +23,20 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Criar app</h3>
     </div>
-    
+    <form name="appForm" ng-controller="NewAppController">  
 
     <div class="modal-body" >
-    <form name="appForm" ng-submit="saveApp()" ng-controller="NewAppController">  
+    
   <fieldset>
     <label>Nome:</label>
       <input type="text" name="appName" ng-model="appName" placeholder="Nome da aplicação…" required />
       <!--<span class="error" ng-show="appForm.appName.$error.required">Required!</span><br>-->
   </fieldset>
-</form>
+
   </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Fechar</a>
-    <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ng-controller="NewAppController" ng-click="saveApp()">Salvar</a>
-  </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Fechar</a>
+        <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ng-click="saveApp()">Salvar</a>
+    </div>
+    </form>
 </div>
