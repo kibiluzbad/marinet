@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Marinete.Common.Infra
+namespace Marinete.Providers.Infra
 {
     /// <summary>
     /// Represents a globally unique identifier (GUID) with a

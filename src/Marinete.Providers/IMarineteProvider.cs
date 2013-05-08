@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Marinete.Common.Domain;
+using Marinete.Providers.Domain;
 
 namespace Marinete.Providers
 {

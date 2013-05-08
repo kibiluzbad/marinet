@@ -49,6 +49,9 @@
     <Reference Include="Nancy.Hosting.Aspnet">
       <HintPath>..\packages\Nancy.Hosting.Aspnet.0.17.1\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.Database.2.0.2330\lib\net40\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -160,6 +163,10 @@
     <ProjectReference Include="..\Marinete.Common\Marinete.Common.csproj">
       <Project>{6C0ED930-8556-4D5F-8018-A5E3104607A1}</Project>
       <Name>Marinete.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marinete.Providers\Marinete.Providers.csproj">
+      <Project>{D1547A1C-BE2F-485A-8597-1A2151162766}</Project>
+      <Name>Marinete.Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

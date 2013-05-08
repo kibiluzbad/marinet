@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using Marinete.Common.Infra;
+using Marinete.Providers.Infra;
 using Moq;
 using NUnit.Framework;
 using RestSharp;

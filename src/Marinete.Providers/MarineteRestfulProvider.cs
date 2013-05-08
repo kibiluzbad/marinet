@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Marinete.Common.Domain;
-using Marinete.Common.Infra;
+using Marinete.Providers.Domain;
+using Marinete.Providers.Infra;
 using RestSharp;
 
 namespace Marinete.Providers
@@ -14,12 +14,12 @@ namespace Marinete.Providers
         private readonly ITokenAuthProvider _authProvider;
         private readonly MarineteConfig _config;
 
-        public MarineteRestfulProvider(IRestClient client, 
-            ITokenAuthProvider authProvider,
+        public MarineteRestfulProvider(IRestClient client = null, 
+            ITokenAuthProvider authProvider = null,
             MarineteConfig config = null)
         {
-            _client = client;
-            _authProvider = authProvider;
+            _client = client ?? new RestClient();
+            _authProvider = authProvider ?? new TokenAuthProvider(config: config);
             _config = config;
         }
 

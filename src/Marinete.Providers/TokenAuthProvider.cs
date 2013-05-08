@@ -1,6 +1,6 @@
 using System;
 using System.Net;
-using Marinete.Common.Infra;
+using Marinete.Providers.Infra;
 using RestSharp;
 
 namespace Marinete.Providers
@@ -10,10 +10,10 @@ namespace Marinete.Providers
         private readonly IRestClient _client;
         private readonly MarineteConfig _config;
 
-        public TokenAuthProvider(IRestClient client,
+        public TokenAuthProvider(IRestClient client = null,
                                  MarineteConfig config = null)
         {
-            _client = client;
+            _client = client ?? new RestClient();
             _config = config;
         }
 

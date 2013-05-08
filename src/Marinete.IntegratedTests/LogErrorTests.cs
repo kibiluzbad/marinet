@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using Marinete.Common.Domain;
 using Marinete.Providers;
+using Marinete.Providers.Domain;
 using NUnit.Framework;
 using RestSharp;
 

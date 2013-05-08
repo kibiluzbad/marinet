@@ -1,6 +1,6 @@
 using System;
 
-namespace Marinete.Common.Infra
+namespace Marinete.Providers.Infra
 {
     public static class UriExtensions
     {

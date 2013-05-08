@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Marinete.Common.Domain
+namespace Marinete.Providers.Domain
 {
     public class Error
     {

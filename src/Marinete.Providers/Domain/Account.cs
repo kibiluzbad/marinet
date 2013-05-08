@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Marinete.Common.Infra;
+using Marinete.Providers.Infra;
 
-namespace Marinete.Common.Domain
+namespace Marinete.Providers.Domain
 {
     public class Account
     {
