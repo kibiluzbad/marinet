@@ -1,6 +1,11 @@
-﻿using NUnit.Framework;
+﻿using System.Reflection;
+using Autofac;
+using Marinete.Common.Indexes;
+using NUnit.Framework;
 using Raven.Client;
+using Raven.Client.Document;
 using Raven.Client.Embedded;
+using Raven.Client.Indexes;
 using Raven.Client.Listeners;
 
 namespace Marinete.Web.Api.Tests
@@ -9,17 +14,21 @@ namespace Marinete.Web.Api.Tests
     {
         protected EmbeddableDocumentStore Store;
         protected IDocumentSession Session;
+        protected Bootstrapper Bootstrapper;
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
             Store = new EmbeddableDocumentStore
-                {
-                    RunInMemory = true
-                };
+            {
+                RunInMemory = true
+            };
 
             Store.Initialize();
+            IndexCreation.CreateIndexes(typeof(UniqueVisitorsIndex).Assembly, Store);
             Store.RegisterListener(new NoStaleQueriesListener());
+
+            Bootstrapper = new FakeBoostrapper(Store);
 
             FixtureSetUp();
         }
@@ -60,6 +69,7 @@ namespace Marinete.Web.Api.Tests
             Store.Dispose();
         }
     }
+
     public class NoStaleQueriesListener : IDocumentQueryListener
     {
         #region Implementation of IDocumentQueryListener
@@ -70,5 +80,30 @@ namespace Marinete.Web.Api.Tests
         }
 
         #endregion
+    }
+
+    public class FakeBoostrapper : Marinete.Web.Bootstrapper
+    {
+        private readonly DocumentStore _store;
+
+        public FakeBoostrapper(DocumentStore store)
+        {
+            _store = store;
+        }
+
+        protected override void ConfigureApplicationContainer(Autofac.ILifetimeScope existingContainer)
+        {
+            var builder = new ContainerBuilder();
+
+            builder.Register(c => _store)
+                   .As<IDocumentStore>().SingleInstance();
+
+            builder.Register(c => c.Resolve<IDocumentStore>().OpenSession())
+                   .As<IDocumentSession>().InstancePerLifetimeScope();
+
+            builder.RegisterAssemblyModules(typeof(Marinete.Web.Bootstrapper).Assembly);
+
+            builder.Update(existingContainer.ComponentRegistry);
+        }
     }
 }

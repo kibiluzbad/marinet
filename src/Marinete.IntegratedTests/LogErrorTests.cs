@@ -16,7 +16,7 @@ namespace Marinete.IntegratedTests
         [Test]
         public void Should_log_error()
         {
-            var config = new MarineteConfig { AppKey = "wdQ4jOk2DkCmJMOqW61t0g", AppName = "MarineteWeb", RootUrl = "http://localhost:5252/" };
+            var config = new MarineteConfig { AppKey = "wdQ4jOk2DkCmJMOqW61t0g", AppName = "MarineteWeb", RootUrl = "http://localhost:6262/" };
             IMarineteProvider marineteProvider = new MarineteRestfulProvider(new RestClient(),
                                                                              new TokenAuthProvider(new RestClient(),
                                                                                                    config),
@@ -27,7 +27,7 @@ namespace Marinete.IntegratedTests
                     AppName = config.AppName,
                     CreatedAt = DateTime.Now,
                     CurrentUser = "lcardoso",
-                    Exception = new InvalidOperationException(),
+                    Exception = new ApplicationException("Operação invalida", new TimeoutException()).ToString(),
                     Message = "Erro!",
                     OsVersion = "Windows 7 Professional",
                     Platform = "64",
@@ -36,7 +36,7 @@ namespace Marinete.IntegratedTests
                 });
 
             Assert.That(result, 
-                Is.EqualTo(HttpStatusCode.NoContent));
+                Is.EqualTo(HttpStatusCode.OK));
         }
     }
 }

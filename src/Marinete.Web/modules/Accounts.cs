@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Marinete.Common.Domain;
+using Marinete.Common.Infra;
 using Nancy;
 using Raven.Client;
 
@@ -20,13 +22,16 @@ namespace Marinete.Web.modules
             Get["/account/apps"] = _ =>
                 {
                     var account = _documentSession.Query<Account>()
-                                .FirstOrDefault();
+                                                  .FirstOrDefault();
 
-                    if(null == account)
+                    if (null == account)
                         return HttpStatusCode.NotFound;
 
-                    return  Response.AsJson(account.Apps);
+                    return Response.AsJson(account.Apps);
                 };
+
+            Get["/login"] = _ => Response.AsRedirect("/app/login.html");
+                
         }
     }
 }

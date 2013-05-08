@@ -11,7 +11,7 @@ namespace Marinete.Common.Indexes
         public class UniqueError
         {
             public string Message { get; set; }
-            public Exception Exception { get; set; }
+            public string Exception { get; set; }
             public string AppName { get; set; }
             public DateTime CreatedAt { get; set; }
             public int Count { get; set; }
