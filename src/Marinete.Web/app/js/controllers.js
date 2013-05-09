@@ -3,7 +3,7 @@
 /* Controllers */
 
 function AppsController($scope, $http) {
-    var url = "/account/apps";
+    var url = "/account/apps" + '?r=' + Math.random() * 99999;
 
     $http.get(url).
         success(function(data, status, headers, config) {
@@ -26,7 +26,7 @@ function ErrorsController($scope, $routeParams, $http) {
         if ($scope.busy || !$scope.canLoad) return;
         $scope.busy = true;
 
-        var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page;
+        var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page + '&r=' +Math.random() * 99999;
         $http.get(urlErrors).
             success(function (data, status, headers, config) {
                 if (200 == status) {
@@ -50,7 +50,7 @@ function ErrorController($scope, $routeParams, $http) {
     $scope.id = $routeParams.id;
 
 
-    var urlError = "/error/" + $scope.id;
+    var urlError = "/error/" + $scope.id + '?r=' + Math.random() * 99999;
     $http.get(urlError).
         success(function(data, status, headers, config) {
             if (200 == status) {
@@ -61,7 +61,7 @@ function ErrorController($scope, $routeParams, $http) {
 
     function NewAppController($scope, $http, $location) {
 
-        $scope.appName = "MarineteWeb";
+        $scope.appName = "";
         $scope.saveApp = function () {
             var url = "/account/app";
             $http.post(url, { "Name": $scope.appName }).success(function (data, status, headers, config) {

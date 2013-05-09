@@ -5,6 +5,8 @@ using Marinete.Common.Infra;
 using Nancy;
 using Nancy.ModelBinding;
 using Raven.Client;
+using Nancy.Security;
+using Nancy.Authentication.Forms;
 
 namespace Marinete.Web.modules
 {
@@ -16,6 +18,8 @@ namespace Marinete.Web.modules
         {
             _documentSession = documentSession;
 
+            //this.RequiresAuthentication();
+            
             After += ctx => _documentSession.SaveChanges();
 
             Get["/"] = _ => Response.AsRedirect("/app/index.html");

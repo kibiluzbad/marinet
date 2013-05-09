@@ -21,6 +21,7 @@ namespace Marinete.Common.Indexes
         public UniqueVisitorsIndex()
         {
             Map = docs => from doc in docs
+                          orderby doc.CreatedAt descending 
                           select new
                               {
                                   Message = doc.Message,
@@ -31,6 +32,7 @@ namespace Marinete.Common.Indexes
                                   Ids = doc.Id
                               };
             Reduce = results => from result in results
+                                orderby result.CreatedAt descending 
                                 group result by result.Message into g
                                 select new
                                     {

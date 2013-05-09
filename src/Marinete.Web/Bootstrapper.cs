@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using Autofac;
 using Marinete.Common.Indexes;
-using Marinete.Providers.Domain;
-using NLog;
 using Nancy;
+using Nancy.Authentication.Forms;
 using Nancy.Conventions;
-using Nancy.ErrorHandling;
+using Nancy.Security;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
@@ -20,6 +18,20 @@ namespace Marinete.Web
 {
     public class Bootstrapper : AutofacNancyBootstrapper
     {
+        protected override void RequestStartup(ILifetimeScope container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
+        {
+            base.RequestStartup(container, pipelines, context);
+
+            var formsAuthConfiguration =
+                new FormsAuthenticationConfiguration()
+                {
+                    RedirectUrl = "~/login",
+                    UserMapper = container.Resolve<IUserMapper>(),
+                };
+
+            FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+        }
+
         protected override void ConfigureApplicationContainer(Autofac.ILifetimeScope existingContainer)
         {
             var builder = new ContainerBuilder();
@@ -41,6 +53,8 @@ namespace Marinete.Web
             builder.Register(c => c.Resolve<IDocumentStore>().OpenSession())
                    .As<IDocumentSession>().InstancePerLifetimeScope();
 
+            builder.RegisterType<MarinetUserMapper>().As<IUserMapper>();
+
             builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
 
             builder.Update(existingContainer.ComponentRegistry);
@@ -56,34 +70,22 @@ namespace Marinete.Web
         }
     }
 
-#pragma warning disable 612,618
-    public class LoggingErrorHandler : IErrorHandler
-#pragma warning restore 612,618
+    public class MarinetUserMapper : IUserMapper
     {
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
-
-        public bool HandlesStatusCode(HttpStatusCode statusCode, NancyContext context)
+        public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
         {
-            return statusCode == HttpStatusCode.InternalServerError;
+            return new MarinetUser("admin");
         }
+    }
 
-        public void Handle(HttpStatusCode statusCode, NancyContext context)
+    public class MarinetUser : IUserIdentity
+    {
+        public string UserName { get; private set; }
+        public IEnumerable<string> Claims { get; private set; }
+
+        public MarinetUser(string userName)
         {
-            object errorObject;
-            context.Items.TryGetValue(NancyEngine.ERROR_EXCEPTION, out errorObject);
-            var error = errorObject as Exception;
-
-            var config = new Marinete.Providers.MarineteConfig
-                {
-                    AppKey = "_HW6kuKEXEaBTj0JuBCJHw",
-                    AppName = "MarineteWeb",
-                    RootUrl = "http://localhost:6262/"
-                };
-
-            var provider = new Marinete.Providers.MarineteRestfulProvider(config: config);
-            provider.Error(new Error { CurrentUser = HttpContext.Current.User.Identity.Name, Exception = error.ToString(), Message = error.Message});
-
-            _logger.Fatal(error.Message, error);
+            UserName = userName;
         }
     }
 }
