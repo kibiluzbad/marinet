@@ -20,10 +20,12 @@ namespace Marinete.Web
     {
         protected override void RequestStartup(ILifetimeScope container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
+           base.RequestStartup(container ,pipelines,context);
+
             var formsAuthConfiguration =
                 new FormsAuthenticationConfiguration()
                 {
-                    RedirectUrl = "~/login",
+                    RedirectUrl = "~/app/login.html",
                     UserMapper = container.Resolve<IUserMapper>(),
                 };
 
