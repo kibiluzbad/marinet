@@ -20,8 +20,6 @@ namespace Marinete.Web
     {
         protected override void RequestStartup(ILifetimeScope container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
-            base.RequestStartup(container, pipelines, context);
-
             var formsAuthConfiguration =
                 new FormsAuthenticationConfiguration()
                 {
@@ -30,6 +28,15 @@ namespace Marinete.Web
                 };
 
             FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+        }
+
+        protected override void ConfigureRequestContainer(ILifetimeScope container, NancyContext context)
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<MarinetUserMapper>().As<IUserMapper>().SingleInstance();
+
+            builder.Update(container.ComponentRegistry);
         }
 
         protected override void ConfigureApplicationContainer(Autofac.ILifetimeScope existingContainer)
@@ -74,14 +81,16 @@ namespace Marinete.Web
     {
         public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
         {
-            return new MarinetUser("admin");
+            return new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA") == identifier
+                ? new MarinetUser("admin")
+                : null;
         }
     }
 
     public class MarinetUser : IUserIdentity
     {
-        public string UserName { get; private set; }
-        public IEnumerable<string> Claims { get; private set; }
+        public string UserName { get; set; }
+        public IEnumerable<string> Claims { get; set; }
 
         public MarinetUser(string userName)
         {

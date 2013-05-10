@@ -6,7 +6,6 @@ using Nancy;
 using Nancy.ModelBinding;
 using Raven.Client;
 using Nancy.Security;
-using Nancy.Authentication.Forms;
 
 namespace Marinete.Web.modules
 {
@@ -16,9 +15,9 @@ namespace Marinete.Web.modules
 
         public Accounts(IDocumentSession documentSession)
         {
-            _documentSession = documentSession;
+            this.RequiresAuthentication();
 
-            //this.RequiresAuthentication();
+            _documentSession = documentSession;
             
             After += ctx => _documentSession.SaveChanges();
 

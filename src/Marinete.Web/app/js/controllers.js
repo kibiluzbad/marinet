@@ -6,9 +6,14 @@ function AppsController($scope, $http) {
     var url = "/account/apps" + '?r=' + Math.random() * 99999;
 
     $http.get(url).
-        success(function(data, status, headers, config) {
-            if (200 == status)
-                $scope.apps = data;
+        success(function (data, status, headers, config) {
+            if (200 == status) {
+                if (-1 != data.toString().indexOf("<!DOCTYPE html>")) {
+                    location.href = "/";
+                } else {
+                    $scope.apps = data;
+                }
+            }
         });
 
 }

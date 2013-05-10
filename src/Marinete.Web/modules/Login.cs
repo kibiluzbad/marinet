@@ -15,12 +15,7 @@ namespace Marinete.Web.modules
         {
             Get["/login"] = parameters => View[new LoginModel()];
 
-            Get["/logout"] = parameters =>
-            {
-                // Called when the user clicks the sign out button in the application. Should
-                // perform one of the Logout actions (see below)
-                throw new NotImplementedException();
-            };
+            Get["/logout"] = parameters => this.Logout("/");
 
             Post["/login"] = parameters =>
                 {
@@ -29,7 +24,7 @@ namespace Marinete.Web.modules
                     if ("admin" == viewModel.Username &&
                         "password" == viewModel.Password)
                     {
-                        return this.LoginAndRedirect(new Guid());
+                        return this.Login(new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA"));
                     }
 
                     return HttpStatusCode.Unauthorized;
