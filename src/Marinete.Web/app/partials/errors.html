@@ -4,7 +4,7 @@
             <h3>{{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} <strong>{{error.Message}}</strong> <span  class="pull-right btn disabled">{{error.Count}}</span></h3>
        
             <p>
-                <pre>{{error.Exception}}</pre>
+                <pre class="stack-trace">{{error.Exception}}</pre>
             </p>
             <ul ng-repeat="id in error.Ids">
                 <li><a href="#/{{name}}/{{id}}">{{id}}</a></li>

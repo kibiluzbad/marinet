@@ -15,7 +15,7 @@ namespace Marinete.Web.modules
         {
             Get["/login"] = parameters => View[new LoginModel()];
 
-            Get["/logout"] = parameters => this.Logout("/");
+            Get["/logout"] = parameters => this.LogoutAndRedirect("/");
 
             Post["/login"] = parameters =>
                 {
@@ -24,7 +24,7 @@ namespace Marinete.Web.modules
                     if ("admin" == viewModel.Username &&
                         "password" == viewModel.Password)
                     {
-                        return this.Login(new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA"));
+                        return this.LoginAndRedirect(new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA"));
                     }
 
                     return HttpStatusCode.Unauthorized;

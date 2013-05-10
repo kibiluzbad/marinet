@@ -5,6 +5,7 @@ using System.Web;
 using Marinete.Common.Domain;
 using Marinete.Common.Indexes;
 using Nancy;
+using Nancy.Security;
 using Raven.Client;
 
 namespace Marinete.Web.modules
@@ -15,6 +16,8 @@ namespace Marinete.Web.modules
 
         public Errors(IDocumentSession documentSession)
         {
+            this.RequiresAuthentication();
+
             _documentSession = documentSession;
 
             Get["/errors/{appName}"] = _ =>

@@ -35,6 +35,8 @@ namespace Marinete.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterType<MarinetUserMapper>().As<IUserMapper>().SingleInstance();
+            builder.Register(c => c.Resolve<IDocumentStore>().OpenSession())
+                   .As<IDocumentSession>().SingleInstance();
 
             builder.Update(container.ComponentRegistry);
         }
@@ -43,11 +45,13 @@ namespace Marinete.Web
         {
             var builder = new ContainerBuilder();
 
+            var config = ConfigurationManager.ConnectionStrings["ravenConn"];
+
             builder.Register(c =>
             {
                 var store = new EmbeddableDocumentStore
                 {
-                    DataDirectory = @"C:\work\levelupgames.marinete\src\Marinete.Web\Data"
+                    DataDirectory = config.ConnectionString
                     
                 }.Initialize();
 
@@ -56,9 +60,6 @@ namespace Marinete.Web
                 return store;
             })
                    .As<IDocumentStore>().SingleInstance();
-
-            builder.Register(c => c.Resolve<IDocumentStore>().OpenSession())
-                   .As<IDocumentSession>().InstancePerLifetimeScope();
 
             builder.RegisterType<MarinetUserMapper>().As<IUserMapper>();
 

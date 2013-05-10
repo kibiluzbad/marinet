@@ -64,8 +64,8 @@
 
       <form class="form-signin" action="/login" method="post">
         <h2 class="form-signin-heading">Marinet login</h2>
-        <input type="text" class="input-block-level" name="Username" placeholder="User name">
-        <input type="password" class="input-block-level" name="Password" placeholder="Password">
+        <input type="text" class="input-block-level" name="Username" placeholder="User name" required>
+        <input type="password" class="input-block-level" name="Password" placeholder="Password" required>
 		<br />        
         <button class="btn btn-large btn-primary" type="submit">Login</button>
       </form>

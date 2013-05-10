@@ -18,7 +18,7 @@ namespace Marinete.Web.modules
             this.RequiresAuthentication();
 
             _documentSession = documentSession;
-            
+
             After += ctx => _documentSession.SaveChanges();
 
             Get["/"] = _ => Response.AsRedirect("/app/index.html");
