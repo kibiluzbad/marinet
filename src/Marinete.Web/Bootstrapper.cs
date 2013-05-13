@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using Marinete.Common.Indexes;
+using Marinete.Web.Security;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Conventions;
-using Nancy.Security;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
@@ -70,27 +69,6 @@ namespace Marinete.Web
             conventions.StaticContentsConventions.Add(
                 StaticContentConventionBuilder.AddDirectory("app", @"app")
             );
-        }
-    }
-
-    public class MarinetUserMapper : IUserMapper
-    {
-        public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
-        {
-            return new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA") == identifier
-                ? new MarinetUser("admin")
-                : null;
-        }
-    }
-
-    public class MarinetUser : IUserIdentity
-    {
-        public string UserName { get; set; }
-        public IEnumerable<string> Claims { get; set; }
-
-        public MarinetUser(string userName)
-        {
-            UserName = userName;
         }
     }
 }

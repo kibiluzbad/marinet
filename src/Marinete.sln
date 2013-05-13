@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.IntegratedTests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Web", "Marinete.Web\Marinete.Web.csproj", "{C34FB190-B4A4-47CE-818B-2423335A12A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Provider40", "Marinete.Provider40\Marinete.Provider40.csproj", "{D0A71ABB-886A-4152-B0A4-F5F6E8109146}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{C34FB190-B4A4-47CE-818B-2423335A12A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C34FB190-B4A4-47CE-818B-2423335A12A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C34FB190-B4A4-47CE-818B-2423335A12A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0A71ABB-886A-4152-B0A4-F5F6E8109146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A71ABB-886A-4152-B0A4-F5F6E8109146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A71ABB-886A-4152-B0A4-F5F6E8109146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A71ABB-886A-4152-B0A4-F5F6E8109146}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{E473EA9E-53BE-4991-A237-7B668ED481B1} = {594F735B-D5AA-44D6-99B5-BE79434971DF}
 		{6BE136D6-D7F3-417D-B969-48B587CBDAD6} = {594F735B-D5AA-44D6-99B5-BE79434971DF}
 		{D1547A1C-BE2F-485A-8597-1A2151162766} = {49B24827-DE96-4F14-892C-1398BF5933DA}
+		{D0A71ABB-886A-4152-B0A4-F5F6E8109146} = {49B24827-DE96-4F14-892C-1398BF5933DA}
 	EndGlobalSection
 EndGlobal

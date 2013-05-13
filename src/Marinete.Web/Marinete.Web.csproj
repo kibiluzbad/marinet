@@ -67,6 +67,9 @@
       <HintPath>..\packages\RavenDB.Database.2.0.2330\lib\net40\Raven.Database.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -176,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoggingErrorHandler.cs" />
+    <Compile Include="Security\MarinetUserMapper.cs" />
     <Compile Include="modules\Accounts.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,6 +190,7 @@
     <Compile Include="modules\Errors.cs" />
     <Compile Include="modules\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\MarinetUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -202,6 +207,10 @@
     <ProjectReference Include="..\Marinete.Common\Marinete.Common.csproj">
       <Project>{6C0ED930-8556-4D5F-8018-A5E3104607A1}</Project>
       <Name>Marinete.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marinete.Provider40\Marinete.Provider40.csproj">
+      <Project>{D0A71ABB-886A-4152-B0A4-F5F6E8109146}</Project>
+      <Name>Marinete.Provider40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

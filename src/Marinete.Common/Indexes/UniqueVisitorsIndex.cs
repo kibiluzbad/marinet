@@ -38,9 +38,9 @@ namespace Marinete.Common.Indexes
                                     {
                                         Message = g.Key,
                                         Count = g.Sum(x=>x.Count),
-                                        AppName = g.Last().AppName,
-                                        CreatedAt = g.Last().CreatedAt,
-                                        Exception = g.Last().Exception,
+                                        AppName = g.First().AppName,
+                                        CreatedAt = g.First().CreatedAt,
+                                        Exception = g.First().Exception,
                                         Ids = g.Select(c=>c.Ids)
                                     };
         }

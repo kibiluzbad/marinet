@@ -4,7 +4,7 @@
   "Maps": [
     "docs.Errors.OrderByDescending(doc => doc.CreatedAt).Select(doc => new {\r\n    Message = doc.Message,\r\n    Exception = doc.Exception,\r\n    AppName = doc.AppName,\r\n    CreatedAt = doc.CreatedAt,\r\n    Count = 1,\r\n    Ids = doc.__document_id\r\n})"
   ],
-  "Reduce": "results.OrderByDescending(result => result.CreatedAt).GroupBy(result => result.Message).Select(g => new {\r\n    Message = g.Key,\r\n    Count = Enumerable.Sum(g, x => ((int) x.Count)),\r\n    AppName = DynamicEnumerable.LastOrDefault(g).AppName,\r\n    CreatedAt = DynamicEnumerable.LastOrDefault(g).CreatedAt,\r\n    Exception = DynamicEnumerable.LastOrDefault(g).Exception,\r\n    Ids = g.Select(c => c.Ids)\r\n})",
+  "Reduce": "results.OrderByDescending(result => result.CreatedAt).GroupBy(result => result.Message).Select(g => new {\r\n    Message = g.Key,\r\n    Count = Enumerable.Sum(g, x => ((int) x.Count)),\r\n    AppName = DynamicEnumerable.FirstOrDefault(g).AppName,\r\n    CreatedAt = DynamicEnumerable.FirstOrDefault(g).CreatedAt,\r\n    Exception = DynamicEnumerable.FirstOrDefault(g).Exception,\r\n    Ids = g.Select(c => c.Ids)\r\n})",
   "TransformResults": null,
   "IsMapReduce": true,
   "IsCompiled": false,
