@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using Marinete.Common.Config;
-using Marinete.Providers.Domain;
+//using Marinete.Providers.Domain;
 using NLog;
 using Nancy;
 using Nancy.ErrorHandling;
@@ -21,19 +21,22 @@ namespace Marinete.Web
         {
             object errorObject;
             context.Items.TryGetValue(NancyEngine.ERROR_EXCEPTION, out errorObject);
+
+            if (null == errorObject) return;
+            
             var error = (errorObject as Exception).InnerException;
 
-            var marinetConfig = MarinetConfigurationHelper.Get();
+            //var marinetConfig = MarinetConfigurationHelper.Get();
 
-            var config = new Marinete.Providers.MarineteConfig
-                {
-                    AppKey = marinetConfig.AppKey,
-                    AppName = marinetConfig.AppName,
-                    RootUrl = marinetConfig.RootUrl
-                };
+            //var config = new Marinete.Providers.MarineteConfig
+            //    {
+            //        AppKey = marinetConfig.AppKey,
+            //        AppName = marinetConfig.AppName,
+            //        RootUrl = marinetConfig.RootUrl
+            //    };
 
-            var provider = new Marinete.Providers.MarineteRestfulProvider(config: config);
-            provider.Error(new Error { CurrentUser = HttpContext.Current.User.Identity.Name, Exception = error.ToString(), Message = error.Message});
+            //var provider = new Marinete.Providers.MarineteRestfulProvider(config: config);
+            //provider.Error(new Error { CurrentUser = HttpContext.Current.User.Identity.Name, Exception = error.ToString(), Message = error.Message });
 
             _logger.Fatal(error.Message, error);
         }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using Autofac;
 using Marinete.Common.Indexes;
 using Nancy;
 using Nancy.Authentication.Forms;
@@ -12,64 +11,58 @@ using Nancy.Security;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
-using Nancy.Bootstrappers.Autofac;
 
 namespace Marinete.Web
 {
-    public class Bootstrapper : AutofacNancyBootstrapper
+    public class Bootstrapper : DefaultNancyBootstrapper
     {
-        protected override void RequestStartup(ILifetimeScope container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
+        private static volatile IDocumentStore _store;
+        private static object _syncRoot = new Object();
+
+        protected override void RequestStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
-           base.RequestStartup(container ,pipelines,context);
+            base.RequestStartup(container, pipelines, context);
 
             var formsAuthConfiguration =
                 new FormsAuthenticationConfiguration()
                 {
-                    RedirectUrl = "~/app/login.html",
+                    RedirectUrl = "/new",
                     UserMapper = container.Resolve<IUserMapper>(),
                 };
 
             FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
         }
 
-        protected override void ConfigureRequestContainer(ILifetimeScope container, NancyContext context)
+        
+        protected override void ConfigureApplicationContainer(Nancy.TinyIoc.TinyIoCContainer container)
         {
-            var builder = new ContainerBuilder();
+            container.Register<IDocumentStore>(GetStore());
 
-            builder.RegisterType<MarinetUserMapper>().As<IUserMapper>().SingleInstance();
-            builder.Register(c => c.Resolve<IDocumentStore>().OpenSession())
-                   .As<IDocumentSession>().SingleInstance();
-
-            builder.Update(container.ComponentRegistry);
+            container.Register<IUserMapper, MarinetUserMapper>();
+            container.Register((a, b) => container.Resolve<IDocumentStore>().OpenSession());
         }
 
-        protected override void ConfigureApplicationContainer(Autofac.ILifetimeScope existingContainer)
+        private IDocumentStore GetStore()
         {
-            var builder = new ContainerBuilder();
-
             var config = ConfigurationManager.ConnectionStrings["ravenConn"];
 
-            builder.Register(c =>
+            if (null != _store) return _store;
+
+            lock (_syncRoot)
             {
-                var store = new EmbeddableDocumentStore
-                {
-                    DataDirectory = config.ConnectionString
-                    
-                }.Initialize();
+                _store = new EmbeddableDocumentStore
+                    {
+                        DataDirectory = config.ConnectionString
+                    };
 
-                IndexCreation.CreateIndexes(typeof(UniqueVisitorsIndex).Assembly, store);
+                _store.Initialize();
 
-                return store;
-            })
-                   .As<IDocumentStore>().SingleInstance();
+                IndexCreation.CreateIndexes(typeof(UniqueVisitorsIndex).Assembly, _store);
+            }
 
-            builder.RegisterType<MarinetUserMapper>().As<IUserMapper>();
-
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-
-            builder.Update(existingContainer.ComponentRegistry);
+            return _store;
         }
-
+      
         protected override void ConfigureConventions(NancyConventions conventions)
         {
             base.ConfigureConventions(conventions);

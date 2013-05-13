@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
-using Nancy.Security;
 
 namespace Marinete.Web.modules
 {
@@ -13,9 +9,9 @@ namespace Marinete.Web.modules
     {
         public LoginModule()
         {
-            Get["/login"] = parameters => View[new LoginModel()];
+            Get["/new"] = parameters => View[new LoginModel()];
 
-            Get["/logout"] = parameters => this.LogoutAndRedirect("/");
+            Get["/logout"] = parameters => this.LogoutAndRedirect("/"); 
 
             Post["/login"] = parameters =>
                 {
@@ -24,7 +20,7 @@ namespace Marinete.Web.modules
                     if ("admin" == viewModel.Username &&
                         "password" == viewModel.Password)
                     {
-                        return this.LoginAndRedirect(new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA"));
+                       return this.LoginAndRedirect(new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA"));
                     }
 
                     return HttpStatusCode.Unauthorized;

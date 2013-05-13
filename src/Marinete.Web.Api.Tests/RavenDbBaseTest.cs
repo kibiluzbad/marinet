@@ -91,19 +91,12 @@ namespace Marinete.Web.Api.Tests
             _store = store;
         }
 
-        protected override void ConfigureApplicationContainer(Autofac.ILifetimeScope existingContainer)
+        protected override void ConfigureApplicationContainer(Nancy.TinyIoc.TinyIoCContainer container)
         {
-            var builder = new ContainerBuilder();
+            base.ConfigureApplicationContainer(container);
 
-            builder.Register(c => _store)
-                   .As<IDocumentStore>().SingleInstance();
-
-            builder.Register(c => c.Resolve<IDocumentStore>().OpenSession())
-                   .As<IDocumentSession>().InstancePerLifetimeScope();
-
-            builder.RegisterAssemblyModules(typeof(Marinete.Web.Bootstrapper).Assembly);
-
-            builder.Update(existingContainer.ComponentRegistry);
+            container.Register<IDocumentStore>((a, b) => _store);
+            container.Register((a,b) => container.Resolve<IDocumentStore>().OpenSession());
         }
     }
 }
