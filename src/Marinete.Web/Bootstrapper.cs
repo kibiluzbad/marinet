@@ -43,7 +43,7 @@ namespace Marinete.Web
 
         private IDocumentStore GetStore()
         {
-            var config = ConfigurationManager.ConnectionStrings["ravenConn"];
+            
 
             if (null != _store) return _store;
 
@@ -51,9 +51,9 @@ namespace Marinete.Web
             {
                 _store = new EmbeddableDocumentStore
                     {
-                        DataDirectory = config.ConnectionString
+                        ConnectionStringName = "ravenConn"
                     };
-
+                
                 _store.Initialize();
 
                 IndexCreation.CreateIndexes(typeof(UniqueVisitorsIndex).Assembly, _store);
