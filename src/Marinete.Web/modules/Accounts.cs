@@ -2,6 +2,7 @@
 using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Common.Infra;
+using Marinete.Web.Security;
 using Nancy;
 using Nancy.ModelBinding;
 using Raven.Client;
@@ -25,13 +26,14 @@ namespace Marinete.Web.modules
 
             Get["/account/apps"] = _ =>
                 {
-                    var account = _documentSession.Query<Account>()
-                                                  .FirstOrDefault();
+                    var user = _documentSession.Query<MarinetUser>()
+                                               .FirstOrDefault(c => c.UserName == Context.CurrentUser.UserName);
+                    if (null == user) return HttpStatusCode.NotFound;
 
-                    if (null == account)
-                    {
-                        return HttpStatusCode.NotFound;
-                    }
+                    var account = _documentSession.Query<Account>()
+                                                  .FirstOrDefault(c => c.Users.Any(d => d == user.Id));
+
+                    if (null == account) return HttpStatusCode.NotFound;
 
                     return Response.AsJson(account.Apps);
                 };

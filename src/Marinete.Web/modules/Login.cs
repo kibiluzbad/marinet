@@ -1,29 +1,37 @@
 ﻿using System;
+using System.Linq;
+using Marinete.Common.Domain;
+using Marinete.Web.Security;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
+using Raven.Client;
 
 namespace Marinete.Web.modules
 {
     public class LoginModule : NancyModule
     {
-        public LoginModule()
+        private readonly IDocumentSession _documentSession;
+
+        public LoginModule(IDocumentSession documentSession)
         {
+            _documentSession = documentSession;
+
             Get["/new"] = parameters => View[new LoginModel()];
 
-            Get["/logout"] = parameters => this.LogoutAndRedirect("/"); 
+            Get["/logout"] = parameters => this.LogoutAndRedirect("/");
 
             Post["/login"] = parameters =>
                 {
                     var viewModel = this.Bind<LoginModel>();
-                    
-                    if ("admin" == viewModel.Username &&
-                        "password" == viewModel.Password)
-                    {
-                       return this.LoginAndRedirect(new Guid("757538E3-A798-4DCF-8620-D349B4BEECFA"));
-                    }
 
-                    return HttpStatusCode.Unauthorized;
+                    var user =
+                        _documentSession.Query<MarinetUser>()
+                                        .FirstOrDefault(
+                                            c => c.UserName == viewModel.Username && c.Password == viewModel.Password);
+                    return null != user
+                               ? this.LoginAndRedirect(user.Id)
+                               : HttpStatusCode.Unauthorized;
                 };
         }
     }

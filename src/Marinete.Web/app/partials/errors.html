@@ -1,15 +1,19 @@
 <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
-    <ul ng-repeat="error in errors">
-        <blockquote>
-            <h3>{{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} <strong>{{error.Message}}</strong> <span  class="pull-right btn disabled">{{error.Count}}</span></h3>
-       
-            <p>
-                <pre class="stack-trace">{{error.Exception}}</pre>
-            </p>
-            <ul ng-repeat="id in error.Ids">
-                <li><a href="#/{{name}}/{{id}}">{{id}}</a></li>
-            </ul>
-        </blockquote>
-    </ul>
+    
+    <blockquote style="max-height:500px;overflow:auto" ng-repeat="error in errors">
+        <h3>
+            {{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} 
+            <span  class="pull-right btn disabled">{{error.Count}}</span>
+            <strong>{{error.Message}}</strong> 
+        </h3>
+
+        <p>
+            <pre class="stack-trace">{{error.Exception}}</pre>
+        </p>
+        <ul>
+            <li ng-repeat="id in error.Ids"><a href="#/{{name}}/{{id}}">{{id}}</a></li>
+        </ul>
+    </blockquote>
+
     <div ng-show='busy'>Loading data...</div>
 </div>
