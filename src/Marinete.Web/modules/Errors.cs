@@ -23,6 +23,8 @@ namespace Marinete.Web.modules
             Get["/errors/{appName}"] = _ =>
                 {
                     var appName = (string)_.appName;
+                    var term = (string)Request.Query["query"];
+
                     int page;
                     int size = 10;
 
@@ -31,14 +33,30 @@ namespace Marinete.Web.modules
 
                     RavenQueryStatistics stats;
 
-                    var errors =
-                        _documentSession.Query<UniqueVisitorsIndex.UniqueError, UniqueVisitorsIndex>()
-                        .Statistics(out stats)
-                                       .Where(c => c.AppName == appName)
-                                       .OrderByDescending(c => c.CreatedAt)
-                                       .Skip((page - 1 > 0 ? page - 1 : 0) * size)
-                                       .Take(size)
-                                       .ToList();
+                    IEnumerable<UniqueVisitorsIndex.UniqueError> errors;
+
+                    if (!string.IsNullOrWhiteSpace(term))
+                    {
+                        errors = _documentSession
+                            .Query<UniqueVisitorsIndex.UniqueError, UniqueVisitorsIndex>().Statistics(out stats)
+                            .Search(c => c.Exception, term, boost: 10)
+                            .Search(c => c.AppName, appName, options: SearchOptions.And)
+                            .OrderByDescending(c => c.CreatedAt)
+                            .Skip((page - 1 > 0 ? page - 1 : 0)*size)
+                            .Take(size)
+                            .ToList();
+                    }
+                    else
+                    {
+                        errors = _documentSession
+                            .Query<UniqueVisitorsIndex.UniqueError, UniqueVisitorsIndex>().Statistics(out stats)
+                            .Search(c => c.AppName, appName)
+                            .OrderByDescending(c => c.CreatedAt)
+                            .Skip((page - 1 > 0 ? page - 1 : 0)*size)
+                            .Take(size)
+                            .ToList();
+                    }
+
 
                     return  Response.AsJson(new PagedResult<UniqueVisitorsIndex.UniqueError>(errors, 
                         stats.TotalResults, 

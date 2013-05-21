@@ -1,3 +1,7 @@
+<form class="form-search" ng-controller="ErrorsController">
+  <input type="text" ng-model="query"  class="input-medium search-query">
+  <button type="button" ng-click="search()" class="btn">Search</button>
+</form>
 <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
     
     <blockquote style="max-height:500px;overflow:auto" ng-repeat="error in errors">

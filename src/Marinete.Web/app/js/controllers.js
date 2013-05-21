@@ -4,7 +4,7 @@
 
 function AppsController($scope, $http) {
     var url = "/account/apps" + '?r=' + Math.random() * 99999;
-
+    
     $http.get(url).
         success(function (data, status, headers, config) {
             if (200 == status) {
@@ -26,12 +26,22 @@ function ErrorsController($scope, $routeParams, $http) {
     $scope.canLoad = true;
     $scope.name = $routeParams.appName;
     $scope.key = $routeParams.appKey;
+    $scope.query = "";
+
+    $scope.search = function () {
+        $scope.errors = [];
+        $scope.canLoad = true;
+        $scope.nextPage();
+        //TODO: Efetuar a busca
+    };
 
     $scope.nextPage = function () {
         if ($scope.busy || !$scope.canLoad) return;
         $scope.busy = true;
 
-        var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page + '&r=' +Math.random() * 99999;
+        var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page + '&r=' + Math.random() * 99999;
+        if ($scope.query) urlErrors += "&query=" + $scope.query;
+        
         $http.get(urlErrors).
             success(function (data, status, headers, config) {
                 if (200 == status) {
