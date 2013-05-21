@@ -7,6 +7,7 @@ using Nancy;
 using Nancy.ModelBinding;
 using Raven.Client;
 using Nancy.Security;
+using Raven.Database.Smuggler;
 
 namespace Marinete.Web.modules
 {
@@ -21,6 +22,7 @@ namespace Marinete.Web.modules
             _documentSession = documentSession;
 
             After += ctx => _documentSession.SaveChanges();
+
 
             Get["/"] = _ => Response.AsRedirect("/app/index.html");
 
@@ -48,7 +50,7 @@ namespace Marinete.Web.modules
                     return HttpStatusCode.NotFound;
                 }
 
-                var app = this.Bind<Application>();
+                var app = this.Bind<Common.Domain.Application>();
 
                 account.CreateApp(app.Name);
 

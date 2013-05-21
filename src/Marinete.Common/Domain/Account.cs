@@ -16,12 +16,12 @@ namespace Marinete.Common.Domain
             Users = new HashSet<Guid>();
         }
 
-        public virtual Application CreateApp(string appName)
+        public virtual Application CreateApp(string appName, string key = null)
         {
             var app = new Application
                 {
                     Name = appName,
-                    Key = (ShortGuid) Guid.NewGuid()
+                    Key = (ShortGuid) (key ?? Guid.NewGuid().ToString())
                 };
 
             Apps.Add(app);

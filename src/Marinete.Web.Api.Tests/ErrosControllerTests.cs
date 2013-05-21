@@ -29,7 +29,7 @@ namespace Marinete.Web.Api.Tests
                 {
                     Value = (ShortGuid)Guid.NewGuid(),
                     ValidTo = DateTime.Now.AddMinutes(5),
-                    App = new Application
+                    App = new Common.Domain.Application
                         {
                             Key = (ShortGuid) Guid.NewGuid(), 
                             Name = "MarineteWeb"

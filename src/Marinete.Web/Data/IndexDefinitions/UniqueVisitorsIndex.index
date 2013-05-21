@@ -9,11 +9,22 @@
   "IsMapReduce": true,
   "IsCompiled": false,
   "IsTemp": false,
-  "Stores": {},
-  "Indexes": {},
+  "Stores": {
+    "Message": "No"
+  },
+  "Indexes": {
+    "Message": "Analyzed"
+  },
   "SortOptions": {},
   "Analyzers": {},
-  "Fields": [],
+  "Fields": [
+    "Message",
+    "Count",
+    "AppName",
+    "CreatedAt",
+    "Exception",
+    "Ids"
+  ],
   "Suggestions": {},
   "TermVectors": {},
   "Type": "MapReduce"
