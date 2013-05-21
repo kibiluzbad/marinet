@@ -13,8 +13,8 @@ _ReSharper.*
 Ankh.NoLoad
 *.sqlite3
 *.log
-src/Marinete.Web.Api/Data/*.*
-src/Marinete.Web.Api/Data/**/*.*
-src/Marinete.Web.Api/Data/*/*.*
-src/Marinete.Web.Api/Data/*
+src/Marinete.Web/Data/*.*
+src/Marinete.Web/Data/**/*.*
+src/Marinete.Web/Data/*/*.*
+src/Marinete.Web/Data/*
 packages
