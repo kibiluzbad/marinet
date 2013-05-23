@@ -28,12 +28,13 @@ function ErrorsController($scope, $routeParams, $http) {
     $scope.key = $routeParams.appKey;
     $scope.query = "";
 
-    $scope.search = function () {
+    $scope.$watch('query', function (key) {
+        
         $scope.errors = [];
+        $scope.page = 1;
         $scope.canLoad = true;
         $scope.nextPage();
-        //TODO: Efetuar a busca
-    };
+    });
 
     $scope.nextPage = function () {
         if ($scope.busy || !$scope.canLoad) return;

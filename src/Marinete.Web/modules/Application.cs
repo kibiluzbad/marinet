@@ -33,7 +33,7 @@ namespace Marinete.Web.modules
                     if (null == adminAccount)
                     {
                         adminAccount = new Account();
-                        adminAccount.CreateApp("MarinetWeb", "_HW6kuKEXEaBTj0JuBCJHw");
+                        adminAccount.CreateApp("MarinetWeb", "ask0DsWqyU6wb5-ggvyZvA");
                         _documentSession.Store(adminAccount);
                     }
 

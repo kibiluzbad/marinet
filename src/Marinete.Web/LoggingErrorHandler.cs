@@ -25,11 +25,16 @@ namespace Marinete.Web
             context.Items.TryGetValue(NancyEngine.ERROR_EXCEPTION, out errorObject);
 
             if (null == errorObject) return;
-            
+
             var error = (errorObject as Exception).InnerException;
 
             var provider = new MarineteRestfulProvider();
-            provider.Error(new Error { CurrentUser = HttpContext.Current.User.Identity.Name, Exception = error.ToString(), Message = error.Message });
+            provider.Error(new Error
+                {
+                    CurrentUser = HttpContext.Current.User.Identity.Name,
+                    Exception = error.ToString(),
+                    Message = error.Message,
+                });
 
             _logger.Fatal(error.Message, error);
         }

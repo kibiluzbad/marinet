@@ -1,22 +1,21 @@
-<form class="form-search" ng-controller="ErrorsController">
-  <input type="text" ng-model="query"  class="input-medium search-query">
-  <button type="button" ng-click="search()" class="btn">Search</button>
-</form>
+<input type="text" ng-model="query"  class="input-medium search-query" placeholder="Search" />
+
 <div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
     
-    <blockquote style="max-height:500px;overflow:auto" ng-repeat="error in errors">
+    <blockquote ng-repeat="error in errors">
         <h3>
             {{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} 
             <span  class="pull-right btn disabled">{{error.Count}}</span>
             <strong>{{error.Message}}</strong> 
         </h3>
-
+        <div style="max-height:500px;overflow:auto">
         <p>
             <pre class="stack-trace">{{error.Exception}}</pre>
         </p>
         <ul>
             <li ng-repeat="id in error.Ids"><a href="#/{{name}}/{{id}}">{{id}}</a></li>
         </ul>
+        </div>
     </blockquote>
 
     <div ng-show='busy'>Loading data...</div>
