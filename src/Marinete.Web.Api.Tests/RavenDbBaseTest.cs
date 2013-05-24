@@ -25,7 +25,7 @@ namespace Marinete.Web.Api.Tests
             };
 
             Store.Initialize();
-            IndexCreation.CreateIndexes(typeof(UniqueVisitorsIndex).Assembly, Store);
+            IndexCreation.CreateIndexes(typeof(UniqueMessageIndex).Assembly, Store);
             Store.RegisterListener(new NoStaleQueriesListener());
 
             Bootstrapper = new FakeBoostrapper(Store);

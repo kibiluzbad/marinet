@@ -60,7 +60,7 @@ namespace Marinete.Web
                 _store.Initialize();
                 
 
-                IndexCreation.CreateIndexes(typeof(UniqueVisitorsIndex).Assembly, _store);
+                IndexCreation.CreateIndexes(typeof(UniqueMessageIndex).Assembly, _store);
             }
 
             return _store;

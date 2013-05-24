@@ -7,7 +7,7 @@ using Raven.Client.Indexes;
 
 namespace Marinete.Common.Indexes
 {
-    public class UniqueVisitorsIndex : AbstractIndexCreationTask<Error, UniqueVisitorsIndex.UniqueError>
+    public class UniqueMessageIndex : AbstractIndexCreationTask<Error, UniqueMessageIndex.UniqueError>
     {
         public class UniqueError
         {
@@ -19,7 +19,7 @@ namespace Marinete.Common.Indexes
             public IEnumerable<string> Ids { get; set; }
         }
 
-        public UniqueVisitorsIndex()
+        public UniqueMessageIndex()
         {
             Map = docs => from doc in docs
                           orderby doc.CreatedAt descending 

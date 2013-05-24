@@ -55,7 +55,7 @@
     <Compile Include="Domain\Application.cs" />
     <Compile Include="Domain\Error.cs" />
     <Compile Include="Domain\Token.cs" />
-    <Compile Include="Indexes\UniqueVisitorsIndex.cs" />
+    <Compile Include="Indexes\UniqueMessageIndex.cs" />
     <Compile Include="Infra\ShortGuid.cs" />
     <Compile Include="Infra\UriExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -33,12 +33,12 @@ namespace Marinete.Web.modules
 
                     RavenQueryStatistics stats;
 
-                    IEnumerable<UniqueVisitorsIndex.UniqueError> errors;
+                    IEnumerable<UniqueMessageIndex.UniqueError> errors;
 
                     if (!string.IsNullOrWhiteSpace(term))
                     {
                         errors = _documentSession
-                            .Query<UniqueVisitorsIndex.UniqueError, UniqueVisitorsIndex>().Statistics(out stats)
+                            .Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>().Statistics(out stats)
                             .Search(c => c.Exception, term, boost: 10)
                             .Search(c => c.AppName, appName, options: SearchOptions.And)
                             .OrderByDescending(c => c.CreatedAt)
@@ -49,7 +49,7 @@ namespace Marinete.Web.modules
                     else
                     {
                         errors = _documentSession
-                            .Query<UniqueVisitorsIndex.UniqueError, UniqueVisitorsIndex>().Statistics(out stats)
+                            .Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>().Statistics(out stats)
                             .Search(c => c.AppName, appName)
                             .OrderByDescending(c => c.CreatedAt)
                             .Skip((page - 1 > 0 ? page - 1 : 0)*size)
@@ -58,7 +58,7 @@ namespace Marinete.Web.modules
                     }
 
 
-                    return  Response.AsJson(new PagedResult<UniqueVisitorsIndex.UniqueError>(errors, 
+                    return  Response.AsJson(new PagedResult<UniqueMessageIndex.UniqueError>(errors, 
                         stats.TotalResults, 
                         page, 
                         size));

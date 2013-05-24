@@ -29,7 +29,7 @@ function ErrorsController($scope, $routeParams, $http) {
     $scope.query = "";
 
     $scope.$watch('query', function (key) {
-        
+       
         $scope.errors = [];
         $scope.page = 1;
         $scope.canLoad = true;
