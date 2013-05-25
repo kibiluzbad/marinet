@@ -1,7 +1,18 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Marinet", "Marinet", "{BD02892E-2204-4C3D-A94F-8F8D3C779823}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{594F735B-D5AA-44D6-99B5-BE79434971DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{49B24827-DE96-4F14-892C-1398BF5933DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5C60AFAA-83DA-4BD7-A5A8-7CF188B52812}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Web.Tests", "Marinete.Web.Api.Tests\Marinete.Web.Tests.csproj", "{E473EA9E-53BE-4991-A237-7B668ED481B1}"
 EndProject
@@ -11,22 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Providers.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Common", "Marinete.Common\Marinete.Common.csproj", "{6C0ED930-8556-4D5F-8018-A5E3104607A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{594F735B-D5AA-44D6-99B5-BE79434971DF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{49B24827-DE96-4F14-892C-1398BF5933DA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.IntegratedTests", "Marinete.IntegratedTests\Marinete.IntegratedTests.csproj", "{6BE136D6-D7F3-417D-B969-48B587CBDAD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Web", "Marinete.Web\Marinete.Web.csproj", "{C34FB190-B4A4-47CE-818B-2423335A12A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marinete.Provider40", "Marinete.Provider40\Marinete.Provider40.csproj", "{D0A71ABB-886A-4152-B0A4-F5F6E8109146}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5C60AFAA-83DA-4BD7-A5A8-7CF188B52812}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,8 +115,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6C0ED930-8556-4D5F-8018-A5E3104607A1} = {BD02892E-2204-4C3D-A94F-8F8D3C779823}
 		{C34FB190-B4A4-47CE-818B-2423335A12A8} = {BD02892E-2204-4C3D-A94F-8F8D3C779823}
-		{1314D26D-A732-4494-936A-AC0E1221341F} = {594F735B-D5AA-44D6-99B5-BE79434971DF}
 		{E473EA9E-53BE-4991-A237-7B668ED481B1} = {594F735B-D5AA-44D6-99B5-BE79434971DF}
+		{1314D26D-A732-4494-936A-AC0E1221341F} = {594F735B-D5AA-44D6-99B5-BE79434971DF}
 		{6BE136D6-D7F3-417D-B969-48B587CBDAD6} = {594F735B-D5AA-44D6-99B5-BE79434971DF}
 		{D1547A1C-BE2F-485A-8597-1A2151162766} = {49B24827-DE96-4F14-892C-1398BF5933DA}
 		{D0A71ABB-886A-4152-B0A4-F5F6E8109146} = {49B24827-DE96-4F14-892C-1398BF5933DA}

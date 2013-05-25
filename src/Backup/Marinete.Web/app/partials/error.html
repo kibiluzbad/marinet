@@ -1,0 +1,12 @@
+﻿    <blockquote>
+        <h3>{{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} <strong>{{error.Message}}</strong> </h3>
+        <p>
+        <strong>Usuario:</strong><span>{{error.CurrentUser}}</span><br/>
+        <strong>OS:</strong><span>{{error.OsVersion}}</span><br/>
+        <strong>Plataform:</strong><span>{{error.Platform}}</span><br/>
+        <strong>Service Pack:</strong><span>{{error.ServicePack}}</span><br/>
+        <strong>Processadores:</strong><span>{{error.Processors}}</span><br/>
+        </p>
+          <pre class="stack-trace">{{ error.Exception }}</pre>
+    </blockquote>
+    <a href="#/{{name}}/errors" class="btn btn-link">Voltar</a>

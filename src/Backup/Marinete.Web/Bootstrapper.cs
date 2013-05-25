@@ -16,7 +16,7 @@ namespace Marinete.Web
     public class Bootstrapper : DefaultNancyBootstrapper
     {
         private static volatile IDocumentStore _store;
-        private static readonly object SyncRoot = new Object();
+        private static object _syncRoot = new Object();
 
         protected override void RequestStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
@@ -43,14 +43,17 @@ namespace Marinete.Web
 
         private IDocumentStore GetStore()
         {
+            
+
             if (null != _store) return _store;
 
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
                 _store = new EmbeddableDocumentStore
                     {
                         ConnectionStringName = "ravenConn",
                         UseEmbeddedHttpServer = true,
+                        
                     };
 
                 ((EmbeddableDocumentStore) _store).Configuration.Port = 8099;
