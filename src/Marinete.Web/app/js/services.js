@@ -2,40 +2,29 @@
 
 /* Services */
 
+var services = angular.module('marinet.services', ['ngResource']);
 
-angular.module('SharedServices', [])
-    .config(function ($httpProvider) {
-        $httpProvider.responseInterceptors.push('myHttpInterceptor');
-        var spinnerFunction = function (data, headersGetter) {
-            // todo start the spinner here
-            
-            return data;
-        };
-        $httpProvider.defaults.transformRequest.push(spinnerFunction);
-    })
-// register the interceptor as a service, intercepts ALL angular ajax http calls
-    .factory('myHttpInterceptor', function ($q, $window) {
-        return function (promise) {
-            return promise.then(function (response) {
-                // do something on success
-                // todo hide the spinner
-            
-                return response;
+services.factory('Account', ['$resource',
+function ($resource) {    
+    return $resource('/account/apps?r='+Math.random() * 99999);
+} ]);
 
-            }, function (response) {
-                // do something on error
-                // todo hide the spinner
-            
-                return $q.reject(response);
-            });
-        };
-    })
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('marinetServices', ['ngResource']).
-    factory('Apps', function ($resource) {
-        return $resource('http://localhost:5252/api/account/apps?callback=jsonp_callback', {}, {
-            query: { method: 'GET', isArray: true }
+services.factory('MultiAccountLoader', ['Account',
+    '$q',
+function (Account, $q) {
+    return function () {
+        var delay = $q.defer();
+        Account.query(function (accounts) {
+            delay.resolve(accounts);
+        }, function () {
+            delay.reject('Unable to fetch recipes');
         });
-    });
+        return delay.promise;
+    };
+} ]);
+
+services.factory('$exceptionHandler', function () {
+    return function (exception, cause) {
+        alert(exception.message);
+    };
+});
