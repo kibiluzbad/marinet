@@ -9,10 +9,10 @@
     </thead>
     <tbody>
         <tr ng-repeat="app in apps">
-            <td>{{app.Name}}</td>
-            <td>{{app.Key}}</td>
+            <td ng-bind="app.Name"></td>
+            <td ng-bind="app.Key"></td>
             <td>
-                <a href="#/{{app.Name}}/errors" class="btn  btn-success">Erros</a>
+                <a ng-href="#/{{app.Name}}/errors" class="btn  btn-success">Erros</a>
             </td>
         </tr>
     </tbody>
