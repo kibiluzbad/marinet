@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Marinete.Common.Domain;
-using Marinete.Common.Indexes;
+using Marinete.Web.Indexes;
 using Nancy;
 using Nancy.Security;
 using Raven.Client;

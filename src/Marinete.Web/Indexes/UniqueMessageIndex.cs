@@ -5,7 +5,7 @@ using Marinete.Common.Domain;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
-namespace Marinete.Common.Indexes
+namespace Marinete.Web.Indexes
 {
     public class UniqueMessageIndex : AbstractIndexCreationTask<Error, UniqueMessageIndex.UniqueError>
     {

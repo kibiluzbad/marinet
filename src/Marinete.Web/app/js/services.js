@@ -17,14 +17,8 @@ function (Account, $q) {
         Account.query(function (accounts) {
             delay.resolve(accounts);
         }, function () {
-            delay.reject('Unable to fetch recipes');
+            delay.reject('Unable to fetch accounts');
         });
         return delay.promise;
     };
 } ]);
-
-services.factory('$exceptionHandler', function () {
-    return function (exception, cause) {
-        alert(exception.message);
-    };
-});

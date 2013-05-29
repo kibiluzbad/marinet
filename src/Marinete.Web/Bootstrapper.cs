@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using Marinete.Common.Indexes;
+using Marinete.Web.Indexes;
 using Marinete.Web.Security;
 using Nancy;
 using Nancy.Authentication.Forms;

@@ -5,7 +5,6 @@ using System.Text;
 using System.Web.Http;
 using Lucene.Net.Documents;
 using Marinete.Common.Domain;
-using Marinete.Common.Indexes;
 using Marinete.Common.Infra;
 using Marinete.Web.modules;
 using NUnit.Framework;

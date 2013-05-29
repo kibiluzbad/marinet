@@ -188,6 +188,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Indexes\UniqueMessageIndex.cs" />
     <Compile Include="LoggingErrorHandler.cs" />
     <Compile Include="modules\Application.cs" />
     <Compile Include="Security\MarinetUserMapper.cs" />

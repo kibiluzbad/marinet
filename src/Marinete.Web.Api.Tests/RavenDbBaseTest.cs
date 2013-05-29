@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
-using Marinete.Common.Indexes;
+using Marinete.Web.Indexes;
 using NUnit.Framework;
 using Raven.Client;
 using Raven.Client.Document;

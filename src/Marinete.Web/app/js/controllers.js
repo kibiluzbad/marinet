@@ -4,12 +4,9 @@
 
 window.app.controller('AppsController', ['$scope',
     '$exceptionHandler',
-    'MultiAccountLoader',
-    function ($scope, $exceptionHandler, MultiAccountLoader) {
-        MultiAccountLoader().then(function(data) {
-            //TODO: Redirect when user not authenticted
-            $scope.apps = data;
-        });
+    'apps',
+    function ($scope, $exceptionHandler, apps) {
+            $scope.apps = apps;
     } ]);
 
 window.app.controller('ErrorsController', ['$scope',
