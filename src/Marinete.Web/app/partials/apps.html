@@ -13,6 +13,7 @@
             <td ng-bind="app.Key"></td>
             <td>
                 <a ng-href="#/{{app.Name}}/errors" class="btn  btn-success">Erros</a>
+                <a ng-href="#" class="btn  btn-danger" ng-click="purge(app.Name)">Purge</a>
             </td>
         </tr>
     </tbody>

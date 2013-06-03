@@ -7,6 +7,15 @@ using Raven.Client.Indexes;
 
 namespace Marinete.Web.Indexes
 {
+    public class ErrorsByIdAndAppName : AbstractIndexCreationTask<Error>
+    {
+        public ErrorsByIdAndAppName()
+        {
+            Map = docs => from doc in docs
+                          select new {doc.Id, doc.AppName, doc.CreatedAt};
+        }
+    }
+
     public class UniqueMessageIndex : AbstractIndexCreationTask<Error, UniqueMessageIndex.UniqueError>
     {
         public class UniqueError

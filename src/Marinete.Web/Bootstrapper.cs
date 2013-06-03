@@ -7,6 +7,7 @@ using Marinete.Web.Security;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Conventions;
+using Nancy.Json;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
@@ -20,6 +21,8 @@ namespace Marinete.Web
 
         protected override void RequestStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines, NancyContext context)
         {
+            JsonSettings.MaxJsonLength = Int32.MaxValue;
+
             base.RequestStartup(container, pipelines, context);
 
             var formsAuthConfiguration =
@@ -50,10 +53,10 @@ namespace Marinete.Web
                 _store = new EmbeddableDocumentStore
                     {
                         ConnectionStringName = "ravenConn",
-                        UseEmbeddedHttpServer = true,
+                        //UseEmbeddedHttpServer = true,
                     };
 
-                ((EmbeddableDocumentStore) _store).Configuration.Port = 8099;
+                //((EmbeddableDocumentStore) _store).Configuration.Port = 6263;
                 _store.Initialize();
                 
 

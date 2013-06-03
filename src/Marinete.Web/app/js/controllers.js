@@ -5,8 +5,21 @@
 window.app.controller('AppsController', ['$scope',
     '$exceptionHandler',
     'apps',
-    function ($scope, $exceptionHandler, apps) {
-            $scope.apps = apps;
+    '$http',
+    function ($scope, $exceptionHandler, apps, $http) {
+        $scope.apps = apps;
+        $scope.purge = function (appName) {
+
+            if (!confirm("Deseja realmente excluir todos os erros da app '" + appName + "'?")) return;
+            
+            $http.post("/account/" + appName + "/purge")
+                .success(function () {
+                    alert("Todos os erros da app '" + appName + "' foram excluidos!");
+                })
+                .error(function () {
+                    alert("Não foi possivel excluir os erros da app '" + appName + "'!");
+                });
+        };
     } ]);
 
 window.app.controller('ErrorsController', ['$scope',

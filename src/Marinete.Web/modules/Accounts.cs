@@ -5,9 +5,12 @@ using Marinete.Common.Infra;
 using Marinete.Web.Security;
 using Nancy;
 using Nancy.ModelBinding;
+using Raven.Abstractions.Commands;
+using Raven.Abstractions.Data;
 using Raven.Client;
 using Nancy.Security;
 using Raven.Database.Smuggler;
+using Raven.Json.Linq;
 
 namespace Marinete.Web.modules
 {
@@ -28,37 +31,51 @@ namespace Marinete.Web.modules
 
             Get["/account/apps"] = _ =>
                 {
-                    var user = _documentSession.Query<MarinetUser>()
-                                               .FirstOrDefault(c => c.UserName == Context.CurrentUser.UserName);
-                    if (null == user) return HttpStatusCode.NotFound;
-
-                    var account = _documentSession.Query<Account>()
-                                                  .FirstOrDefault(c => c.Users.Any(d => d == user.Id));
+                    var account = GetAccount();
 
                     if (null == account) return HttpStatusCode.NotFound;
 
                     return Response.AsJson(account.Apps);
                 };
 
-            Post["/account/app"] = _ => 
-            {
-                var account = _documentSession.Query<Account>()
-                                              .FirstOrDefault();
-
-                if (null == account)
+            Post["/account/app"] = _ =>
                 {
-                    return HttpStatusCode.NotFound;
-                }
+                    var account = GetAccount();
 
-                var app = this.Bind<Common.Domain.Application>();
+                    if (null == account) return HttpStatusCode.NotFound;
 
-                account.CreateApp(app.Name);
+                    var app = this.Bind<Common.Domain.Application>();
 
-                return HttpStatusCode.OK;
-            };
+                    account.CreateApp(app.Name);
+
+                    return HttpStatusCode.OK;
+                };
 
             Get["/login"] = _ => Response.AsRedirect("/app/login.html");
-                
+
+            Post["/account/{appName}/purge"] = _ =>
+                {
+                    string appName = _.appName;
+
+                    _documentSession.Advanced.DocumentStore.DatabaseCommands.DeleteByIndex("ErrorsByIdAndAppName",
+                                                   new IndexQuery
+                                                   {
+                                                       Query = string.Format("AppName:{0}",appName)
+                                                   }, allowStale: false);
+
+                    return HttpStatusCode.OK;
+                };
+        }
+
+        private Account GetAccount()
+        {
+            var user = _documentSession.Query<MarinetUser>()
+                                       .FirstOrDefault(c => c.UserName == Context.CurrentUser.UserName);
+
+
+            var account = _documentSession.Query<Account>()
+                                          .FirstOrDefault(c => c.Users.Any(d => d == user.Id));
+            return account;
         }
     }
 }
