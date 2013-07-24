@@ -60,7 +60,8 @@ namespace Marinete.Web.modules
                     _documentSession.Advanced.DocumentStore.DatabaseCommands.DeleteByIndex("ErrorsByIdAndAppName",
                                                    new IndexQuery
                                                    {
-                                                       Query = string.Format("AppName:{0}",appName)
+                                                       Query = string.Format("AppName:{0}",appName), 
+                                                       Cutoff = DateTime.Now.AddMinutes(1)
                                                    }, allowStale: false);
 
                     return HttpStatusCode.OK;
