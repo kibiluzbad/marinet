@@ -23,8 +23,12 @@ namespace Marinete.Web.Indexes
             public string Message { get; set; }
             public string Exception { get; set; }
             public string AppName { get; set; }
+            public IEnumerable<string> CurrentUser { get; set; }
             public DateTime CreatedAt { get; set; }
-            public int Count { get; set; }
+            public int Count {
+                get { return CurrentUser.Distinct().Count(); }
+
+            }
             public IEnumerable<string> Ids { get; set; }
         }
 
@@ -38,7 +42,7 @@ namespace Marinete.Web.Indexes
                                   Exception = doc.Exception,
                                   AppName = doc.AppName,
                                   CreatedAt = doc.CreatedAt,
-                                  Count = 1,
+                                  CurrentUser = doc.CurrentUser,
                                   Ids = doc.Id
                               };
             Reduce = results => from result in results
@@ -47,7 +51,7 @@ namespace Marinete.Web.Indexes
                                 select new
                                     {
                                         Message = g.Key,
-                                        Count = g.Sum(x=>x.Count),
+                                        CurrentUser = g.Select(x=>x.CurrentUser),
                                         AppName = g.First().AppName,
                                         CreatedAt = g.First().CreatedAt,
                                         Exception = g.First().Exception,
@@ -58,6 +62,19 @@ namespace Marinete.Web.Indexes
             Indexes.Add(x => x.AppName, FieldIndexing.NotAnalyzed);
             Indexes.Add(x => x.CreatedAt, FieldIndexing.NotAnalyzed);
             Indexes.Add(x => x.Exception, FieldIndexing.Analyzed);
+        }
+    }
+
+    public class UniqueErrorComparer : IEqualityComparer<UniqueMessageIndex.UniqueError>
+    {
+        public bool Equals(UniqueMessageIndex.UniqueError x, UniqueMessageIndex.UniqueError y)
+        {
+            return x.CurrentUser == y.CurrentUser;
+        }
+
+        public int GetHashCode(UniqueMessageIndex.UniqueError obj)
+        {
+            return obj.CurrentUser.GetHashCode();
         }
     }
 }
