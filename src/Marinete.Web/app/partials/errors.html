@@ -1,17 +1,18 @@
 <input type="text" ng-model="query"  class="input-medium search-query" placeholder="Search" />
 
-<div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
-    
-    <blockquote ng-repeat="error in errors">
+<div ng-switch="errors.length" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+    <br/>
+    <div class="alert alert-info" ng-switch-when="0"><i class="icon-info-sign"></i> Nenhum erro foi encontrado.</div>
+    <blockquote ng-repeat="error in errors" ng-switch-default>
         <h3>
             {{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} 
             <span  class="pull-right btn disabled">{{error.Count}}</span>
             <strong>{{error.Message}}</strong> 
         </h3>
         <div style="max-height:500px;overflow:auto">
-        <p>
-            <pre class="stack-trace">{{error.Exception}}</pre>
-        </p>
+            <p>
+                <pre class="stack-trace">{{error.Exception}}</pre>
+            </p>
         <ul>
             <li ng-repeat="id in error.Ids"><a href="#/{{name}}/{{id}}">{{id}}</a></li>
         </ul>
