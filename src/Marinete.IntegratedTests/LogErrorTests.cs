@@ -13,13 +13,12 @@ namespace Marinete.IntegratedTests
     [TestFixture]
     public class LogErrorTests
     {
-        [Test]
+        [Test, Ignore]
         public void Should_log_error()
         {
             var config = new MarineteConfig { AppKey = "wdQ4jOk2DkCmJMOqW61t0g", AppName = "MarineteWeb", RootUrl = "http://localhost:6262/" };
             IMarineteProvider marineteProvider = new MarineteRestfulProvider(new RestClient(),
-                                                                             new TokenAuthProvider(new RestClient(),
-                                                                                                   config),
+                                                                             new TokenAuthProvider(new RestClient(),config),
                                                                              config);
 
             HttpStatusCode result = marineteProvider.Error(new Error
