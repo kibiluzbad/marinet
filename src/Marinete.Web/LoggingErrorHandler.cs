@@ -28,12 +28,14 @@ namespace Marinete.Web
 
             var error = (errorObject as Exception).InnerException;
 
+            var currentUser = HttpContext.Current.User.Identity.Name;
+
             var provider = new MarineteRestfulProvider();
             provider.Error(new Error
                 {
-                    CurrentUser = HttpContext.Current.User.Identity.Name,
+                    CurrentUser = !string.IsNullOrWhiteSpace(currentUser) ? HttpContext.Current.User.Identity.Name : "marinet",
                     Exception = error.ToString(),
-                    Message = error.Message,
+                    Message = error.Message
                 });
 
             _logger.Fatal(error.Message, error);
