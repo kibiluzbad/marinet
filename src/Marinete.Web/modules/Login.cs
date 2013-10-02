@@ -17,7 +17,10 @@ namespace Marinete.Web.modules
         {
             _documentSession = documentSession;
 
-            Get["/new"] = parameters => View[new LoginModel()];
+            Get["/new"] = parameters =>
+                              {
+                                  return View[new LoginModel()];
+                              };
 
             Get["/logout"] = parameters => this.LogoutAndRedirect("/");
 

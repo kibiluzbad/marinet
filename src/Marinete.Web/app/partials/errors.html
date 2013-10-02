@@ -2,8 +2,7 @@
 
 <div ng-switch="errors.length" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
     <br/>
-    <div class="alert alert-info" ng-switch-when="0"><i class="icon-info-sign"></i> Nenhum erro foi encontrado.</div>
-    <blockquote ng-repeat="error in errors" ng-switch-default>
+    <blockquote ng-repeat="error in errors">
         <h3>
             {{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} 
             <span  class="pull-right btn disabled">{{error.Count}}</span>
