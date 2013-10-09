@@ -142,6 +142,7 @@
     <Content Include="app\css\bootstrap.min.css" />
     <Content Include="app\img\glyphicons-halflings-white.png" />
     <Content Include="app\img\glyphicons-halflings.png" />
+    <Content Include="app\img\marinet.png" />
     <Content Include="app\index.html" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers.js" />

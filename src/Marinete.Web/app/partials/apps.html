@@ -1,3 +1,4 @@
+<div ng-controller="MessageController">{{message}}</div>
 <a href="#create-app" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-plus icon-white"></i> Nova App</a>
 <table class="table table-striped">
     <caption>Aplicações</caption>
@@ -24,7 +25,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Criar app</h3>
     </div>
-    <form name="appForm" ng-controller="NewAppController">  
+    <form name="appForm" ng-submit="saveApp()" ng-controller="NewAppController">  
 
     <div class="modal-body" >
     
@@ -37,7 +38,7 @@
   </div>
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Fechar</a>
-        <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ng-click="saveApp()">Salvar</a>
+        <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Salvar</a>
     </div>
     </form>
 </div>
