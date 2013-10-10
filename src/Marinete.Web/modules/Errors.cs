@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Marinete.Common.Domain;
 using Marinete.Web.Indexes;
+using Marinete.Web.models;
 using Nancy;
 using Nancy.Security;
 using Raven.Client;
@@ -26,7 +25,7 @@ namespace Marinete.Web.modules
                     var term = (string)Request.Query["query"];
 
                     int page;
-                    int size = 10;
+                    const int size = 10;
 
                     if (!int.TryParse(Request.Query["page"], out page))
                         page = 1;
@@ -39,7 +38,7 @@ namespace Marinete.Web.modules
                     {
                         errors = _documentSession
                             .Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>().Statistics(out stats)
-                            .Search(c => c.Exception, term, boost: 10)
+                            .Search(c => c.Exception, term, 10)
                             .Search(c => c.AppName, appName, options: SearchOptions.And)
                             .OrderByDescending(c => c.CreatedAt)
                             .Skip((page - 1 > 0 ? page - 1 : 0)*size)
@@ -83,45 +82,6 @@ namespace Marinete.Web.modules
                             error.CurrentUser
                         });
                 };
-        }
-    }
-
-    public class PagedResult<TObj>
-    {
-        private readonly int _totalSize;
-        private readonly int _currentPage;
-        private readonly int _pageSize;
-        private readonly int _totalPages;
-
-        public int TotalPages
-        {
-            get { return _totalPages; }
-        }
-
-        public int PageSize
-        {
-            get { return _pageSize; }
-        }
-
-        public int CurrentPage
-        {
-            get { return _currentPage; }
-        }
-
-        public int TotalSize
-        {
-            get { return _totalSize; }
-        }
-
-        public IEnumerable<TObj> Data { get; protected set; }
-
-        public PagedResult(IEnumerable<TObj> errors,int totalSize, int currentPage, int pageSize)
-        {
-            _totalSize = totalSize;
-            _currentPage = currentPage;
-            _pageSize = pageSize;
-            _totalPages = (int)Math.Ceiling((decimal)TotalSize/PageSize);
-            Data = errors;
         }
     }
 }

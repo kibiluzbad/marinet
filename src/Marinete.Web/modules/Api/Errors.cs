@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Marinete.Common.Domain;
 using Nancy;
 using Nancy.ModelBinding;
@@ -27,7 +25,7 @@ namespace Marinete.Web.modules.Api
                     if(null == error)
                         return HttpStatusCode.BadRequest;
 
-                    string tokenKey = "" + Request.Headers.FirstOrDefault(c => c.Key == "tokenKey").Value.FirstOrDefault();
+                    var tokenKey = "" + Request.Headers.FirstOrDefault(c => c.Key == "tokenKey").Value.FirstOrDefault();
                     error.CreatedAt = DateTime.Now;
 
                     var token = _documentSession.Load<Token>(tokenKey);

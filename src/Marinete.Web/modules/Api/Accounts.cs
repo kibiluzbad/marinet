@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Marinete.Common.Domain;
 using Marinete.Common.Infra;
 using Nancy;
-using Nancy.Security;
 using Raven.Client;
 
 namespace Marinete.Web.modules.Api

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Web.Security;
 using Nancy;
@@ -9,11 +6,11 @@ using Raven.Client;
 
 namespace Marinete.Web.modules
 {
-    public class Application : NancyModule
+    public class Applications : NancyModule
     {
         private readonly IDocumentSession _documentSession;
 
-        public Application(IDocumentSession documentSession)
+        public Applications(IDocumentSession documentSession)
         {
             _documentSession = documentSession;
 
@@ -26,7 +23,7 @@ namespace Marinete.Web.modules
 
                     if (null == adminUser)
                     {
-                        adminUser = new MarinetUser("admin"){Password = "password"};
+                        adminUser = new MarinetUser("admin"){ Password = "password" };
                         _documentSession.Store(adminUser);
                     }
 
@@ -39,9 +36,8 @@ namespace Marinete.Web.modules
 
                     if (0 == adminAccount.Users.Count) adminAccount.AddUser(adminUser.Id);
 
-                    return Response.AsRedirect("/new");
+                    return Response.AsRedirect("/login");
                 };
         }
-
     }
 }

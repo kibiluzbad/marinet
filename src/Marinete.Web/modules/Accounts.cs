@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Marinete.Common.Domain;
-using Marinete.Common.Infra;
 using Marinete.Web.Security;
 using Nancy;
 using Nancy.ModelBinding;
-using Raven.Abstractions.Commands;
 using Raven.Abstractions.Data;
 using Raven.Client;
 using Nancy.Security;
-using Raven.Database.Smuggler;
-using Raven.Json.Linq;
 
 namespace Marinete.Web.modules
 {
@@ -25,7 +21,6 @@ namespace Marinete.Web.modules
             _documentSession = documentSession;
 
             After += ctx => _documentSession.SaveChanges();
-
 
             Get["/"] = _ => Response.AsRedirect("/app/index.html");
 
@@ -44,25 +39,27 @@ namespace Marinete.Web.modules
 
                     if (null == account) return HttpStatusCode.NotFound;
 
-                    var app = this.Bind<Common.Domain.Application>();
+                    var app = this.Bind<Application>();
 
                     account.CreateApp(app.Name);
 
                     return HttpStatusCode.OK;
                 };
 
-            Get["/login"] = _ => Response.AsRedirect("/app/login.html");
-
             Post["/account/{appName}/purge"] = _ =>
                 {
                     string appName = _.appName;
 
-                    _documentSession.Advanced.DocumentStore.DatabaseCommands.DeleteByIndex("ErrorsByIdAndAppName",
-                                                   new IndexQuery
-                                                   {
-                                                       Query = string.Format("AppName:{0}",appName), 
-                                                       Cutoff = DateTime.Now.AddMinutes(1)
-                                                   }, allowStale: false);
+                    var indexQuery = new IndexQuery
+                    {
+                        Query = string.Format("AppName:{0}", appName), 
+                        Cutoff = DateTime.Now.AddMinutes(1)
+                    };
+
+                    _documentSession.Advanced
+                                    .DocumentStore
+                                    .DatabaseCommands
+                                    .DeleteByIndex("ErrorsByIdAndAppName", indexQuery, false);
 
                     return HttpStatusCode.OK;
                 };
