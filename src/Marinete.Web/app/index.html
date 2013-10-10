@@ -3,63 +3,102 @@
 <head>
     <meta charset="utf-8">
     <title>marinet</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <style>
-        body
-        {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-        
-        .stack-trace {
-            background-color: #fcf8e3;
-        }
-    </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
+    
+    <link type="text/css" rel="stylesheet" media="screen" href="css/application.css">
+    <link type="text/css" rel="stylesheet" media="screen" href="css/style.css">
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar">
-                                                                                </span>
-                </button>
-                <img src="/app/img/marinet.png" style="width: 32px; float:left">
-                <a class="brand" href="#">marinet</a>
-                <div class="nav-collapse collapse">
-                    <p class="navbar-text pull-right">
-                        <a class="navbar-link" href="/logout">Logout</a>
-                    </p>
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                    </ul>
-                </div>
-                
-                <!--/.nav-collapse -->
+    <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img class="menu-avatar" src="img/marinet.png" /> marinet</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
+                <span class="sr-only">Toggle Side Navigation</span>
+                <i class="icon-th-list"></i>
+            </button>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-top">
+                <span class="sr-only">Toggle Top Navigation</span>
+                <i class="icon-align-justify"></i>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-top">
+            <div class="navbar-right">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
+                            <span>
+                                <img class="menu-avatar" src="img/avatars/user.png" /> <span>Conta <i class="icon-caret-down"></i></span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="with-image">
+                                <div class="avatar"><img src="img/avatars/user.png" /></div>
+                                <span>Conta</span>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/logout"><i class="icon-off"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+
+    <div class="sidebar-background">
+        <div class="primary-sidebar-background"></div>
     </div>
-    <div butterbar>Carregando...</div>
-    <div class="container" ng-view>
+    <div class="primary-sidebar">
+        <ul class="nav navbar-collapse collapse navbar-collapse-primary">
+            <li class="active">
+                <span class="glow"></span>
+                <a href="#">
+                    <i class="icon-dashboard icon-2x"></i>
+                    <span>Aplicações</span>
+                </a>
+            </li>
+        </ul>
     </div>
-    <!-- /container -->
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="area-top clearfix">
+                    <div class="pull-left header">
+                        <h3 class="title"><i class="icon-dashboard"></i>Aplicações</h3>
+                        <h5><span>Listagem das aplicações cadastrados</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container padded">
+            <div class="row">
+                <div id="breadcrumbs">
+                    <div class="breadcrumb-button blue">
+                        <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+                        <span class="breadcrumb-arrow"><span></span></span>
+                    </div>
+                    <div class="breadcrumb-button">
+                        <span class="breadcrumb-label"><i class="icon-dashboard"></i> Aplicações</span>
+                        <span class="breadcrumb-arrow"><span></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div butterbar>Carregando...</div>
+        <div class="container" ng-view>
+        </div>
+    </div>
+
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-resource.js"></script>
     <script src="lib/ng-infinite-scroll/ng-infinite-scroll.js"></script>
     <script src="lib/angular/angular-sanitize.min.js"></script>
-    <script src="lib/twitter.bootstrap/bootstrap.js"></script>
+    <script src="lib/application.js"></script>
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
