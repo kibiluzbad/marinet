@@ -136,10 +136,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\css\application.css" />
     <Content Include="app\css\bootstrap-responsive.css" />
     <Content Include="app\css\bootstrap-responsive.min.css" />
     <Content Include="app\css\bootstrap.css" />
     <Content Include="app\css\bootstrap.min.css" />
+    <Content Include="app\css\css3b0a.css" />
+    <Content Include="app\img\avatars\user.png" />
+    <Content Include="app\img\bg.png" />
     <Content Include="app\img\glyphicons-halflings-white.png" />
     <Content Include="app\img\glyphicons-halflings.png" />
     <Content Include="app\img\marinet.png" />
@@ -160,6 +164,7 @@
     <Content Include="app\lib\angular\angular.js" />
     <Content Include="app\lib\angular\angular.min.js" />
     <Content Include="app\lib\angular\version.txt" />
+    <Content Include="app\lib\application.js" />
     <Content Include="app\lib\ng-infinite-scroll\ng-infinite-scroll.js" />
     <Content Include="app\lib\ng-infinite-scroll\ng-infinite-scroll.min.js" />
     <Content Include="app\lib\twitter.bootstrap\bootstrap.js" />
@@ -216,6 +221,15 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="app\fonts\fontawesome-webfont3294.eot" />
+    <Content Include="app\fonts\fontawesome-webfont3294.ttf" />
+    <Content Include="app\fonts\fontawesome-webfont3294.woff" />
+    <Content Include="app\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="app\fonts\opensans\v6\cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf" />
+    <Content Include="app\fonts\opensans\v6\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <Content Include="app\fonts\opensans\v6\EInbV5DfGHOiMmvb1Xr-honF5uFdDttMLvmWuJdhhgs.ttf" />
+    <Content Include="app\fonts\opensans\v6\MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="app\fonts\opensans\v6\MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="scripts\e2e-test.bat" />
     <None Include="scripts\e2e-test.sh" />
