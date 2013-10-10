@@ -36,14 +36,14 @@
                                 <tr>
                                     <th>Aplicação</th>
                                     <th>Key</th>
-                                    <th style="width: 105px;"></th>
+                                    <th style="width: 110px;"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="app in apps">
                                     <td ng-bind="app.Name"></td>
                                     <td ng-bind="app.Key"></td>
-                                    <td>
+                                    <td class="text-center">
                                         <div class="btn-group">
                                             <a ng-href="#/{{app.Name}}/errors" class="btn btn-xs btn-success">Erros</a>
                                             <a ng-href="#" class="btn btn-xs btn-danger" ng-click="purge(app.Name)">Purge</a>
