@@ -144,6 +144,7 @@
     <Content Include="app\css\style.css" />
     <Content Include="app\img\avatars\user.png" />
     <Content Include="app\img\bg.png" />
+    <Content Include="app\img\favicon.ico" />
     <Content Include="app\img\glyphicons-halflings-white.png" />
     <Content Include="app\img\glyphicons-halflings.png" />
     <Content Include="app\img\marinet.png" />
