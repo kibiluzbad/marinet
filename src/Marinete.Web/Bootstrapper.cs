@@ -9,6 +9,7 @@ using Nancy.Authentication.Forms;
 using Nancy.Conventions;
 using Nancy.Json;
 using Raven.Client;
+using Raven.Client.Document;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
 
@@ -50,15 +51,21 @@ namespace Marinete.Web
 
             lock (SyncRoot)
             {
-                _store = new EmbeddableDocumentStore
+                _store = new DocumentStore { ConnectionStringName = "ravenConn" };
+
+                var local = ConfigurationManager.AppSettings["ravendb.local"];
+                if ((local != null) && (Convert.ToBoolean(local)))
+                {
+                    _store = new EmbeddableDocumentStore
                     {
-                        ConnectionStringName = "ravenConn",
-                        UseEmbeddedHttpServer = true,
+                        ConnectionStringName = "ravenConnLocal", 
+                        UseEmbeddedHttpServer = true
                     };
 
-                ((EmbeddableDocumentStore) _store).Configuration.Port = 6263;
+                    ((EmbeddableDocumentStore) _store).Configuration.Port = 6263;
+                }
+
                 _store.Initialize();
-                
 
                 IndexCreation.CreateIndexes(typeof(UniqueMessageIndex).Assembly, _store);
             }
