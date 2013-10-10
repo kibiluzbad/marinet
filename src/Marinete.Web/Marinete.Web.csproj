@@ -188,6 +188,7 @@
     <Content Include="test\unit\filtersSpec.js" />
     <Content Include="test\unit\servicesSpec.js" />
     <Content Include="views\Login.html" />
+    <Content Include="views\SignUp.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

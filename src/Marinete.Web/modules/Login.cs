@@ -22,6 +22,10 @@ namespace Marinete.Web.modules
                                   return View[new LoginModel()];
                               };
 
+            Get["/signup"] = parameters => {
+                                  return View["signup.html", new LoginModel()];
+                              };
+
             Get["/logout"] = parameters => this.LogoutAndRedirect("/");
 
             Post["/login"] = parameters =>
