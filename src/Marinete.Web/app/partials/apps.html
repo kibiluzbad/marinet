@@ -1,44 +1,60 @@
 <div ng-controller="MessageController">{{message}}</div>
-<a href="#create-app" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-plus icon-white"></i> Nova App</a>
-<table class="table table-striped">
-    <caption>Aplicações</caption>
-    <thead>
-        <tr>
-            <th>Aplicação</th>
-            <th>Key</th>      
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="app in apps">
-            <td ng-bind="app.Name"></td>
-            <td ng-bind="app.Key"></td>
-            <td>
-                <a ng-href="#/{{app.Name}}/errors" class="btn  btn-success">Erros</a>
-                <a ng-href="#" class="btn  btn-danger" ng-click="purge(app.Name)">Purge</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<div id="create-app" class="modal hide fade" >
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Criar app</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="box">
+                    <div class="box-header">
+                        <span class="title">Cadastrar nova aplicação</span>
+                    </div>
+                    <div class="box-content">
+                        <form name="appForm" ng-submit="saveApp()" ng-controller="NewAppController" class="form-horizontal fill-up">
+                            <div class="padded">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Nome</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" name="appName" ng-model="appName" placeholder="Nome da aplicação…" required focus />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-blue">Salvar</button>
+                                <a href="#" class="btn btn-default">Fechar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="box">
+                    <div class="box-header">
+                        <span class="title">Aplicações cadastradas</span>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-normal">
+                            <thead>
+                                <tr>
+                                    <th>Aplicação</th>
+                                    <th>Key</th>
+                                    <th style="width: 105px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="app in apps">
+                                    <td ng-bind="app.Name"></td>
+                                    <td ng-bind="app.Key"></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a ng-href="#/{{app.Name}}/errors" class="btn btn-xs btn-success">Erros</a>
+                                            <a ng-href="#" class="btn btn-xs btn-danger" ng-click="purge(app.Name)">Purge</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <form name="appForm" ng-submit="saveApp()" ng-controller="NewAppController">  
-
-    <div class="modal-body" >
-    
-  <fieldset>
-    <label>Nome:</label>
-      <input type="text" name="appName" ng-model="appName" placeholder="Nome da aplicação…" required focus />
-      <!--<span class="error" ng-show="appForm.appName.$error.required">Required!</span><br>-->
-  </fieldset>
-
-  </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Fechar</a>
-        <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Salvar</a>
-    </div>
-    </form>
 </div>
