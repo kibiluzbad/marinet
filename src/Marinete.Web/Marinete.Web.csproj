@@ -170,6 +170,7 @@
     <Content Include="app\lib\ng-infinite-scroll\ng-infinite-scroll.min.js" />
     <Content Include="app\lib\twitter.bootstrap\bootstrap.js" />
     <Content Include="app\lib\twitter.bootstrap\bootstrap.min.js" />
+    <Content Include="app\lib\underscore\underscore.js" />
     <Content Include="app\partials\error.html" />
     <Content Include="app\partials\errors.html" />
     <Content Include="app\partials\apps.html" />

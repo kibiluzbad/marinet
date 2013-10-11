@@ -55,13 +55,27 @@
         <div class="primary-sidebar-background"></div>
     </div>
     <div class="primary-sidebar">
-        <ul class="nav navbar-collapse collapse navbar-collapse-primary">
+        <ul id="menu" class="nav navbar-collapse collapse navbar-collapse-primary">
             <li class="active">
                 <span class="glow"></span>
                 <a href="#">
                     <i class="icon-dashboard icon-2x"></i>
-                    <span>Aplicações</span>
+                    <span>Dashboard</span>
                 </a>
+            </li>
+            <li class="dark-nav ">
+                <span class="glow"></span>
+                <a class="accordion-toggle collapsed " data-toggle="collapse" href="#menu-applications">
+                    <i class="icon-beaker icon-2x"></i>
+                    <span>Applications<i class="icon-caret-down"></i></span>
+                </a>
+                <ul id="menu-applications" class="collapse ">
+                    <li class="">
+                        <a href="#">
+                            <i class="icon-beaker"></i> Vazio
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -101,6 +115,42 @@
     <script src="lib/ng-infinite-scroll/ng-infinite-scroll.js"></script>
     <script src="lib/angular/angular-sanitize.min.js"></script>
     <script src="lib/application.js"></script>
+    <script src="lib/underscore/underscore.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.get('/account/apps', function (data) {
+                var $menu = $('#menu-applications');
+                
+                $menu.empty();
+                
+                _.each(data, function (app) {
+                    var label = app.Name;
+                    if (label.length > 28) {
+                        label = $.trim(app.Name).substring(0, 25) + ' ...';
+                    }
+
+                    $menu.append(
+                        '<li>' +
+                            '<a href="#/' + app.Name + '/errors">' +
+                                '<i class="icon-beaker"></i> ' + label +
+                            '</a>' +
+                        '</li>'
+                    );
+                });
+            });
+
+            $('#menu li a').click(function () {
+                $('#menu li').removeClass('active');
+                $(this).closest('li').addClass('active');
+            });
+
+        });
+
+    </script>
+    
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
