@@ -23,3 +23,6 @@
 .navbar-brand {
     padding: 9px;
 }
+.clean {
+    clear: both;
+}

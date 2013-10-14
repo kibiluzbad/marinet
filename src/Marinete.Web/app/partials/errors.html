@@ -35,10 +35,10 @@
             <div class="box-header">
                 <span class="title">Errors</span>
                 <ul class="box-toolbar">
-                    <li><span class="label label-red">22</span></li>
+                    <li><span class="label label-red">{{errors.length}}</span></li>
                 </ul>
             </div>
-            <div style="height: 410px; overflow-y: auto" class="box-content scrollable" ng-switch="errors.length" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+            <div style="height: 410px; overflow-y: auto" class="box-content scrollable" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
                 <div class="box-section news with-icons" ng-repeat="error in errors">
                     <div class="avatar cyan">
                         <i class="icon-minus icon-2x"></i>
@@ -48,8 +48,10 @@
                         {{error.CreatedAt | normalizedate | date:'MMMM, dd'}}
                     </div>
                     <div class="news-content">
-                        <div class="news-title">
-                            <a href="#/{{name}}/{{id}}">{{error.Message}}</a>
+                        <div class="news-title" ng-repeat="id in error.Ids">
+                            <a href="#/{{name}}/{{id}}" class="pull-left">{{error.Message}}</a>
+                            <span class="badge badge-dark-red pull-left" style="margin-left: 5px;">{{error.Count}}</span>
+                            <span class="clean">&nbsp;</span>
                         </div>
                         <div class="news-text">
                             {{error.Exception | truncate:200}}
