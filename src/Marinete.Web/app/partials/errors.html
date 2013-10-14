@@ -1,4 +1,4 @@
-<input type="text" ng-model="query"  class="input-medium search-query" placeholder="Search" />
+<!--<input type="text" ng-model="query"  class="input-medium search-query" placeholder="Search" />
 
 <div ng-switch="errors.length" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
     <br/>
@@ -12,11 +12,127 @@
             <p>
                 <pre class="stack-trace">{{error.Exception}}</pre>
             </p>
-        <ul>
-            <li ng-repeat="id in error.Ids"><a href="#/{{name}}/{{id}}">{{id}}</a></li>
-        </ul>
+            <ul>
+                <li ng-repeat="id in error.Ids"><a href="#/{{name}}/{{id}}">{{id}}</a></li>
+            </ul>
         </div>
     </blockquote>
 
     <div ng-show='busy'>Loading data...</div>
+</div>-->
+
+
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="input-group addon-left">
+            <a href="#" class="input-group-addon">
+                <i class="icon-search"></i>
+            </a>
+            <input type="text" ng-model="query" placeholder="Search...">
+        </div>
+        <div class="search-dropdown box">
+            <div class="box-header">
+                <span class="title">Errors</span>
+                <ul class="box-toolbar">
+                    <li><span class="label label-red">22</span></li>
+                </ul>
+            </div>
+            <div style="height: 410px; overflow-y: auto" class="box-content scrollable" ng-switch="errors.length" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+                <div class="box-section news with-icons" ng-repeat="error in errors">
+                    <div class="avatar cyan">
+                        <i class="icon-minus icon-2x"></i>
+                    </div>
+                    <div class="news-time">
+                        <span>{{error.CreatedAt | normalizedate | date:'H:mm'}}</span> 
+                        {{error.CreatedAt | normalizedate | date:'MMMM, dd'}}
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">
+                            <a href="#/{{name}}/{{id}}">{{error.Message}}</a>
+                        </div>
+                        <div class="news-text">
+                            {{error.Exception | truncate:200}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer flat text-center">
+                <div ng-show='busy'>Loading data...</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <p><i class="icon-filter"></i> Filters</p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well relative">
+                    <a title="New Project" href="#">
+                        <i class="icon-filter"></i>
+                        <span>Default</span>
+                    </a>
+                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well relative">
+                    <a title="New Project" href="#">
+                        <i class="icon-sort-down"></i>
+                        <span>Order by desc</span>
+                    </a>
+                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well relative">
+                    <a title="New Project" href="#">
+                        <i class="icon-ok-sign"></i>
+                        <span>Only solved</span>
+                    </a>
+                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!--<div class="col-md-4">
+        <div class="input-group addon-left">
+            <a href="#" class="input-group-addon">
+                <i class="icon-search"></i>
+            </a>
+            <input type="text" placeholder="Search... (prepended)">
+        </div>
+        <div class="search-dropdown box">
+            <div class="box-section news">
+                <div class="avatar">
+                    <img src="../../images/avatars/avatar2.jpg" class="avatar-small">
+                </div>
+                <div class="news-time">
+                    <span>06</span> jan
+                </div>
+                <div class="news-content">
+                    <div class="news-title">
+                        <a href="#">Twitter Bootstrap v3.0 is coming!</a>
+                    </div>
+                    <div class="news-text">
+                        With 2.2.2 out the door, our attention has shifted almost entirely to the next major update to the project ...
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer flat text-center">
+                <ul class="pagination pagination-xs">
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>-->
