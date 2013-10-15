@@ -11,6 +11,10 @@ module.filter('newlines', function () {
 
 module.filter('truncate', function () {
     return function (text, length) {
+        if (!text) {
+            return text;
+        }
+        
         var message = text;
 
         if (message.length > length) {

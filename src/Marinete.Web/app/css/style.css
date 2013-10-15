@@ -58,3 +58,12 @@ a.text-success:hover,
 a.text-success:focus {
   color: #356635;
 }
+
+.stacktrace,
+.stacktrace pre {
+    background-color: #ffffcc !important;
+}
+
+.stacktrace pre {
+    border: none;
+}

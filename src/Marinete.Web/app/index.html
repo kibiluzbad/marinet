@@ -31,15 +31,20 @@
         <div class="collapse navbar-collapse navbar-collapse-top">
             <div class="navbar-right">
                 <ul class="nav navbar-nav navbar-left">
+                    <li class="cdrop">
+                        <a href="#"><i class="icon-plus-sign"></i> Create New Application</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
                             <span>
-                                <img class="menu-avatar" src="img/avatars/user.png" /> <span>Conta <i class="icon-caret-down"></i></span>
+                                <i class="icon-user icon-2x"></i> <span>Conta <i class="icon-caret-down"></i></span>
                             </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="with-image">
-                                <div class="avatar"><img src="img/avatars/user.png" /></div>
+                                <div class="avatar"><i class="icon-user icon-3x"></i></div>
                                 <span>Conta</span>
                             </li>
                             <li class="divider"></li>
@@ -66,13 +71,13 @@
             <li class="dark-nav ">
                 <span class="glow"></span>
                 <a class="accordion-toggle collapsed " data-toggle="collapse" href="#menu-applications">
-                    <i class="icon-beaker icon-2x"></i>
+                    <i class="icon-cogs icon-2x"></i>
                     <span>Applications<i class="icon-caret-down"></i></span>
                 </a>
                 <ul id="menu-applications" class="collapse ">
                     <li class="">
                         <a href="#">
-                            <i class="icon-beaker"></i> Vazio
+                            <i class="icon-cog"></i> Vazio
                         </a>
                     </li>
                 </ul>
@@ -80,34 +85,10 @@
         </ul>
     </div>
     
-    <div class="main-content">
-        <div class="container">
-            <div class="row">
-                <div class="area-top clearfix">
-                    <div class="pull-left header">
-                        <h3 class="title"><i class="icon-dashboard"></i>Aplicações</h3>
-                        <h5><span>Listagem das aplicações cadastrados</span></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container padded">
-            <div class="row">
-                <div id="breadcrumbs">
-                    <div class="breadcrumb-button blue">
-                        <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
-                        <span class="breadcrumb-arrow"><span></span></span>
-                    </div>
-                    <div class="breadcrumb-button">
-                        <span class="breadcrumb-label"><i class="icon-dashboard"></i> Aplicações</span>
-                        <span class="breadcrumb-arrow"><span></span></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div butterbar>Carregando...</div>
-        <div class="container" ng-view>
-        </div>
+    <div class="main-content" butterbar>
+        <div style="padding: 10px;">Loading...</div>
+    </div>
+    <div class="main-content" ng-view>
     </div>
 
     <script src="lib/angular/angular.js"></script>
@@ -135,7 +116,7 @@
                     $menu.append(
                         '<li>' +
                             '<a href="#/' + app.Name + '/errors">' +
-                                '<i class="icon-beaker"></i> ' + label +
+                                '<i class="icon-cog"></i> ' + label +
                             '</a>' +
                         '</li>'
                     );
