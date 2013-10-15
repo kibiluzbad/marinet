@@ -1,29 +1,36 @@
-<!--<input type="text" ng-model="query"  class="input-medium search-query" placeholder="Search" />
-
-<div ng-switch="errors.length" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
-    <br/>
-    <blockquote ng-repeat="error in errors">
-        <h3>
-            {{error.CreatedAt | normalizedate | date:'dd/MM/yyyy H:mm'}} 
-            <span  class="pull-right btn disabled">{{error.Count}}</span>
-            <strong>{{error.Message}}</strong> 
-        </h3>
-        <div style="max-height:500px;overflow:auto">
-            <p>
-                <pre class="stack-trace">{{error.Exception}}</pre>
-            </p>
-            <ul>
-                <li ng-repeat="id in error.Ids"><a href="#/{{name}}/{{id}}">{{id}}</a></li>
-            </ul>
-        </div>
-    </blockquote>
-
-    <div ng-show='busy'>Loading data...</div>
-</div>-->
-
-
-
 <div class="row">
+    <div class="col-md-2">
+        <div class="action-nav-normal">
+            <div class="row action-nav-row">
+                <div class="col-sm-11 action-nav-button">
+                    <a title="Messages" href="#">
+                        <i class="icon-filter"></i>
+                        <span>Default</span>
+                    </a>
+                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+                </div>
+            </div>
+            <div class="row action-nav-row">
+                <div class="col-sm-11 action-nav-button">
+                    <a title="Files" href="#">
+                        <i class="icon-sort-down"></i>
+                        <span>Order by desc</span>
+                    </a>
+                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+                </div>
+            </div>
+            <div class="row action-nav-row">
+                <div class="col-sm-11 action-nav-button">
+                    <a title="Friends" href="#">
+                        <i class="icon-ok-sign"></i>
+                        <span>Only solved</span>
+                    </a>
+                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-10">
         <div class="input-group addon-left">
             <a href="#" class="input-group-addon">
@@ -38,13 +45,13 @@
                     <li><span class="label label-red">{{errors.length}}</span></li>
                 </ul>
             </div>
-            <div style="height: 410px; overflow-y: auto" class="box-content scrollable" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+            <div style="max-height: 428px; overflow-y: auto" class="box-content scrollable" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
                 <div class="box-section news with-icons" ng-repeat="error in errors">
                     <div class="avatar cyan">
                         <i class="icon-minus icon-2x"></i>
                     </div>
                     <div class="news-time">
-                        <span>{{error.CreatedAt | normalizedate | date:'H:mm'}}</span> 
+                        <span>{{error.CreatedAt | normalizedate | date:'H:mm'}}</span>
                         {{error.CreatedAt | normalizedate | date:'MMMM, dd'}}
                     </div>
                     <div class="news-content">
@@ -59,45 +66,10 @@
                     </div>
                 </div>
             </div>
-            <div class="box-footer flat text-center">
-                <div ng-show='busy'>Loading data...</div>
+            <div class="box-content scrollable text-center" style="padding: 25px;" ng-show='busy'>
+                Loading data...
             </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <p><i class="icon-filter"></i> Filters</p>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="well relative">
-                    <a title="New Project" href="#">
-                        <i class="icon-filter"></i>
-                        <span>Default</span>
-                    </a>
-                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="well relative">
-                    <a title="New Project" href="#">
-                        <i class="icon-sort-down"></i>
-                        <span>Order by desc</span>
-                    </a>
-                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="well relative">
-                    <a title="New Project" href="#">
-                        <i class="icon-ok-sign"></i>
-                        <span>Only solved</span>
-                    </a>
-                    <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
-                </div>
-            </div>
+            <div class="box-footer flat text-center" style="height: 25px;"></div>
         </div>
     </div>
 </div>

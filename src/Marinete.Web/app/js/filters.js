@@ -27,3 +27,9 @@ module.filter('normalizedate', function () {
             return new Date(parseInt(jsonDate.substr(6)));
     };
 });
+
+module.filter('newlines', function () {
+    return function (text) {
+        return text.toString().replace(/\n/g, '<br/>');
+    };
+});
