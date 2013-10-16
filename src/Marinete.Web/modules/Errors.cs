@@ -2,8 +2,10 @@
 using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Web.Indexes;
+using Marinete.Web.Security;
 using Marinete.Web.models;
 using Nancy;
+using Nancy.ModelBinding;
 using Nancy.Security;
 using Raven.Client;
 
@@ -18,6 +20,8 @@ namespace Marinete.Web.modules
             this.RequiresAuthentication();
 
             _documentSession = documentSession;
+
+            After += ctx => _documentSession.SaveChanges();
 
             Get["/errors/{appName}"] = _ =>
                 {
@@ -82,6 +86,28 @@ namespace Marinete.Web.modules
                             error.CurrentUser
                         });
                 };
+
+            Post["/error/{id}/comment"] = _ => 
+                {
+                    var user = GetUser();
+                    if (null == user) return HttpStatusCode.NotFound;
+
+                    var id = (string)_.id;
+                    var error = _documentSession.Load<Error>("errors/" + id);
+                    if (null == error) return HttpStatusCode.NotFound;
+
+                    var comment = this.Bind<CommentCreateModel>();
+                    error.AddComment(comment.Message, user.Id);
+
+                    return HttpStatusCode.OK;
+                };
+        }
+
+        private MarinetUser GetUser() {
+            var user = _documentSession.Query<MarinetUser>()
+                                       .FirstOrDefault(c => c.UserName == Context.CurrentUser.UserName);
+
+            return user;
         }
     }
 }

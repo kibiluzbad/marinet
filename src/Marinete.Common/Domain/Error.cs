@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Marinete.Common.Domain
 {
@@ -12,7 +14,20 @@ namespace Marinete.Common.Domain
         public string Exception { get; set; }
         public string Platform { get; set; }
         public string ServicePack { get; set; }
-        public DateTime CreatedAt { get; set; }
         public string CurrentUser { get; set; }
+        public DateTime CreatedAt { get; private set; }
+        public ICollection<Comment> Comments { get; private set; }
+
+        public Error()
+        {
+            Comments = new Collection<Comment>();
+            CreatedAt = DateTime.Now;
+        }
+
+        public void AddComment(string message, Guid userId)
+        {
+            var comment = new Comment(message, userId);
+            Comments.Add(comment);
+        }
     }
 }

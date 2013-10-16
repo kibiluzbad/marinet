@@ -26,7 +26,6 @@ namespace Marinete.Web.modules.Api
                         return HttpStatusCode.BadRequest;
 
                     var tokenKey = "" + Request.Headers.FirstOrDefault(c => c.Key == "tokenKey").Value.FirstOrDefault();
-                    error.CreatedAt = DateTime.Now;
 
                     var token = _documentSession.Load<Token>(tokenKey);
 

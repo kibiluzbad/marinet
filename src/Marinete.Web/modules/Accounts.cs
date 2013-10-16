@@ -2,6 +2,7 @@
 using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Web.Security;
+using Marinete.Web.models;
 using Nancy;
 using Nancy.ModelBinding;
 using Raven.Abstractions.Data;
@@ -39,7 +40,7 @@ namespace Marinete.Web.modules
 
                     if (null == account) return HttpStatusCode.NotFound;
 
-                    var app = this.Bind<Application>();
+                    var app = this.Bind<AppCreateModel>();
 
                     account.CreateApp(app.Name);
 

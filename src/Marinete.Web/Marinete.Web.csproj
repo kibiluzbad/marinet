@@ -204,6 +204,8 @@
   <ItemGroup>
     <Compile Include="Indexes\UniqueMessageIndex.cs" />
     <Compile Include="LoggingErrorHandler.cs" />
+    <Compile Include="models\AppCreateModel.cs" />
+    <Compile Include="models\CommentCreateModel.cs" />
     <Compile Include="models\PagedResult.cs" />
     <Compile Include="models\LoginModel.cs" />
     <Compile Include="models\SignupModel.cs" />

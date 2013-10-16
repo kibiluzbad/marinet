@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Http;
-using Lucene.Net.Documents;
 using Marinete.Common.Domain;
 using Marinete.Common.Infra;
-using Marinete.Web.modules;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
-using Raven.Imports.Newtonsoft.Json;
-
 
 namespace Marinete.Web.Api.Tests
 {
@@ -28,17 +20,13 @@ namespace Marinete.Web.Api.Tests
                 {
                     Value = (ShortGuid)Guid.NewGuid(),
                     ValidTo = DateTime.Now.AddMinutes(5),
-                    App = new Common.Domain.Application
-                        {
-                            Key = (ShortGuid) Guid.NewGuid(), 
-                            Name = "MarineteWeb"
-                        }
+                    App = new Application ("MarineteWeb", (ShortGuid) Guid.NewGuid())
                 };
 
                 session.Store(_token,_token.Value);
-                session.Store(new Error { AppName = "MarineteWeb", CreatedAt = DateTime.Now});
-                session.Store(new Error { AppName = "MarineteWeb", CreatedAt = DateTime.Now });
-                session.Store(new Error { AppName = "OtherApp", CreatedAt = DateTime.Now });
+                session.Store(new Error { AppName = "MarineteWeb" });
+                session.Store(new Error { AppName = "MarineteWeb" });
+                session.Store(new Error { AppName = "OtherApp" });
                 session.SaveChanges();
             }
         }
@@ -48,10 +36,7 @@ namespace Marinete.Web.Api.Tests
         {
             var browser = new Browser(Bootstrapper);
 
-            var response = browser.Get("/errors/MarineteWeb", (with) =>
-            {
-                with.HttpRequest();
-            });
+            var response = browser.Get("/errors/MarineteWeb", with => with.HttpRequest());
 
             Assert.That(response.StatusCode, 
                 Is.EqualTo(HttpStatusCode.OK));

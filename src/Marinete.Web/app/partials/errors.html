@@ -74,7 +74,7 @@
                         No errors
                     </div>
                     <div class="box-section news with-icons" ng-repeat="error in errors">
-                        <div class="avatar cyan">
+                        <div class="avatar red">
                             <i class="icon-minus icon-2x"></i>
                         </div>
                         <div class="news-time">
@@ -82,9 +82,9 @@
                             {{error.CreatedAt | normalizedate | date:'MMMM, dd'}}
                         </div>
                         <div class="news-content">
-                            <div class="news-title" ng-repeat="id in error.Ids">
+                            <div class="news-title" ng-repeat="id in error.Ids" ng-show="$first">
                                 <a href="#/{{name}}/{{id}}" class="pull-left">{{error.Message}}</a>
-                                <span class="badge badge-dark-red pull-left" style="margin-left: 5px;">{{error.Count}}</span>
+                                <span class="badge badge-dark-red pull-left" style="margin-left: 5px;">{{error.Ids.length}}</span>
                                 <span class="clean">&nbsp;</span>
                             </div>
                             <div class="news-text">

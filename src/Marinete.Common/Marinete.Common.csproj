@@ -47,12 +47,14 @@
     <Compile Include="Config\MarinetConfigSection.cs" />
     <Compile Include="Domain\Account.cs" />
     <Compile Include="Domain\Application.cs" />
+    <Compile Include="Domain\Comment.cs" />
     <Compile Include="Domain\Error.cs" />
     <Compile Include="Domain\Token.cs" />
     <Compile Include="Infra\ShortGuid.cs" />
     <Compile Include="Infra\UriExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
