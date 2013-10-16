@@ -69,7 +69,7 @@
                         <li><span class="label label-red">{{errors.length}}</span></li>
                     </ul>
                 </div>
-                <div style="max-height: 428px; overflow-y: auto" class="box-content scrollable" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+                <div style="overflow-y: auto" class="box-content scrollable" infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
                     <div ng-hide="errors.length" class="text-center" style="padding: 25px;">
                         No errors
                     </div>
@@ -83,7 +83,7 @@
                         </div>
                         <div class="news-content">
                             <div class="news-title" ng-repeat="id in error.Ids" ng-show="$first">
-                                <a href="#/{{name}}/{{id}}" class="pull-left">{{error.Message}}</a>
+                                <a ng-href="#/{{name}}/{{id}}" class="pull-left" title="{{error.Message}}">{{error.Message | truncate:80}}</a>
                                 <span class="badge badge-dark-red pull-left" style="margin-left: 5px;">{{error.Ids.length}}</span>
                                 <span class="clean">&nbsp;</span>
                             </div>

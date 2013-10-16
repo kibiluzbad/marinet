@@ -51,19 +51,16 @@ namespace Marinete.Web
 
             lock (SyncRoot)
             {
-                _store = new DocumentStore { ConnectionStringName = "ravenConn" };
-
-                var local = ConfigurationManager.AppSettings["ravendb.local"];
-                if ((local != null) && (Convert.ToBoolean(local)))
+#if DEBUG
+                _store = new EmbeddableDocumentStore
                 {
-                    _store = new EmbeddableDocumentStore
-                    {
-                        ConnectionStringName = "ravenConnLocal", 
-                        UseEmbeddedHttpServer = true
-                    };
-
-                    ((EmbeddableDocumentStore) _store).Configuration.Port = 6263;
-                }
+                    ConnectionStringName = "ravenConnLocal",
+                    UseEmbeddedHttpServer = true,
+                };
+                ((EmbeddableDocumentStore)_store).Configuration.Port = 6263;
+#else
+                _store = new DocumentStore { ConnectionStringName = "ravenConn" };
+#endif
 
                 _store.Initialize();
 
