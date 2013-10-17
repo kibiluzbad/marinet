@@ -74,17 +74,17 @@
                     <i class="icon-cogs icon-2x"></i>
                     <span>Applications<i class="icon-caret-down"></i></span>
                 </a>
-                <ul id="menu-applications" class="collapse ">
-                    <li class="">
-                        <a href="#">
-                            <i class="icon-cog"></i> Vazio
+                <ul id="menu-applications" class="collapse " ng-init="menu = []">
+                    <li class=""  ng-repeat="app in menu" >
+                        <a ng-href="#/{{app.Name}}/errors">
+                            <i class="icon-cog"></i> {{app.Name}}
                         </a>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
-    
+    <div ng-controller="MessageController">{{message}}</div>
     <div class="main-content" butterbar>
         <div style="padding: 10px;">Loading...</div>
     </div>
@@ -102,26 +102,26 @@
 
         $(document).ready(function () {
 
-            $.get('/account/apps', function (data) {
-                var $menu = $('#menu-applications');
+            //$.get('/account/apps', function (data) {
+            //    var $menu = $('#menu-applications');
                 
-                $menu.empty();
+            //    $menu.empty();
                 
-                _.each(data, function (app) {
-                    var label = app.Name;
-                    if (label.length > 28) {
-                        label = $.trim(app.Name).substring(0, 25) + ' ...';
-                    }
+            //    _.each(data, function (app) {
+            //        var label = app.Name;
+            //        if (label.length > 28) {
+            //            label = $.trim(app.Name).substring(0, 25) + ' ...';
+            //        }
 
-                    $menu.append(
-                        '<li>' +
-                            '<a href="#/' + app.Name + '/errors">' +
-                                '<i class="icon-cog"></i> ' + label +
-                            '</a>' +
-                        '</li>'
-                    );
-                });
-            });
+            //        $menu.append(
+            //            '<li>' +
+            //                '<a href="#/' + app.Name + '/errors">' +
+            //                    '<i class="icon-cog"></i> ' + label +
+            //                '</a>' +
+            //            '</li>'
+            //        );
+            //    });
+            //});
 
             $('#menu li a').click(function () {
                 $('#menu li').removeClass('active');

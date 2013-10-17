@@ -4,12 +4,18 @@
 
 window.app.controller("MessageController", ['$scope', function ($scope) {
     $scope.message = '';
-    $scope.$on('message', function (event, args) {
+    $scope.$root.$on('message', function (event, args) {
         console.log(args);
-        $scope.message = args;
+        //TODO: Alterar mensagem
+        //$scope.message = args;
         alert(args);
     });
 }]);
+
+window.app.controller('MenuController', ['$scope',
+     function ($scope) {
+         //TODO: Descobrir como eu uso o service aqui!
+    }]);
 
 window.app.controller('AppsController', ['$scope',
     '$exceptionHandler',
@@ -17,8 +23,10 @@ window.app.controller('AppsController', ['$scope',
     '$http',
     function ($scope, $exceptionHandler, apps, $http) {
         $scope.apps = apps;
+        $scope.$parent.menu = apps;
+        
         $scope.purge = function (appName) {
-            this.$emit('message','Teste');
+            $scope.$root.$emit('message', 'Teste');
             if (!confirm("Deseja realmente excluir todos os erros da app '" + appName + "'?")) return;
             
             $http.post("/account/" + appName + "/purge")
