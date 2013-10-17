@@ -51,13 +51,20 @@ window.app.controller('ErrorsController', ['$scope',
         $scope.key = $routeParams.appKey;
         $scope.query = "";
 
-        $scope.$watch('query', function(key) {
+        //$scope.$watch('query', function(key) {
+        //    alert(key);
+        //    $scope.errors = [];
+        //    $scope.page = 1;
+        //    $scope.canLoad = true;
+        //    $scope.nextPage();
+        //});
 
+        $scope.search = function () {
             $scope.errors = [];
             $scope.page = 1;
             $scope.canLoad = true;
             $scope.nextPage();
-        });
+        };
 
         $scope.nextPage = function() {
             if ($scope.busy || !$scope.canLoad) return;
