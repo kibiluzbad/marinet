@@ -23,13 +23,10 @@ namespace Marinete.Web.Indexes
             public string Message { get; set; }
             public string Exception { get; set; }
             public string AppName { get; set; }
-            public IEnumerable<string> CurrentUser { get; set; }
+            public string CurrentUser { get; set; }
             public DateTime CreatedAt { get; set; }
-            public int Count {
-                get { return CurrentUser.Distinct().Count(); }
-
-            }
-            public IEnumerable<string> Ids { get; set; }
+            public int Count { get; set; }
+            public int Id { get; set; }
         }
 
         public UniqueMessageIndex()
@@ -43,7 +40,9 @@ namespace Marinete.Web.Indexes
                                   AppName = doc.AppName,
                                   CreatedAt = doc.CreatedAt,
                                   CurrentUser = doc.CurrentUser,
-                                  Ids = doc.Id
+                                  Id = doc.Id,
+                                  Count = 1
+
                               };
             Reduce = results => from result in results
                                 orderby result.CreatedAt descending 
@@ -51,11 +50,12 @@ namespace Marinete.Web.Indexes
                                 select new
                                     {
                                         Message = g.Key,
-                                        CurrentUser = g.Select(x=>x.CurrentUser),
+                                        CurrentUser = g.First().CurrentUser,
                                         AppName = g.First().AppName,
                                         CreatedAt = g.First().CreatedAt,
                                         Exception = g.First().Exception,
-                                        Ids = g.Select(c=>c.Ids)
+                                        Id = g.First().Id,
+                                        Count = g.Sum(c=>c.Count)
                                     };
 
             Indexes.Add(x => x.Message, FieldIndexing.Analyzed);
