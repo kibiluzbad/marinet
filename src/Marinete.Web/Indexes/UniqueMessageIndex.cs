@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Marinete.Common.Domain;
+using Marinete.Web.Security;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
+using Raven.Database.Server.Responders;
 
 namespace Marinete.Web.Indexes
 {
@@ -13,6 +15,31 @@ namespace Marinete.Web.Indexes
         {
             Map = docs => from doc in docs
                           select new {doc.Id, doc.AppName, doc.CreatedAt};
+        }
+    }
+
+    public class MarinetUserByPasswordAndUserName : AbstractIndexCreationTask<MarinetUser>
+    {
+        public MarinetUserByPasswordAndUserName()
+        {
+            Map = docs => from doc in docs
+                select new
+                {
+                    doc.Password,
+                    doc.UserName
+                };
+        }
+    }
+
+    public class AccountByUsers : AbstractIndexCreationTask<Account>
+    {
+        public AccountByUsers()
+        {
+            Map = docs => from doc in docs
+                          select new
+                          {
+                              doc.Users
+                          };
         }
     }
 
@@ -26,7 +53,7 @@ namespace Marinete.Web.Indexes
             public string CurrentUser { get; set; }
             public DateTime CreatedAt { get; set; }
             public int Count { get; set; }
-            public int Id { get; set; }
+            public string Id { get; set; }
         }
 
         public UniqueMessageIndex()
