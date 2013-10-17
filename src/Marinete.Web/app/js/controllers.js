@@ -112,6 +112,7 @@ window.app.controller('NewAppController', ['$scope',
             var url = "/account/app";
             $http.post(url, { "Name": $scope.appName }).success(function(data, status, headers, config) {
                 if (200 == status) {
+                    $scope.$root.$emit('message', 'Aplicação criada com sucesso');
                     $location.path("/");
                 }
             });
