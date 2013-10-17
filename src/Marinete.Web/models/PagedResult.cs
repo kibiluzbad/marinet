@@ -36,4 +36,19 @@ namespace Marinete.Web.models
             Data = errors;
         }
     }
+
+    public class PagedResultsWithSugestions<TResult> : PagedResult<TResult>
+    {
+        public IEnumerable<string> Sugestions { get; protected set; }
+
+        public PagedResultsWithSugestions(IEnumerable<TResult> errors, 
+            int totalSize,
+            int currentPage, 
+            int pageSize,
+            IEnumerable<string> sugestions) 
+            : base(errors, totalSize, currentPage, pageSize)
+        {
+            Sugestions = sugestions;
+        }
+    }
 }

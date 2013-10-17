@@ -62,6 +62,12 @@
                 </a>
                 <input type="text" ng-model="query" placeholder="Search..." on-enter="search()">
             </div>
+            <div id="sugestions" ng-show="sugestions.length" style="background-color: #fff;border: 1px solid #333">
+                Voc&#234; quis dizer:
+                <ul >
+                        <li ng-repeat="sugestion in sugestions" style="display: inline"><a ng-click="setQuery(sugestion)" >{{sugestion}}</a></li>
+                    </ul>
+                </div>
             <div class="search-dropdown box">
                 <div class="box-header">
                     <span class="title">Errors</span>

@@ -66,6 +66,11 @@ window.app.controller('ErrorsController', ['$scope',
             $scope.nextPage();
         };
 
+        $scope.setQuery = function (query) {
+            $scope.query = query;
+            $scope.search();
+        };
+
         $scope.nextPage = function() {
             if ($scope.busy || !$scope.canLoad) return;
             $scope.busy = true;
@@ -73,8 +78,8 @@ window.app.controller('ErrorsController', ['$scope',
             var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page + '&r=' + Math.random() * 99999;
             if ($scope.query) urlErrors += "&query=" + $scope.query;
 
-            $http.get(urlErrors).
-                success(function(data, status, headers, config) {
+            $http.get(urlErrors)
+                .success(function(data, status, headers, config) {
                     if (200 == status) {
                         var items = data.Data;
                         for (var i = 0; i < items.length; i++) {
@@ -83,6 +88,7 @@ window.app.controller('ErrorsController', ['$scope',
                     }
                     var pageInfo = data;
                     var next = pageInfo.CurrentPage + 1;
+                    $scope.sugestions = pageInfo.Sugestions;
                     $scope.canLoad = pageInfo.TotalPages >= next;
                     $scope.page = pageInfo.TotalPages > next ? next : pageInfo.TotalPages;
                     $scope.total = pageInfo.TotalSize;

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Web.Indexes;
@@ -37,12 +39,17 @@ namespace Marinete.Web.modules
                     RavenQueryStatistics stats;
 
                     IEnumerable<UniqueMessageIndex.UniqueError> errors;
+                    IEnumerable<string> sugestions = new List<string>();
 
                     if (!string.IsNullOrWhiteSpace(term))
                     {
-                        errors = _documentSession
+                        var query = _documentSession
                             .Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>().Statistics(out stats)
-                            .Search(c => c.Exception, term, 10)
+                            .Search(c => c.Exception, term, 10);
+                        
+                        sugestions = query.Suggest().Suggestions.Where(c=> !c.Equals(term, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                        errors = query
                             .Search(c => c.AppName, appName, options: SearchOptions.And)
                             .OrderByDescending(c => c.CreatedAt)
                             .Skip((page - 1 > 0 ? page - 1 : 0)*size)
@@ -61,10 +68,11 @@ namespace Marinete.Web.modules
                     }
 
 
-                    return  Response.AsJson(new PagedResult<UniqueMessageIndex.UniqueError>(errors, 
+                    return Response.AsJson(new PagedResultsWithSugestions<UniqueMessageIndex.UniqueError>(errors, 
                         stats.TotalResults, 
                         page, 
-                        size));
+                        size, 
+                        sugestions));
                 };
 
             Get["/error/{id}"] = _ =>
