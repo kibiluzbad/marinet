@@ -70,6 +70,7 @@ window.app.controller('ErrorsController', ['$scope',
                     var next = pageInfo.CurrentPage + 1;
                     $scope.canLoad = pageInfo.TotalPages >= next;
                     $scope.page = pageInfo.TotalPages > next ? next : pageInfo.TotalPages;
+                    $scope.total = pageInfo.TotalSize;
                     $scope.busy = false;
                 });
         };
