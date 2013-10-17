@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Marinete.Web.models 
 {
@@ -39,7 +40,17 @@ namespace Marinete.Web.models
 
     public class PagedResultsWithSugestions<TResult> : PagedResult<TResult>
     {
-        public IEnumerable<string> Sugestions { get; protected set; }
+        private readonly IEnumerable<string> _sugestions;
+
+        public IEnumerable<string> Sugestions
+        {
+            get
+            {
+                return !Data.Any() 
+                    ? _sugestions 
+                    : new List<string>();
+            }
+        }
 
         public PagedResultsWithSugestions(IEnumerable<TResult> errors, 
             int totalSize,
@@ -48,7 +59,7 @@ namespace Marinete.Web.models
             IEnumerable<string> sugestions) 
             : base(errors, totalSize, currentPage, pageSize)
         {
-            Sugestions = sugestions;
+            _sugestions = sugestions;
         }
     }
 }
