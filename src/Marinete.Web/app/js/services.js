@@ -14,7 +14,12 @@ services.factory('MultiAccountLoader', ['Account',
 function (Account, $q) {
     return function () {
         var delay = $q.defer();
-        Account.query(function (accounts) {
+        Account.query(function (accounts, headers) {
+            if ("text/html" == headers()["content-type"]) {
+                window.location = "/";
+                delay.reject('Unable to fetch accounts');
+                return;
+            }
             delay.resolve(accounts);
         }, function () {
             delay.reject('Unable to fetch accounts');

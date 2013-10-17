@@ -102,27 +102,6 @@
 
         $(document).ready(function () {
 
-            //$.get('/account/apps', function (data) {
-            //    var $menu = $('#menu-applications');
-                
-            //    $menu.empty();
-                
-            //    _.each(data, function (app) {
-            //        var label = app.Name;
-            //        if (label.length > 28) {
-            //            label = $.trim(app.Name).substring(0, 25) + ' ...';
-            //        }
-
-            //        $menu.append(
-            //            '<li>' +
-            //                '<a href="#/' + app.Name + '/errors">' +
-            //                    '<i class="icon-cog"></i> ' + label +
-            //                '</a>' +
-            //            '</li>'
-            //        );
-            //    });
-            //});
-
             $('#menu li a').click(function () {
                 $('#menu li').removeClass('active');
                 $(this).closest('li').addClass('active');
