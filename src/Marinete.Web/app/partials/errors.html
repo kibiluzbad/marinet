@@ -82,9 +82,9 @@
                             {{error.CreatedAt | normalizedate | date:'MMMM, dd'}}
                         </div>
                         <div class="news-content">
-                            <div class="news-title" ng-repeat="id in error.Ids" ng-show="$first">
-                                <a ng-href="#/{{name}}/{{id}}" class="pull-left" title="{{error.Message}}">{{error.Message | truncate:80}}</a>
-                                <span class="badge badge-dark-red pull-left" style="margin-left: 5px;">{{error.Ids.length}}</span>
+                            <div class="news-title">
+                                <a ng-href="#/{{name}}/{{error.Id}}" class="pull-left" title="{{error.Message}}">{{error.Message | truncate:80}}</a>
+                                <span class="badge badge-dark-red pull-left" style="margin-left: 5px;">{{error.Count}}</span>
                                 <span class="clean">&nbsp;</span>
                             </div>
                             <div class="news-text">
