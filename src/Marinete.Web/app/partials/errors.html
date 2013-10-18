@@ -56,18 +56,35 @@
             </div>
         </div>
         <div class="col-md-10">
+            <div id="sugestions" ng-show="sugestions.length">
+                <div class="popover editable-container editable-popup fade top in" style="display: block; left: 15px; top: -90px;">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title">Did you meant to say?</h3>
+                    <div class="popover-content">
+                        <div class="editable-input">
+                            <div class="select2-container select2-container-multi input-large">
+                                <ul class="select2-choices" style="border: none;">
+                                    <li ng-repeat="sugestion in sugestions" class="select2-search-choice" style="margin: 4px; padding: 3px 5px;">
+                                        <a ng-click="setQuery(sugestion)">{{sugestion}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input type="hidden" class="input-large select2-offscreen" value="html,javascript" tabindex="-1">
+                        </div>
+                        <div class="editable-buttons">
+                            <button class="btn btn-default btn-sm editable-cancel" type="button">
+                                <i class="icon-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="input-group addon-left">
                 <a href="#" class="input-group-addon">
                     <i class="icon-search"></i>
                 </a>
                 <input type="text" ng-model="query" placeholder="Search..." on-enter="search()">
             </div>
-            <div id="sugestions" ng-show="sugestions.length" style="background-color: #fff;border: 1px solid #333">
-                Voc&#234; quis dizer:
-                <ul >
-                        <li ng-repeat="sugestion in sugestions" style="display: inline; padding:5px"><a ng-click="setQuery(sugestion)" >{{sugestion}}</a></li>
-                    </ul>
-                </div>
             <div class="search-dropdown box">
                 <div class="box-header">
                     <span class="title">Errors</span>
