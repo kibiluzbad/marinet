@@ -18,7 +18,7 @@
 <body>
     <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><img class="menu-avatar" src="img/marinet.png" /> marinet</a>
+            <a class="navbar-brand" href="/apps"><img class="menu-avatar" src="img/marinet.png" /> marinet</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
                 <span class="sr-only">Toggle Side Navigation</span>
                 <i class="icon-th-list"></i>
@@ -32,7 +32,7 @@
             <div class="navbar-right">
                 <ul class="nav navbar-nav navbar-left">
                     <li class="cdrop">
-                        <a href="#"><i class="icon-plus-sign"></i> Create New Application</a>
+                        <a href="/apps"><i class="icon-plus-sign"></i> Create New Application</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
@@ -63,7 +63,7 @@
         <ul id="menu" class="nav navbar-collapse collapse navbar-collapse-primary">
             <li class="active">
                 <span class="glow"></span>
-                <a href="#">
+                <a href="/apps">
                     <i class="icon-dashboard icon-2x"></i>
                     <span>Dashboard</span>
                 </a>
@@ -76,7 +76,7 @@
                 </a>
                 <ul id="menu-applications" class="collapse " ng-init="menu = []">
                     <li class=""  ng-repeat="app in menu" >
-                        <a ng-href="#/{{app.Name}}/errors">
+                        <a ng-href="/{{app.Name}}/errors">
                             <i class="icon-cog"></i> {{app.Name}}
                         </a>
                     </li>

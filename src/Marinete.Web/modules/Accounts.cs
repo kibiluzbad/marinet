@@ -18,6 +18,19 @@ namespace Marinete.Web.modules
             Get["/"] = _ => Context.CurrentUser.IsAuthenticated()
                 ? Response.AsRedirect("/app/index.html")
                 : Response.AsRedirect("/login");
+
+            Get["/apps"] = _ => Context.CurrentUser.IsAuthenticated()
+                ? Response.AsRedirect("/app/index.html")
+                : Response.AsRedirect("/login");
+
+            Get["/{appName}/errors"] = _ => Context.CurrentUser.IsAuthenticated()
+                ? Response.AsRedirect("/app/index.html")
+                : Response.AsRedirect("/login");
+
+            Get["/{appName}/errors/{id}"] = _ => Context.CurrentUser.IsAuthenticated()
+                ? Response.AsRedirect("/app/index.html")
+                : Response.AsRedirect("/login");
+            
         }
     }
 

@@ -8,10 +8,11 @@ window.app = angular.module('marinet', ['marinetFilters',
     'SharedServices',
     'marinet.directives',
     'infinite-scroll']).
-    config(['$routeProvider', function ($routeProvider) {
+    config(['$routeProvider','$locationProvider', function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
         $routeProvider.when('/apps',
             {
-                templateUrl: 'partials/apps.html',
+                templateUrl: '/app/partials/apps.html',
                 controller: 'AppsController',
                 resolve: {
                     apps: function(MultiAccountLoader) {
@@ -19,8 +20,8 @@ window.app = angular.module('marinet', ['marinetFilters',
                     }
                 }
             });
-        $routeProvider.when('/:appName/errors', { templateUrl: 'partials/errors.html', controller: 'ErrorsController' });
-        $routeProvider.when('/:appName/errors/:id', { templateUrl: 'partials/error.html', controller: 'ErrorController' });
+        $routeProvider.when('/:appName/errors', { templateUrl: '/app/partials/errors.html', controller: 'ErrorsController' });
+        $routeProvider.when('/:appName/errors/:id', { templateUrl: '/app/partials/error.html', controller: 'ErrorController' });
         $routeProvider.otherwise({ redirectTo: '/apps' });
     }]);
 
