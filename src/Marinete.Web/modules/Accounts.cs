@@ -11,6 +11,16 @@ using Nancy.Security;
 
 namespace Marinete.Web.modules
 {
+    public class Main : NancyModule
+    {
+        public Main()
+        {
+            Get["/"] = _ => Context.CurrentUser.IsAuthenticated()
+                ? Response.AsRedirect("/app/index.html")
+                : Response.AsRedirect("/login");
+        }
+    }
+
     public class Accounts : NancyModule
     {
         private readonly IDocumentSession _documentSession;
@@ -22,8 +32,6 @@ namespace Marinete.Web.modules
             _documentSession = documentSession;
 
             After += ctx => _documentSession.SaveChanges();
-
-            Get["/"] = _ => Response.AsRedirect("/app/index.html");
 
             Get["/account/apps"] = _ =>
                 {

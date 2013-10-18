@@ -30,6 +30,7 @@ namespace Marinete.Web
                 new FormsAuthenticationConfiguration()
                 {
                     RedirectUrl = "/login",
+                    DisableRedirect = true,
                     UserMapper = container.Resolve<IUserMapper>(),
                 };
 
