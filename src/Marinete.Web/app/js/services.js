@@ -5,9 +5,20 @@
 var services = angular.module('marinet.services', ['ngResource']);
 
 services.factory('Account', ['$resource',
-function ($resource) {    
-    return $resource('/account/apps?r='+Math.random() * 99999);
-} ]);
+    function ($resource) {
+        var d = new Date();
+        
+        return $resource('/account/apps',
+            {
+                cacheSlayer: d.getTime()
+            },
+            {
+                createApp: {
+                    method: 'POST'
+                }
+            });
+    }
+]);
 
 services.factory('MultiAccountLoader', ['Account',
     '$q',

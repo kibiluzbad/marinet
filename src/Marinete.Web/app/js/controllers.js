@@ -12,19 +12,19 @@ window.app.controller("MessageController", ['$scope', function ($scope) {
     });
 }]);
 
-window.app.controller('MenuController', ['$scope',
-     function ($scope) {
-         //TODO: Descobrir como eu uso o service aqui!
+window.app.controller('MainController', ['$scope',
+    'MultiAccountLoader',
+    function ($scope, MultiAccountLoader) {
+        $scope.apps = MultiAccountLoader();
+        $scope.$on('reload', function () {
+            $scope.apps = MultiAccountLoader();
+        });
     }]);
 
 window.app.controller('AppsController', ['$scope',
     '$exceptionHandler',
-    'apps',
     '$http',
     function ($scope, $exceptionHandler, apps, $http) {
-        $scope.apps = apps;
-        $scope.$parent.menu = apps;
-        
         $scope.purge = function (appName) {
             $scope.$root.$emit('message', 'Teste');
             if (!confirm("Deseja realmente excluir todos os erros da app '" + appName + "'?")) return;
@@ -34,7 +34,7 @@ window.app.controller('AppsController', ['$scope',
                     alert("Todos os erros da app '" + appName + "' foram excluidos!");
                 })
                 .error(function () {
-                    alert("N„o foi possivel excluir os erros da app '" + appName + "'!");
+                    alert("N√£o foi possivel excluir os erros da app '" + appName + "'!");
                 });
         };
     } ]);
@@ -50,14 +50,6 @@ window.app.controller('ErrorsController', ['$scope',
         $scope.name = $routeParams.appName;
         $scope.key = $routeParams.appKey;
         $scope.query = "";
-
-        //$scope.$watch('query', function(key) {
-        //    alert(key);
-        //    $scope.errors = [];
-        //    $scope.page = 1;
-        //    $scope.canLoad = true;
-        //    $scope.nextPage();
-        //});
 
         $scope.search = function () {
             $scope.errors = [];
@@ -105,7 +97,6 @@ window.app.controller('ErrorController', ['$scope',
         $scope.name = $routeParams.appName;
         $scope.id = $routeParams.id;
 
-
         var urlError = "/error/" + $scope.id + '?r=' + Math.random() * 99999;
         $http.get(urlError).
             success(function(data, status, headers, config) {
@@ -116,18 +107,16 @@ window.app.controller('ErrorController', ['$scope',
     }]);
 
 window.app.controller('NewAppController', ['$scope',
-    '$http',
-    '$location',
-    function($scope, $http, $location) {
+    'Account',
+    function($scope, Account) {
 
         $scope.appName = "";
-        $scope.saveApp = function() {
-            var url = "/account/app";
-            $http.post(url, { "Name": $scope.appName }).success(function(data, status, headers, config) {
-                if (200 == status) {
-                    $scope.$root.$emit('message', 'AplicaÁ„o criada com sucesso');
-                    $location.path("/");
-                }
+        $scope.saveApp = function () {
+            Account.createApp({ "Name": $scope.appName },function() {
+                $scope.$root.$emit('message', 'Aplica√ß√£o criada com sucesso');
+                $scope.$emit('reload');
+            }, function () {
+                $scope.$root.$emit('message', 'Erro ao criar a aplica√ß√£o');
             });
         };
     }]);

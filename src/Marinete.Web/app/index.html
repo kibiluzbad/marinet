@@ -15,7 +15,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </head>
-<body>
+<body ng-controller="MainController">
     <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand" href="/apps"><img class="menu-avatar" src="img/marinet.png" /> marinet</a>
@@ -74,8 +74,8 @@
                     <i class="icon-cogs icon-2x"></i>
                     <span>Applications<i class="icon-caret-down"></i></span>
                 </a>
-                <ul id="menu-applications" class="collapse " ng-init="menu = []">
-                    <li class=""  ng-repeat="app in menu" >
+                <ul id="menu-applications" class="collapse ">
+                    <li class=""  ng-repeat="app in apps" >
                         <a ng-href="/{{app.Name}}/errors">
                             <i class="icon-cog"></i> {{app.Name}}
                         </a>

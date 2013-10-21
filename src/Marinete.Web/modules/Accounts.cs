@@ -55,7 +55,7 @@ namespace Marinete.Web.modules
                     return Response.AsJson(account.Apps);
                 };
 
-            Post["/account/app"] = _ =>
+            Post["/account/apps"] = _ =>
                 {
                     var account = GetAccount();
 
