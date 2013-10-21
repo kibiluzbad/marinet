@@ -11,29 +11,6 @@ using Nancy.Security;
 
 namespace Marinete.Web.modules
 {
-    public class Main : NancyModule
-    {
-        public Main()
-        {
-            Get["/"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? (object)View["index"]
-                : Response.AsRedirect("/login");
-
-            Get["/apps"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? (object)View["index"]
-                : Response.AsRedirect("/login");
-
-            Get["/{appName}/errors"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? (object)View["index"]
-                : Response.AsRedirect("/login");
-
-            Get["/{appName}/errors/{id}"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? (object)View["index"]
-                : Response.AsRedirect("/login");
-            
-        }
-    }
-
     public class Accounts : NancyModule
     {
         private readonly IDocumentSession _documentSession;
