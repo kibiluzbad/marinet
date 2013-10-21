@@ -18,7 +18,7 @@
 <body ng-controller="MainController">
     <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/apps"><img class="menu-avatar" src="/app/imgmarinet.png" /> marinet</a>
+            <a class="navbar-brand" href="/apps"><img class="menu-avatar" src="/app/img/marinet.png" /> marinet</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">
                 <span class="sr-only">Toggle Side Navigation</span>
                 <i class="icon-th-list"></i>
@@ -77,14 +77,13 @@
                 <ul id="menu-applications" class="collapse ">
                     <li class=""  ng-repeat="app in apps" >
                         <a ng-href="/{{app.Name}}/errors">
-                            <i class="icon-cog"></i> {{app.Name}}
-                        </a>
+                            <i class="icon-cog"></i> <span ng-bind="app.Name"></span></a>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
-    <div ng-controller="MessageController">{{message}}</div>
+    <div ng-controller="MessageController"><span ng-bind="message"></span></div>
     <div class="main-content" butterbar>
         <div style="padding: 10px;">Loading...</div>
     </div>
