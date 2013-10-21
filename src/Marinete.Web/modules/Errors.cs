@@ -10,6 +10,7 @@ using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Security;
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace Marinete.Web.modules
 {
@@ -26,54 +27,24 @@ namespace Marinete.Web.modules
             After += ctx => _documentSession.SaveChanges();
 
             Get["/errors/{appName}"] = _ =>
+            {
+                var appName = (string) _.appName;
+                var term = (string) Request.Query["query"];
+
+                int page;
+                const int size = 10;
+
+                if (!int.TryParse(Request.Query["page"], out page))
+                    page = 1;
+
+                return Response.AsJson(new AppErrorsQuery(_documentSession)
                 {
-                    var appName = (string)_.appName;
-                    var term = (string)Request.Query["query"];
-
-                    int page;
-                    const int size = 10;
-
-                    if (!int.TryParse(Request.Query["page"], out page))
-                        page = 1;
-
-                    RavenQueryStatistics stats;
-
-                    IEnumerable<UniqueMessageIndex.UniqueError> errors;
-                    IEnumerable<string> sugestions = new List<string>();
-
-                    if (!string.IsNullOrWhiteSpace(term))
-                    {
-                        var query = _documentSession
-                            .Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>().Statistics(out stats)
-                            .Search(c => c.Exception, term, 10);
-                        
-                        sugestions = query.Suggest().Suggestions.Where(c=> !c.Equals(term, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                        errors = query
-                            .Search(c => c.AppName, appName, options: SearchOptions.And)
-                            .OrderByDescending(c => c.CreatedAt)
-                            .Skip((page - 1 > 0 ? page - 1 : 0)*size)
-                            .Take(size)
-                            .ToList();
-                    }
-                    else
-                    {
-                        errors = _documentSession
-                            .Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>().Statistics(out stats)
-                            .Search(c => c.AppName, appName)
-                            .OrderByDescending(c => c.CreatedAt)
-                            .Skip((page - 1 > 0 ? page - 1 : 0)*size)
-                            .Take(size)
-                            .ToList();
-                    }
-
-
-                    return Response.AsJson(new PagedResultsWithSugestions<UniqueMessageIndex.UniqueError>(errors, 
-                        stats.TotalResults, 
-                        page, 
-                        size, 
-                        sugestions));
-                };
+                    AppName = appName,
+                    Page = page,
+                    Size = size,
+                    Term = term
+                }.Execute());
+            };
 
             Get["/error/{id}"] = _ =>
                 {
@@ -117,5 +88,102 @@ namespace Marinete.Web.modules
 
             return user;
         }
+    }
+
+    public class AppErrorsQuery : RavendbPagedQueryWithSuggestions<UniqueMessageIndex.UniqueError>
+    {
+        public string AppName { get; set; }
+        
+        public AppErrorsQuery(IDocumentSession session) : base(session)
+        { }
+
+        protected override IRavenQueryable<UniqueMessageIndex.UniqueError> ApplyFilter(IRavenQueryable<UniqueMessageIndex.UniqueError> query)
+        {
+            return query
+                .Search(c => c.AppName, AppName, options: SearchOptions.And)
+                .OrderByDescending(c => c.CreatedAt);
+        }
+
+        protected override IRavenQueryable<UniqueMessageIndex.UniqueError> CreateQuery()
+        {
+            var query = Session.Query<UniqueMessageIndex.UniqueError, UniqueMessageIndex>();
+            if (!string.IsNullOrWhiteSpace(Term))
+               return query
+                    .Search(c => c.Exception, Term, 10);
+            return query;
+        }
+    }
+
+
+    public abstract class RavendbPagedQueryWithSuggestions<TResult>
+        : IQuery<PagedResultsWithSuggestions<TResult>>
+    {
+        protected IDocumentSession Session { get; set; }
+        protected IEnumerable<string> Suggestions;
+
+        public virtual int Page { get; set; }
+        public virtual int Size { get; set; }
+        public virtual string Term { get; set; }
+
+        protected RavendbPagedQueryWithSuggestions(IDocumentSession session)
+        {
+            Session = session;
+        }
+
+        public virtual PagedResultsWithSuggestions<TResult> Execute()
+        {
+            var query = GetQuery();
+
+            RavenQueryStatistics stats;
+
+            query.Statistics(out stats);
+
+            return new PagedResultsWithSuggestions<TResult>(query.Skip(SkipPages())
+                .Take(Size)
+                .ToList(),
+                stats.TotalResults,
+                Page,
+                Size,
+                Suggestions);
+        }
+
+        protected virtual IRavenQueryable<TResult> GetQuery()
+        {
+            IRavenQueryable<TResult> query = CreateQuery();
+            
+            LoadSuggestions(query);
+
+            query = ApplyFilter(query);
+
+            return query;
+        }
+
+        protected abstract IRavenQueryable<TResult> ApplyFilter(IRavenQueryable<TResult> query);
+
+        protected virtual void LoadSuggestions(IRavenQueryable<TResult> query)
+        {
+            if (string.IsNullOrWhiteSpace(Term)) return;
+            Suggestions =
+                query.Suggest().Suggestions.Where(c => !c.Equals(Term, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
+
+        protected abstract IRavenQueryable<TResult> CreateQuery();
+
+        protected virtual int SkipPages()
+        {
+            return GetPage() * Size;
+        }
+
+        protected virtual int GetPage()
+        {
+            return Page - 1 > 0 
+                ? Page - 1 
+                : 0;
+        }
+    }
+
+    public interface IQuery<out TResult>
+    {
+        TResult Execute();
     }
 }

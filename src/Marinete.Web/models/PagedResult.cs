@@ -38,7 +38,7 @@ namespace Marinete.Web.models
         }
     }
 
-    public class PagedResultsWithSugestions<TResult> : PagedResult<TResult>
+    public class PagedResultsWithSuggestions<TResult> : PagedResult<TResult>
     {
         private readonly IEnumerable<string> _sugestions;
 
@@ -52,7 +52,7 @@ namespace Marinete.Web.models
             }
         }
 
-        public PagedResultsWithSugestions(IEnumerable<TResult> errors, 
+        public PagedResultsWithSuggestions(IEnumerable<TResult> errors, 
             int totalSize,
             int currentPage, 
             int pageSize,

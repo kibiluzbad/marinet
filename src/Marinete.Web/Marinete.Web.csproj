@@ -212,6 +212,7 @@
     <Compile Include="modules\Applications.cs" />
     <Compile Include="modules\Login.cs" />
     <Compile Include="modules\Main.cs" />
+    <Compile Include="modules\PagedResultsWithSuggestions.cs" />
     <Compile Include="Security\MarinetUserMapper.cs" />
     <Compile Include="modules\Accounts.cs" />
     <Compile Include="Bootstrapper.cs" />
