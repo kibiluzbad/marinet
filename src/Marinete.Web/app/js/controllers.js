@@ -17,9 +17,12 @@ window.app.controller('MainController', ['$scope',
     function ($scope, MultiAccountLoader) {
         $scope.apps = MultiAccountLoader();
         $scope.showNewApp = false;
+
         $scope.$on('reload', function () {
             $scope.apps = MultiAccountLoader();
+            $scope.showNewApp = false;
         });
+        
         $scope.newApp = function() {
             $scope.showNewApp = true;
         };
