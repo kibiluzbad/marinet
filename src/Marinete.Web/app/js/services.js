@@ -7,14 +7,16 @@ var services = angular.module('marinet.services', ['ngResource']);
 services.factory('Account', ['$resource',
     function ($resource) {
         var d = new Date();
-        
-        return $resource('/account/apps',
-            {
-                cacheSlayer: d.getTime()
-            },
+
+        return $resource('/account/:route',
+        {
+            cacheSlayer: d.getTime(),
+            route: 'apps'
+    },
             {
                 createApp: {
-                    method: 'POST'
+                    method: 'POST',
+                    params: {route: 'app'}
                 }
             });
     }

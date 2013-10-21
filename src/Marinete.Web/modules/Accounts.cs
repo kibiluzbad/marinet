@@ -16,19 +16,19 @@ namespace Marinete.Web.modules
         public Main()
         {
             Get["/"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? Response.AsRedirect("/app/index.html")
+                ? (object)View["index"]
                 : Response.AsRedirect("/login");
 
             Get["/apps"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? Response.AsRedirect("/app/index.html")
+                ? (object)View["index"]
                 : Response.AsRedirect("/login");
 
             Get["/{appName}/errors"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? Response.AsRedirect("/app/index.html")
+                ? (object)View["index"]
                 : Response.AsRedirect("/login");
 
             Get["/{appName}/errors/{id}"] = _ => Context.CurrentUser.IsAuthenticated()
-                ? Response.AsRedirect("/app/index.html")
+                ? (object)View["index"]
                 : Response.AsRedirect("/login");
             
         }
@@ -55,7 +55,7 @@ namespace Marinete.Web.modules
                     return Response.AsJson(account.Apps);
                 };
 
-            Post["/account/apps"] = _ =>
+            Post["/account/app"] = _ =>
                 {
                     var account = GetAccount();
 
