@@ -16,9 +16,13 @@ window.app.controller('MainController', ['$scope',
     'MultiAccountLoader',
     function ($scope, MultiAccountLoader) {
         $scope.apps = MultiAccountLoader();
+        $scope.showNewApp = false;
         $scope.$on('reload', function () {
             $scope.apps = MultiAccountLoader();
         });
+        $scope.newApp = function() {
+            $scope.showNewApp = true;
+        };
     }]);
 
 window.app.controller('AppsController', ['$scope',
@@ -114,6 +118,7 @@ window.app.controller('NewAppController', ['$scope',
         $scope.saveApp = function () {
             Account.createApp({ "Name": $scope.appName },function() {
                 $scope.$root.$emit('message', 'Aplicação criada com sucesso');
+                $scope.appName = "";
                 $scope.$emit('reload');
             }, function () {
                 $scope.$root.$emit('message', 'Erro ao criar a aplicação');
