@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Marinete.Common.Domain;
 using Nancy;
 using Nancy.ModelBinding;
 using Raven.Client;
 
-namespace Marinete.Web.modules.Api
+namespace Marinete.Web.Modules.Api
 {
     public class Errors : NancyModule
     {

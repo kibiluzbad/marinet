@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Marinete.Web.models;
+using Marinete.Web.Models;
 using Marinete.Web.Security;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
 using Raven.Client;
 
-namespace Marinete.Web.modules
+namespace Marinete.Web.Modules
 {
     public class Login : NancyModule
     {

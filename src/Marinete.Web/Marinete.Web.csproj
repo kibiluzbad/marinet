@@ -204,25 +204,28 @@
   <ItemGroup>
     <Compile Include="Indexes\UniqueMessageIndex.cs" />
     <Compile Include="LoggingErrorHandler.cs" />
-    <Compile Include="models\AppCreateModel.cs" />
-    <Compile Include="models\CommentCreateModel.cs" />
-    <Compile Include="models\PagedResult.cs" />
-    <Compile Include="models\LoginModel.cs" />
-    <Compile Include="models\SignupModel.cs" />
-    <Compile Include="modules\Applications.cs" />
-    <Compile Include="modules\Login.cs" />
-    <Compile Include="modules\Main.cs" />
-    <Compile Include="modules\PagedResultsWithSuggestions.cs" />
+    <Compile Include="Models\AppCreateModel.cs" />
+    <Compile Include="Models\CommentCreateModel.cs" />
+    <Compile Include="Models\PagedResult.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PagedResultsWithSuggestions.cs" />
+    <Compile Include="Models\SignupModel.cs" />
+    <Compile Include="Queries\AppErrorsQuery.cs" />
+    <Compile Include="Modules\Applications.cs" />
+    <Compile Include="Queries\IQuery.cs" />
+    <Compile Include="Modules\Login.cs" />
+    <Compile Include="Modules\Main.cs" />
+    <Compile Include="Queries\RavendbPagedQueryWithSuggestions.cs" />
     <Compile Include="Security\MarinetUserMapper.cs" />
-    <Compile Include="modules\Accounts.cs" />
+    <Compile Include="Modules\Accounts.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="modules\Api\Accounts.cs" />
-    <Compile Include="modules\Api\Errors.cs" />
-    <Compile Include="modules\Errors.cs" />
-    <Compile Include="modules\Signup.cs" />
+    <Compile Include="Modules\Api\Accounts.cs" />
+    <Compile Include="Modules\Api\Errors.cs" />
+    <Compile Include="Modules\Errors.cs" />
+    <Compile Include="Modules\Signup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\MarinetUser.cs" />
   </ItemGroup>

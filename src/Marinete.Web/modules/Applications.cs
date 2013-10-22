@@ -4,7 +4,7 @@ using Marinete.Web.Security;
 using Nancy;
 using Raven.Client;
 
-namespace Marinete.Web.modules
+namespace Marinete.Web.Modules
 {
     public class Applications : NancyModule
     {

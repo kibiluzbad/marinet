@@ -1,4 +1,4 @@
-﻿namespace Marinete.Web.models
+﻿namespace Marinete.Web.Models
 {
     public class CommentCreateModel 
     {

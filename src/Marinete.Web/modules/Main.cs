@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Nancy.Security;
 
-namespace Marinete.Web.modules
+namespace Marinete.Web.Modules
 {
     public class Main : NancyModule
     {

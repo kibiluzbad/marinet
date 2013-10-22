@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using Marinete.Common.Domain;
+using Marinete.Web.Models;
 using Marinete.Web.Security;
-using Marinete.Web.models;
 using Nancy;
 using Nancy.ModelBinding;
+using Nancy.Security;
 using Raven.Abstractions.Data;
 using Raven.Client;
-using Nancy.Security;
 
-namespace Marinete.Web.modules
+namespace Marinete.Web.Modules
 {
     public class Accounts : NancyModule
     {
@@ -18,13 +18,14 @@ namespace Marinete.Web.modules
         public Accounts(IDocumentSession documentSession)
         {
             this.RequiresAuthentication();
-
+            
             _documentSession = documentSession;
 
             After += ctx => _documentSession.SaveChanges();
 
             Get["/account/apps"] = _ =>
                 {
+                    this.CreateNewCsrfToken();
                     var account = GetAccount();
 
                     if (null == account) return HttpStatusCode.NotFound;
@@ -34,6 +35,9 @@ namespace Marinete.Web.modules
 
             Post["/account/app"] = _ =>
                 {
+                    //TODO: Criar um validador Csrf compativel com Angular
+                    //this.ValidateCsrfToken();
+                                
                     var account = GetAccount();
 
                     if (null == account) return HttpStatusCode.NotFound;
@@ -47,6 +51,8 @@ namespace Marinete.Web.modules
 
             Post["/account/{appName}/purge"] = _ =>
                 {
+                    this.ValidateCsrfToken();
+
                     string appName = _.appName;
 
                     var indexQuery = new IndexQuery

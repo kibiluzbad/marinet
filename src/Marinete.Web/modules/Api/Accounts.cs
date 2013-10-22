@@ -5,7 +5,7 @@ using Marinete.Common.Infra;
 using Nancy;
 using Raven.Client;
 
-namespace Marinete.Web.modules.Api
+namespace Marinete.Web.Modules.Api
 {
     public class Accounts : NancyModule
     {

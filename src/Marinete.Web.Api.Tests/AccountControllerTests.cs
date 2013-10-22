@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Marinete.Common.Domain;
 using Marinete.Common.Infra;
-using Marinete.Web.modules.Api;
 using NUnit.Framework;
 
 namespace Marinete.Web.Api.Tests
