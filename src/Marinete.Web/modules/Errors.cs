@@ -76,6 +76,17 @@ namespace Marinete.Web.Modules
 
                     return HttpStatusCode.OK;
                 };
+
+            Put["/error/{id}"] = _ =>
+                {
+                    var id = (string)_.id;
+                    var error = _documentSession.Load<Error>("errors/" + id);
+                    if (null == error) return HttpStatusCode.NotFound;
+
+                    error.Solve();
+
+                    return HttpStatusCode.OK;
+                };
         }
 
         private MarinetUser GetUser() {

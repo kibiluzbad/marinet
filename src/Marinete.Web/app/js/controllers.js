@@ -111,6 +111,10 @@ window.app.controller('ErrorController', ['$scope',
                     $scope.error = data;
                 }
             });
+
+        $scope.solve = function () {
+            $http.put('/error/' + $scope.id + '?r=' + Math.random() * 99999);
+        };
     }]);
 
 window.app.controller('NewAppController', ['$scope',

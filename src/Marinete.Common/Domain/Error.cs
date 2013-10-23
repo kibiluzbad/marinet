@@ -16,18 +16,25 @@ namespace Marinete.Common.Domain
         public string ServicePack { get; set; }
         public string CurrentUser { get; set; }
         public DateTime CreatedAt { get; private set; }
+        public bool Solved { get; set; }
         public ICollection<Comment> Comments { get; private set; }
 
         public Error()
         {
             Comments = new Collection<Comment>();
             CreatedAt = DateTime.Now;
+            Solved = false;
         }
 
         public void AddComment(string message, Guid userId)
         {
             var comment = new Comment(message, userId);
             Comments.Add(comment);
+        }
+
+        public void Solve()
+        {
+            Solved = !Solved;
         }
     }
 }

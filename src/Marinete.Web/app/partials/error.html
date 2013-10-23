@@ -19,7 +19,7 @@
                 <a href="#/{{name}}/errors" class="breadcrumb-label"><i class="icon-cog"></i> {{name | truncate:25}}</a>
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
-            <div class="breadcrumb-button" button-check>
+            <div class="breadcrumb-button">
                 <span class="breadcrumb-label"><i class="icon-minus-sign"></i> {{error.Message | truncate:25}}</span>
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
@@ -35,26 +35,7 @@
                     <span class="text-error">Unresolved</span>
                 </li>
                 <li>
-                    <div class="ibutton-container" style="width: 69px;">
-                        <input type="checkbox" checked="checked">
-                        <div class="ibutton-handle" style="width: 30px; left: 0px;">
-                            <div class="ibutton-handle-right">
-                                <div class="ibutton-handle-middle"></div>
-                            </div>
-                        </div>
-                        <div class="ibutton-label-off" style="width: 64px;">
-                            <span style="margin-right: 0px;">
-                                <label><i class="icon-remove"></i></label>
-                            </span>
-                        </div>
-                        <div class="ibutton-label-on" style="width: 4px;">
-                            <span style="margin-left: -34px;">
-                                <label><i class="icon-ok"></i></label>
-                            </span>
-                        </div>
-                        <div class="ibutton-padding-left"></div>
-                        <div class="ibutton-padding-right"></div>
-                    </div>
+                    <input type="checkbox" ng-model="solved" ng-controller="ErrorController" ng-change="solve()" button-check />
                 </li>
             </ul>
         </div>

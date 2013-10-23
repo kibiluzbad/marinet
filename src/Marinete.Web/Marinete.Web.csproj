@@ -148,6 +148,10 @@
     <Content Include="app\img\glyphicons-halflings-white.png" />
     <Content Include="app\img\glyphicons-halflings.png" />
     <Content Include="app\img\marinet.png" />
+    <Content Include="app\lib\jquery.ibutton\jquery.easing.1.3.js" />
+    <Content Include="app\lib\jquery.ibutton\jquery.ibutton.js" />
+    <Content Include="app\lib\jquery.ibutton\jquery.ibutton.min.js" />
+    <Content Include="app\lib\jquery.ibutton\jquery.metadata.js" />
     <Content Include="views\index.html" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\controllers.js" />
