@@ -42,3 +42,12 @@ directives.directive('onEnter', function () {
         });
     };
 });
+
+directives.directive('buttonCheck',
+function () {
+    return {
+        link: function (scope, element, attrs) {
+            alert('Teste');
+        }
+    };
+});
