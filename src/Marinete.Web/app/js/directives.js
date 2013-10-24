@@ -43,23 +43,14 @@ directives.directive('onEnter', function () {
     };
 });
 
-directives.directive('buttonCheck',
-function () {
-    return {
-        link: function (scope, element, attrs) {
-            return $(element).iButton({
-                labelOn: "<i class='icon-ok'></i>",
-                labelOff: "<i class='icon-remove'></i>",
-                change: function ($input) {
-                    var checked = $input.attr('checked');
-                    if (!checked) {
-                        $input.attr('checked', 'checked');
-                    } else {
-                        $input.removeAttr('checked');
-                    }
-                    
-                }
-            });
-        }
-    };
-});
+//directives.directive('buttonCheck',
+//function () {
+//    return {
+//        link: function (scope, element, attrs) {
+//            return $(element).iButton({
+//                labelOn: "<i class='icon-ok'></i>",
+//                labelOff: "<i class='icon-remove'></i>"
+//            });
+//        }
+//    };
+//});

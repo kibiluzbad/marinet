@@ -58,7 +58,8 @@ namespace Marinete.Web.Modules
                             error.ServicePack,
                             error.AppName,
                             error.CreatedAt,
-                            error.CurrentUser
+                            error.CurrentUser,
+                            error.Solved
                         });
                 };
 

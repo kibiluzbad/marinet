@@ -56,9 +56,9 @@ namespace Marinete.Web
                 _store = new EmbeddableDocumentStore
                 {
                     ConnectionStringName = "ravenConnLocal",
-                    //UseEmbeddedHttpServer = true,
+                    UseEmbeddedHttpServer = true,
                 };
-                //((EmbeddableDocumentStore)_store).Configuration.Port = 6263;
+                ((EmbeddableDocumentStore)_store).Configuration.Port = 6263;
 #else
                 _store = new DocumentStore { ConnectionStringName = "ravenConn" };
 #endif

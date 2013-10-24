@@ -32,10 +32,11 @@
             <span class="title text-error">Error</span>
             <ul class="box-toolbar">
                 <li>
-                    <span class="text-error">Unresolved</span>
+                    <span ng-class="{show: !error.Solved}" class="text-error hide">Unsolved</span>
+                    <span ng-class="{show: error.Solved}" class="text-success hide">Solved</span>
                 </li>
                 <li>
-                    <input type="checkbox" ng-model="solved" ng-controller="ErrorController" ng-change="solve()" button-check />
+                    <input type="checkbox" ng-model="error.Solved" ng-click="solve()" />
                 </li>
             </ul>
         </div>
