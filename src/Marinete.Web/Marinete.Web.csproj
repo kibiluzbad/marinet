@@ -141,6 +141,7 @@
     <Content Include="app\css\bootstrap-responsive.min.css" />
     <Content Include="app\css\bootstrap.css" />
     <Content Include="app\css\bootstrap.min.css" />
+    <Content Include="app\css\jquery.ibutton.css" />
     <Content Include="app\css\style.css" />
     <Content Include="app\img\avatars\user.png" />
     <Content Include="app\img\bg.png" />
@@ -148,6 +149,7 @@
     <Content Include="app\img\glyphicons-halflings-white.png" />
     <Content Include="app\img\glyphicons-halflings.png" />
     <Content Include="app\img\marinet.png" />
+    <Content Include="app\lib\jquery.ibutton\jquery.browser.js" />
     <Content Include="app\lib\jquery.ibutton\jquery.easing.1.3.js" />
     <Content Include="app\lib\jquery.ibutton\jquery.ibutton.js" />
     <Content Include="app\lib\jquery.ibutton\jquery.ibutton.min.js" />

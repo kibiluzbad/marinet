@@ -43,14 +43,11 @@ directives.directive('onEnter', function () {
     };
 });
 
-//directives.directive('buttonCheck',
-//function () {
-//    return {
-//        link: function (scope, element, attrs) {
-//            return $(element).iButton({
-//                labelOn: "<i class='icon-ok'></i>",
-//                labelOff: "<i class='icon-remove'></i>"
-//            });
-//        }
-//    };
-//});
+directives.directive('buttonCheck',
+function () {
+    return {
+        link: function (scope, element, attrs) {
+            return $(element).iButton();
+        }
+    };
+});
