@@ -39,27 +39,12 @@
                     <input type="checkbox" ng-model="error.Solved" ng-click="solve()" />
                 </li>
                 <li>
-                    <div class="ibutton-container" style="width: 70px;">
-                        <input type="checkbox" checked="checked" class="iButton-icons-tab">
-                        <div class="ibutton-handle" style="width: 30px; left: 35px;">
-                            <div class="ibutton-handle-right">
-                                <div class="ibutton-handle-middle"></div>
-                            </div>
-                        </div>
-                        <div class="ibutton-label-off" style="width: 65px;">
-                            <span style="margin-right: -35px;">
-                                <label><i class="icon-remove"></i></label>
-                            </span>
-                        </div>
-                        <div class="ibutton-label-on" style="width: 39px;">
-                            <span style="margin-left: 0px;">
-                                <label>
-                                    <i class="icon-ok"></i>
-                                </label>
-                            </span>
-                        </div>
-                        <div class="ibutton-padding-left"></div>
-                        <div class="ibutton-padding-right"></div>
+                    <div class="onoffswitch" ng-click="solve()">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="error.Solved">
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
                     </div>
                 </li>
             </ul>
