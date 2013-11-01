@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Marinete.Common.Domain;
+using Marinete.Web.Indexes;
 using Marinete.Web.Models;
 using Marinete.Web.Queries;
 using Marinete.Web.Security;
@@ -42,11 +43,15 @@ namespace Marinete.Web.Modules
                 }.Execute());
             };
 
-            Get["/error/{id}"] = _ =>
+            Get["/error/{slug}"] = _ =>
                 {
-                    var id = (string) _.id;
+                    var slug = (string) _.slug;
 
-                    var error = _documentSession.Load<Error>("errors/" + id);
+                    var error = _documentSession
+                        .Query<ErrorsGroupBySlugAndUser.ErrorGroupedBySlugAndUser, ErrorsGroupBySlugAndUser>()
+                        .Search(c => c.Slug, slug)
+                        .Take(1)
+                        .Single();
 
                     return Response.AsJson(new
                         {

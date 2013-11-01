@@ -102,9 +102,9 @@ window.app.controller('ErrorController', ['$scope',
     function($scope, $routeParams, $http) {
 
         $scope.name = $routeParams.appName;
-        $scope.id = $routeParams.id;
+        $scope.slug = $routeParams.slug;
 
-        var urlError = "/error/" + $scope.id + '?r=' + Math.random() * 99999;
+        var urlError = "/error/" + $scope.slug + '?r=' + Math.random() * 99999;
         $http.get(urlError)
              .success(function(data, status, headers, config) {
                 if (200 == status) {

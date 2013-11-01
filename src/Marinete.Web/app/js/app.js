@@ -21,7 +21,7 @@ window.app = angular.module('marinet', ['marinetFilters',
                 }
             });
         $routeProvider.when('/:appName/errors', { templateUrl: '/app/partials/errors.html', controller: 'ErrorsController' });
-        $routeProvider.when('/:appName/errors/:id', { templateUrl: '/app/partials/error.html', controller: 'ErrorController' });
+        $routeProvider.when('/:appName/errors/:slug', { templateUrl: '/app/partials/error.html', controller: 'ErrorController' });
         $routeProvider.otherwise({ redirectTo: '/apps' });
     }]);
 

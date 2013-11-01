@@ -10,6 +10,7 @@ namespace Marinete.Common.Domain
         public string AppName { get; set; }
         public string OsVersion { get; set; }
         public string Message { get; set; }
+        public string Slug { get; set; }
         public int Processors { get; set; }
         public string Exception { get; set; }
         public string Platform { get; set; }

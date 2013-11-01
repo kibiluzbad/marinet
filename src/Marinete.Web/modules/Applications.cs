@@ -2,6 +2,7 @@
 using Marinete.Common.Domain;
 using Marinete.Web.Security;
 using Nancy;
+using Raven.Abstractions.Data;
 using Raven.Client;
 
 namespace Marinete.Web.Modules
@@ -38,6 +39,48 @@ namespace Marinete.Web.Modules
 
                     return Response.AsRedirect("/login");
                 };
+
+            Get["/slugs"] = _ =>
+            {
+                _documentSession.Advanced.DocumentStore.DatabaseCommands.UpdateByIndex(
+                    "Raven/DocumentsByEntityName",
+                    new IndexQuery {Query = "Tag:Errors"},
+                    new ScriptedPatchRequest()
+                    {
+                        Script = @"
+                        this.Slug = this.Message.toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');"
+                    }
+                    );
+                return "Slugified";
+            };
+
+            Get["/slugs-reduce"] = _ =>
+            {
+                _documentSession.Advanced.DocumentStore.DatabaseCommands.UpdateByIndex(
+                    "Raven/DocumentsByEntityName",
+                    new IndexQuery { Query = "Tag:Errors" },
+                    new ScriptedPatchRequest()
+                    {
+                        Script = @"
+                        this.Slug = this.Slug.substring(0, this.Slug.length <= 45 ? this.Slug.length : 45);"
+                    }
+                    );
+                return "Reduced";
+            };
+
+            Get["/unsolve-all"] = _ =>
+            {
+                _documentSession.Advanced.DocumentStore.DatabaseCommands.UpdateByIndex(
+                    "Raven/DocumentsByEntityName",
+                    new IndexQuery { Query = "Tag:Errors" },
+                    new ScriptedPatchRequest()
+                    {
+                        Script = @"
+                        this.Solved = false;"
+                    }
+                    );
+                return "Unsolved all";
+            };
         }
     }
 }

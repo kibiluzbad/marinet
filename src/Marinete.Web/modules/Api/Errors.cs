@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Marinete.Common.Domain;
+using Marinete.Web.Infra;
 using Nancy;
 using Nancy.ModelBinding;
 using Raven.Client;
@@ -32,6 +33,7 @@ namespace Marinete.Web.Modules.Api
                         return HttpStatusCode.Unauthorized;
 
                     error.AppName = token.App.Name;
+                    error.Slug = error.Message.Slugify();
 
                     _documentSession.Store(error);
 

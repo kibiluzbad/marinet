@@ -15,7 +15,7 @@ namespace Marinete.Web.Modules
 
             Get["/{appName}/errors"] = _ => View["index"];
 
-            Get["/{appName}/errors/{id}"] = _ => View["index"];
+            Get["/{appName}/errors/{slug}"] = _ => View["index"];
             
         }
     }
