@@ -7,6 +7,7 @@ using Marinete.Web.Security;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Security;
+using Raven.Abstractions.Data;
 using Raven.Client;
 
 namespace Marinete.Web.Modules
@@ -83,13 +84,17 @@ namespace Marinete.Web.Modules
                     return HttpStatusCode.OK;
                 };
 
-            Put["/error/{id}"] = _ =>
+            Put["/error/{slug}"] = _ =>
                 {
-                    var id = (string)_.id;
-                    var error = _documentSession.Load<Error>("errors/" + id);
-                    if (null == error) return HttpStatusCode.NotFound;
-
-                    error.Solve();
+                    var slug = (string)_.slug;
+                    _documentSession.Advanced.DocumentStore.DatabaseCommands.UpdateByIndex(
+                        "ErrorsBySlug",
+                        new IndexQuery { Query = "Slug:" + slug },
+                        new ScriptedPatchRequest 
+                        {
+                            Script = @"this.Solved = true;"
+                        }
+                    );  
 
                     return HttpStatusCode.OK;
                 };

@@ -214,6 +214,7 @@
   <ItemGroup>
     <Compile Include="Indexes\AccountByUsers.cs" />
     <Compile Include="Indexes\ErrorsByIdAndAppName.cs" />
+    <Compile Include="Indexes\ErrorsBySlug.cs" />
     <Compile Include="Indexes\MarinetUserByPasswordAndUserName.cs" />
     <Compile Include="Indexes\UniqueMessageIndex.cs" />
     <Compile Include="Infra\StringExtensions.cs" />
