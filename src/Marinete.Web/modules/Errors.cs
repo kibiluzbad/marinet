@@ -35,13 +35,17 @@ namespace Marinete.Web.Modules
                 if (!int.TryParse(Request.Query["page"], out page))
                     page = 1;
 
-                return Response.AsJson(new AppErrorsQuery(_documentSession)
+                var query = new AppErrorsQuery(_documentSession)
                 {
                     AppName = appName,
                     Page = page,
                     Size = size,
                     Term = term
-                }.Execute());
+                };
+
+                var data = query.Execute();
+
+                return Response.AsJson(data);
             };
 
             Get["/error/{slug}"] = _ =>
@@ -87,12 +91,23 @@ namespace Marinete.Web.Modules
             Put["/error/{slug}"] = _ =>
                 {
                     var slug = (string)_.slug;
+
+                    var error = _documentSession
+                        .Query<ErrorsGroupBySlugAndUser.ErrorGroupedBySlugAndUser, ErrorsGroupBySlugAndUser>()
+                        .Search(c => c.Slug, slug)
+                        .Take(1)
+                        .Single();
+
+                    if (null == error) return HttpStatusCode.NotFound;
+
+                    var solved = (!error.Solved).ToString().ToLower();
+
                     _documentSession.Advanced.DocumentStore.DatabaseCommands.UpdateByIndex(
                         "ErrorsBySlug",
-                        new IndexQuery { Query = "Slug:" + slug },
+                        new IndexQuery { Query = string.Format("Slug:{0}", error.Slug) },
                         new ScriptedPatchRequest 
                         {
-                            Script = @"this.Solved = true;"
+                            Script = string.Format(@"this.Solved = {0};", solved)
                         }
                     );  
 

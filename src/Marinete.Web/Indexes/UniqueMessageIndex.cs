@@ -91,6 +91,7 @@ namespace Marinete.Web.Indexes
             public DateTime CreatedAt { get; set; }
             public int Count { get; set; }
             public string Id { get; set; }
+            public bool Solved { get; set; }
         }
 
         public UniqueMessageIndex()
@@ -106,6 +107,7 @@ namespace Marinete.Web.Indexes
                                   CurrentUser = doc.CurrentUser,
                                   Slug = doc.Slug,
                                   Id = doc.Id,
+                                  Solved = doc.Solved,
                                   Count = 1
 
                               };
@@ -121,6 +123,7 @@ namespace Marinete.Web.Indexes
                                         Exception = g.First().Exception,
                                         Slug = g.First().Slug,
                                         Id = g.First().Id,
+                                        Solved = g.First().Solved,
                                         Count = g.Sum(c=>c.Count)
                                     };
 

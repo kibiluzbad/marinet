@@ -32,8 +32,8 @@
             <span class="title text-error">Error</span>
             <ul class="box-toolbar">
                 <li>
-                    <div class="onoffswitch" ng-click="solve()">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="error.Solved">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" ng-change="solve()" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="error.Solved">
                         <label class="onoffswitch-label" for="myonoffswitch">
                             <div class="onoffswitch-inner"></div>
                             <div class="onoffswitch-switch"></div>
