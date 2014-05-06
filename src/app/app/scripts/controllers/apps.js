@@ -3,14 +3,14 @@
 angular.module('marinetApp')
   .controller('AppsCtrl', function ($scope) {
      $scope.$root.apps = [{Name: 'App1', Key: 'key1'},{Name: 'App2', Key: 'key2'},{Name: 'App3', Key: 'key3'}];
-        $scope.showNewApp = false;
+        $scope.$root.showNewApp = false;
 
         $scope.$on('reload', function () {            
-            $scope.showNewApp = false;
+            $scope.$root.showNewApp = false;
         });
 
-        $scope.newApp = function() {
-            $scope.showNewApp = true;
+        $scope.$root.newApp = function() {
+            $scope.$root.showNewApp = true;
         };
       
         $scope.purge = function (appName) {

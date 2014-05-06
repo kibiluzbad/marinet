@@ -1,1 +1,181 @@
-<p>This is the error view.</p>
+<div class="container">
+    <div class="row">
+        <div class="area-top clearfix">
+            <div class="pull-left header">
+                <h3 class="title"><i class="icon-minus-sign"></i>{{error.Message | truncate:25}}</h3>
+                <h5><span>A subtitle can go here</span></h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container padded">
+    <div class="row">
+        <div id="breadcrumbs">
+            <div class="breadcrumb-button blue">
+                <a href="#" class="breadcrumb-label"><i class="icon-dashboard"></i> Dashboard</a>
+                <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <a href="#/{{name}}/errors" class="breadcrumb-label"><i class="icon-cog"></i> {{name | truncate:25}}</a>
+                <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label"><i class="icon-minus-sign"></i> {{error.Message | truncate:25}}</span>
+                <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="box">
+        <div class="box-header">
+            <span class="title text-error">Error</span>
+            <ul class="box-toolbar">
+                <li>
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" ng-change="solve()" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="error.Solved">
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="box-content padded">
+            <table style="clear: both" class="table table-bordered table-striped responsive">
+                <tbody>
+                    <tr>
+                        <td width="20%">User</td>
+                        <td width="80%">{{error.CurrentUser}}</td>
+                    </tr>
+                    <tr>
+                        <td>OS</td>
+                        <td>{{error.OsVersion}}</td>
+                    </tr>
+                    <tr>
+                        <td>Plataform</td>
+                        <td>{{error.Platform}}</td>
+                    </tr>
+                    <tr>
+                        <td>Service Pack</td>
+                        <td>{{error.ServicePack}}</td>
+                    </tr>
+                    <tr>
+                        <td>Processors</td>
+                        <td>{{error.Processors}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date/Time
+                        </td>
+                        <td>{{error.CreatedAt | normalizedate | date:'MMMM, dd yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Message
+                        </td>
+                        <td>
+                            <span class="text-error">{{error.Message}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Stack Trace</td>
+                    </tr>
+                    <tr>
+                        <td class="stacktrace" colspan="2">
+                            <pre>{{ error.Exception }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">More Errors</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" class="text-center">
+                                        12:40<br />October, 16
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-center">
+                                        12:40<br />October, 16
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-center">
+                                        12:40<br />October, 16
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-center">
+                                        12:40<br />October, 16
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-center">
+                                        12:40<br />October, 16
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-center">
+                                        12:40<br />October, 16
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <div class="title">Solutions</div>
+        </div>
+        <div class="box-content">
+            <ul class="chat-box">
+                <ul class="chat-box">
+                    <li class="arrow-box-left">
+                        <div class="avatar">
+                            <i class="icon-user icon-3x"></i>
+                        </div>
+                        <div class="info">
+                            <span class="name"><strong>Michael</strong> <span class="badge badge-blue">designer</span></span>
+                            <span class="time">8 minutes ago</span>
+                        </div>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </li>
+                    <li class="divider"></li>
+                    <li class="arrow-box-right gray">
+                        <div class="avatar">
+                            <i class="icon-user icon-3x"></i>
+                        </div>
+                        <div class="info">
+                            <span class="name"><strong>Alex</strong> <span class="badge badge-gray">developer</span></span>
+                            <span class="time">3 minutes ago</span>
+                        </div>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <p class="note text-center">Last message received at 14:55</p>
+        <hr class="divider">
+        <div class="box-footer flat padded">
+            <form>
+                <div class="input-group addon-right">
+                    <input type="text" placeholder="Standard bootstrap append input here">
+                    <ul class="input-group-addon">
+                        <li>
+                            <a href="#"><i class="icon-paper-clip"></i></a>
+                        </li>
+                        <li>
+                            <button class="btn btn-blue">Send</button>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

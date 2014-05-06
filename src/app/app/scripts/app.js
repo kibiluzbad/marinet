@@ -17,7 +17,7 @@ angular
         templateUrl: 'views/errors.html',
         controller: 'ErrorsCtrl'
       })
-      .when('/error', {
+      .when('/:appName/errors/:slug', {
         templateUrl: 'views/error.html',
         controller: 'ErrorCtrl'
       })

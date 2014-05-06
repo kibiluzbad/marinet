@@ -78,7 +78,7 @@
         <ul id="menu" class="nav navbar-collapse collapse navbar-collapse-primary">
             <li class="active">
                 <span class="glow"></span>
-                <a href="/apps">
+                <a href="#/apps">
                     <i class="icon-dashboard icon-2x"></i>
                     <span>Dashboard</span>
                 </a>
@@ -91,7 +91,7 @@
                 </a>
                 <ul id="menu-applications" class="collapse ">
                     <li class=""  ng-repeat="app in apps" >
-                        <a ng-href="/{{app.Name}}/errors">
+                        <a ng-href="#/{{app.Name}}/errors">
                             <i class="icon-cog"></i> <span ng-bind="app.Name"></span></a>
                     </li>
                 </ul>

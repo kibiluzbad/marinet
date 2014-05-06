@@ -2,7 +2,7 @@
 
 angular.module('marinetApp')
   .controller('ErrorsCtrl', function ($scope, $routeParams, $http) {
-        $scope.errors = [];
+        $scope.errors = [{Solved:true, Slug: 'error1_message', Message:'Erro1 message', Exception: 'Stack trace', CreatedAt: '01/01/2014', Count: 1}];
         $scope.busy = false;
         $scope.page = 1;
         $scope.canLoad = true;
