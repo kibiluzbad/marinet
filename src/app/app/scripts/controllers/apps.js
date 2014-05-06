@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-  .controller('AppsCtrl', function ($scope) {
-     $scope.$root.apps = [{Name: 'App1', Key: 'key1'},{Name: 'App2', Key: 'key2'},{Name: 'App3', Key: 'key3'}];
+  .controller('AppsCtrl', function ($scope, Apps) {
+     $scope.$root.apps = Apps.find();
         $scope.$root.showNewApp = false;
 
         $scope.$on('reload', function () {            
@@ -14,15 +14,15 @@ angular.module('marinetApp')
         };
       
         $scope.purge = function (appName) {
-            $scope.$root.$emit('message', 'Teste');
-            if (!confirm("Deseja realmente excluir todos os erros da app '" + appName + "'?")) return;
             
-            $http.post("/account/" + appName + "/purge")
+            if (!confirm('Deseja realmente excluir todos os erros da app \'' + appName + '\'?')) return;
+            
+            Apps.purge(appName)
                 .success(function () {
-                    alert("Todos os erros da app '" + appName + "' foram excluidos!");
+                    alert('Todos os erros da app \'' + appName + '\' foram excluidos!');
                 })
                 .error(function () {
-                    alert("Não foi possivel excluir os erros da app '" + appName + "'!");
+                    alert('Não foi possivel excluir os erros da app \'' + appName + '\'!');
                 });
         };
   });

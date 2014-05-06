@@ -17,15 +17,16 @@ namespace Marinete.Web.Modules
 
         public Accounts(IDocumentSession documentSession)
         {
-            this.RequiresAuthentication();
-            
+            //this.RequiresAuthentication();
+            this.EnableCors();
+
             _documentSession = documentSession;
 
             After += ctx => _documentSession.SaveChanges();
 
             Get["/account/apps"] = _ =>
                 {
-                    this.CreateNewCsrfToken();
+                    //this.CreateNewCsrfToken();
                     var account = GetAccount();
 
                     if (null == account) return HttpStatusCode.NotFound;
@@ -73,12 +74,23 @@ namespace Marinete.Web.Modules
         private Account GetAccount()
         {
             var user = _documentSession.Query<MarinetUser>()
-                                       .FirstOrDefault(c => c.UserName == Context.CurrentUser.UserName);
+                                       .FirstOrDefault(c => c.UserName == "admin");
 
 
             var account = _documentSession.Query<Account>()
                                           .FirstOrDefault(c => c.Users.Any(d => d == user.Id));
             return account;
+        }
+    }
+
+    public static class NancyExtensions
+    {
+        public static void EnableCors(this NancyModule module)
+        {
+            module.After.AddItemToEndOfPipeline(x =>
+            {
+                x.Response.WithHeader("Access-Control-Allow-Origin", "*");
+            });
         }
     }
 }
