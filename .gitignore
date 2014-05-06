@@ -183,3 +183,5 @@ bower_components/
 tmp
 .DS_Store
 .idea
+
+src/api/Marinete.Web/Data/
