@@ -18,3 +18,13 @@ src/Marinete.Web/Data/**/*.*
 src/Marinete.Web/Data/*/*.*
 src/Marinete.Web/Data/*
 packages
+*.orig
+
+#angularjs
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.DS_Store
+.idea
