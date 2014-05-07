@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-  .service('Apps', function Apps($resource) {
-        var d = new Date();
+  .factory('Apps', function ($resource) {
+       var d = new Date();
         var apps = $resource('http://localhost:6262/Account/Apps',
                              {cacheSlayer: d.getTime()},
                              {
@@ -17,7 +17,7 @@ angular.module('marinetApp')
                     return apps.save(obj).$promise;
                 },
                 purge: function(appName){
-                    apps.purge(appName).$promise;
+                    return apps.purge(appName).$promise;
                 }
-               };
+        };
   });

@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Apps', function () {
+describe('Service: apps', function () {
 
   // load the service's module
   beforeEach(module('marinetApp'));
 
   // instantiate service
-  var Apps;
-  beforeEach(inject(function (_Apps_) {
-    Apps = _Apps_;
+  var apps;
+  beforeEach(inject(function (_apps_) {
+    apps = _apps_;
   }));
 
   it('should do something', function () {
-    expect(!!Apps).toBe(true);
+    expect(!!apps).toBe(true);
   });
 
 });

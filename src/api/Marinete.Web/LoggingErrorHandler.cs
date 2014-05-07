@@ -10,7 +10,7 @@ using Nancy.ErrorHandling;
 
 namespace Marinete.Web
 {
-    public class LoggingErrorHandler : IErrorHandler
+    public class LoggingErrorHandler : Nancy.ErrorHandling.IStatusCodeHandler
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 

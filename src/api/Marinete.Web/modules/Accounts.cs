@@ -18,8 +18,7 @@ namespace Marinete.Web.Modules
         public Accounts(IDocumentSession documentSession)
         {
             //this.RequiresAuthentication();
-            this.EnableCors();
-
+            
             _documentSession = documentSession;
 
             After += ctx => _documentSession.SaveChanges();
@@ -47,7 +46,7 @@ namespace Marinete.Web.Modules
 
                     account.CreateApp(app.Name);
 
-                    return HttpStatusCode.OK;
+                    return account.Apps.Last();
                 };
 
             Post["/account/{appName}/purge"] = _ =>
@@ -80,17 +79,6 @@ namespace Marinete.Web.Modules
             var account = _documentSession.Query<Account>()
                                           .FirstOrDefault(c => c.Users.Any(d => d == user.Id));
             return account;
-        }
-    }
-
-    public static class NancyExtensions
-    {
-        public static void EnableCors(this NancyModule module)
-        {
-            module.After.AddItemToEndOfPipeline(x =>
-            {
-                x.Response.WithHeader("Access-Control-Allow-Origin", "*");
-            });
         }
     }
 }

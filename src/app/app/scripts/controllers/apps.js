@@ -5,7 +5,7 @@ angular.module('marinetApp')
      $scope.$root.apps = Apps.find();
         $scope.$root.showNewApp = false;
 
-        $scope.$on('reload', function () {            
+        $scope.$root.$on('reload', function () {            
             $scope.$root.showNewApp = false;
         });
 
