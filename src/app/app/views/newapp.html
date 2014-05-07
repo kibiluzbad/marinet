@@ -1,1 +1,24 @@
-<p>This is the newApp view.</p>
+<div class="col-lg-5" ng-show="showNewApp" ng-controller="NewappCtrl">
+    <div class="box">
+        <div class="box-header">
+            <span class="title">Create new</span>
+        </div>
+        <div class="box-content">
+            <form name="appForm" ng-submit="saveApp()" class="form-horizontal fill-up">
+                <div class="padded">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" name="appName" ng-model="appName" placeholder="Aplication name…" required focus />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-blue" >
+                        <i class="icon-ok-sign"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

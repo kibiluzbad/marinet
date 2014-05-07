@@ -5,11 +5,11 @@ angular.module('marinetApp')
      $scope.showNewApp = false;
 
         $scope.$root.$on('reload', function () {            
-            $scope.showNewApp = false;
+            $scope.$root.showNewApp = false;
         });
 
         $scope.newApp = function() {
-            $scope.showNewApp = true;
+            $scope.$root.showNewApp = true;
         };
       
       $scope.logout = function() {
