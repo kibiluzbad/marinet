@@ -16,9 +16,7 @@ namespace Marinete.Web.Modules
         {
             _documentSession = documentSession;
 
-            Get["/logout"] = parameters => this.LogoutAndRedirect("/");
-
-            Get["/login"] = parameters => View[new LoginModel()];
+            Delete["/logout"] = parameters => this.LogoutWithoutRedirect();
 
             Post["/login"] = parameters =>
                 {
@@ -27,9 +25,10 @@ namespace Marinete.Web.Modules
                     var user = _documentSession.Query<MarinetUser>()
                                                .FirstOrDefault(c => c.UserName == viewModel.Username 
                                                                  && c.Password == viewModel.Password);
-                    return null != user
-                               ? this.Login(user.Id)
-                               : HttpStatusCode.Unauthorized;
+                    if (null == user) return HttpStatusCode.Unauthorized;
+
+                    this.LoginWithoutRedirect(user.Id);
+                    return new {username = user.UserName, role = 2};
                 };
         }
     }

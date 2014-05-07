@@ -1,0 +1,27 @@
+<div class="sidebar-background" ng-if="loggedIn">
+        <div class="primary-sidebar-background"></div>
+    </div>
+    <div class="primary-sidebar" ng-if="loggedIn">
+        <ul id="menu" class="nav navbar-collapse collapse navbar-collapse-primary">
+            <li class="active">
+                <span class="glow"></span>
+                <a href="#/apps">
+                    <i class="icon-dashboard icon-2x"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="dark-nav ">
+                <span class="glow"></span>
+                <a class="accordion-toggle collapsed " data-toggle="collapse" href="#menu-applications">
+                    <i class="icon-cogs icon-2x"></i>
+                    <span teste>Applications<i class="icon-caret-down"></i></span>
+                </a>
+                <ul id="menu-applications" class="collapse ">
+                    <li class=""  ng-repeat="app in apps" >
+                        <a ng-href="#/{{app.name}}/errors">
+                            <i class="icon-cog"></i> <span ng-bind="app.name"></span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>

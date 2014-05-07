@@ -23,13 +23,20 @@
     <link type="text/css" rel="stylesheet" media="screen" href="styles/style.css">
     <!-- endbuild -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'>
-    
+    <style>        
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: display !important;
+        }
+        .splash{display: none}
+    </style>
   </head>
-  <body ng-app="marinetApp">
+  <body ng-app="marinetApp">       
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
+    <div class="splash" ng-cloak>
+      <h2>Loading</h2>
+    </div>
     <!-- Add your site or application content here -->
     <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
         <div class="navbar-header">
@@ -43,66 +50,15 @@
                 <i class="icon-align-justify"></i>
             </button>
         </div>
-        <div class="collapse navbar-collapse navbar-collapse-top">
-            <div class="navbar-right">
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="cdrop">
-                        <a ng-click="newApp()"><i class="icon-plus-sign"></i> Create New Application</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
-                            <span>
-                                <i class="icon-user icon-2x"></i> <span>Conta <i class="icon-caret-down"></i></span>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="with-image">
-                                <div class="avatar"><i class="icon-user icon-3x"></i></div>
-                                <span>Conta</span>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="/logout"><i class="icon-off"></i> <span>Logout</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <ng-include src="'/views/topbar.html'"></ng-include>
     </nav>
 
-    <div class="sidebar-background">
-        <div class="primary-sidebar-background"></div>
-    </div>
-    <div class="primary-sidebar">
-        <ul id="menu" class="nav navbar-collapse collapse navbar-collapse-primary">
-            <li class="active">
-                <span class="glow"></span>
-                <a href="#/apps">
-                    <i class="icon-dashboard icon-2x"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="dark-nav ">
-                <span class="glow"></span>
-                <a class="accordion-toggle collapsed " data-toggle="collapse" href="#menu-applications">
-                    <i class="icon-cogs icon-2x"></i>
-                    <span teste>Applications<i class="icon-caret-down"></i></span>
-                </a>
-                <ul id="menu-applications" class="collapse ">
-                    <li class=""  ng-repeat="app in apps" >
-                        <a ng-href="#/{{app.Name}}/errors">
-                            <i class="icon-cog"></i> <span ng-bind="app.Name"></span></a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div ng-controller="MessageCtrl"><span ng-bind="message"></span></div>
+    <ng-include src="'/views/sidemenu.html'"></ng-include>
+    <ng-include src="'/views/message.html'"></ng-include>
     <div class="main-content" butterbar>
         <div style="padding: 10px;">Loading...</div>
     </div>
-    <div class="main-content" ng-view>
+    <div ng-class="{'main-content': loggedIn}" ng-view>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -133,7 +89,7 @@
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
+        <script src="scripts/routingConfig.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->        
         <script src="scripts/app.js"></script>
         <script src="scripts/services/apps.js"></script>
@@ -147,6 +103,9 @@
         <script src="scripts/filters/normalizedate.js"></script>
         <script src="scripts/directives/butterbar.js"></script>
         <script src="scripts/directives/buttoncheck.js"></script>        
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/controllers/topbar.js"></script>
         <!-- endbuild -->
 </body>
 </html>

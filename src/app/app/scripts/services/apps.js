@@ -3,11 +3,11 @@
 angular.module('marinetApp')
   .factory('Apps', function ($resource) {
        var d = new Date();
-        var apps = $resource('http://localhost:6262/Account/Apps',
+        var apps = $resource(routingConfig.apiUrl+'/Account/Apps',
                              {cacheSlayer: d.getTime()},
                              {
-                                purge: {method: 'DELETE', url: 'http://localhost:6262/Account/:appName/Purge'},
-                                save: {method: 'POST', url: 'http://localhost:6262/Account/App'} 
+                                purge: {method: 'DELETE', url: routingConfig.apiUrl+'/Account/:appName/Purge'},
+                                save: {method: 'POST', url: routingConfig.apiUrl+'/Account/App'} 
                              }); 
         return {
                 find: function(){

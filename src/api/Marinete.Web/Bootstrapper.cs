@@ -2,11 +2,13 @@
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Marinete.Web.Indexes;
 using Marinete.Web.Security;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Conventions;
+using Nancy.Cryptography;
 using Nancy.Json;
 using Raven.Client;
 using Raven.Client.Document;
@@ -30,8 +32,8 @@ namespace Marinete.Web
                 new FormsAuthenticationConfiguration()
                 {
                     RedirectUrl = "/login",
-                    DisableRedirect = false,
-                    UserMapper = container.Resolve<IUserMapper>(),
+                    DisableRedirect = true,
+                    UserMapper = container.Resolve<IUserMapper>()
                 };
 
             FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
@@ -78,5 +80,20 @@ namespace Marinete.Web
                 StaticContentConventionBuilder.AddDirectory("app", @"app")
             );
         }
+    }
+
+    public class NoHmacProvider : IHmacProvider
+    {
+        public byte[] GenerateHmac(string data)
+        {
+          return new byte[0];
+        }
+
+        public byte[] GenerateHmac(byte[] data)
+        {
+            return new byte[0];
+        }
+
+        public int HmacLength { get; private set; }
     }
 }

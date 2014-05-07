@@ -25,7 +25,6 @@ namespace Marinete.Web.Modules
 
             Get["/account/apps"] = _ =>
                 {
-                    //this.CreateNewCsrfToken();
                     var account = GetAccount();
 
                     if (null == account) return HttpStatusCode.NotFound;
@@ -35,9 +34,6 @@ namespace Marinete.Web.Modules
 
             Post["/account/app"] = _ =>
                 {
-                    //TODO: Criar um validador Csrf compativel com Angular
-                    //this.ValidateCsrfToken();
-                                
                     var account = GetAccount();
 
                     if (null == account) return HttpStatusCode.NotFound;
@@ -51,8 +47,6 @@ namespace Marinete.Web.Modules
 
             Post["/account/{appName}/purge"] = _ =>
                 {
-                    this.ValidateCsrfToken();
-
                     string appName = _.appName;
 
                     var indexQuery = new IndexQuery
