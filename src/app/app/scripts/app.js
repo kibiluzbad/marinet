@@ -7,8 +7,9 @@ angular
     'ngSanitize',
     'ngRoute'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider,$httpProvider) {
     var access = routingConfig.accessLevels;
+    $httpProvider.defaults.withCredentials = true;
     $routeProvider      
       .when('/apps', {
         templateUrl: 'views/apps.html',

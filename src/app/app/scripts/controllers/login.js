@@ -5,6 +5,7 @@ angular.module('marinetApp')
       $scope.user = {username:'', password:''};
       $scope.login = function(){
             Auth.login($scope.user, function(){
+                $scope.$root.user = {username: $scope.user.username, role: routingConfig.userRoles.user}
                 $location.path('/apps');
           }, function(){
                 $scope.$root.$emit('message', 'Usuário e/ou senha inválido.');

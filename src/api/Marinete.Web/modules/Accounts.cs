@@ -17,7 +17,7 @@ namespace Marinete.Web.Modules
 
         public Accounts(IDocumentSession documentSession)
         {
-            //this.RequiresAuthentication();
+            this.RequiresAuthentication();
             
             _documentSession = documentSession;
 
