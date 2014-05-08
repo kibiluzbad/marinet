@@ -7,7 +7,7 @@ angular.module('marinetApp')
                              {cacheSlayer: d.getTime()},
                              {
                                  'find': {url: routingConfig.apiUrl+'/errors/:appName'},
-                                 'solve': {method: 'PUT'}
+                                 'solve': {method: 'PUT', params: {slug: '@slug'}}
                              }); 
         return {
                 query: function(appName, page, query,success,error){
