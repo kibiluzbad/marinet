@@ -17,7 +17,7 @@ angular.module('marinetApp')
                     return apps.save(obj).$promise;
                 },
                 purge: function(appName){
-                    return apps.purge(appName).$promise;
+                    return apps.purge({appName:appName}).$promise;
                 }
         };
   });

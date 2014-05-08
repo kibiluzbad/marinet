@@ -27,7 +27,7 @@ namespace Marinete.Web.Modules
                                                                  && c.Password == viewModel.Password);
                     if (null == user) return HttpStatusCode.Unauthorized;
 
-                    return this.LoginWithoutRedirect(user.Id);
+                    return this.LoginForAjax(user);
                 };
         }
     }

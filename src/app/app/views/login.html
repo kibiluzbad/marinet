@@ -3,7 +3,7 @@
                 <div class="login box" style="margin-top: 80px;">
                     <div class="box-header"><span class="title">Login</span></div>
                     <div class="box-content padded">
-                        <form class="separate-sections" ng-submit="login()">
+                        <form name="form" class="separate-sections" ng-submit="login()">
                             <div class="input-group addon-left">
                                 <span class="input-group-addon"><i class="icon-user"></i></span>
                                 <input name="Username" ng-model="user.username" type="text" placeholder="username" required>
@@ -13,12 +13,12 @@
                                 <input name="Password" ng-model="user.password" type="password" placeholder="password" required>
                             </div>
                             <div>
-                                <button class="btn btn-blue btn-block" type="submit">Login <i class="icon-signin"></i></button>
+                                <button class="btn btn-blue btn-block" ng-disabled="!form.$valid" btn-loading type="submit">Login <i class="icon-signin"></i></button>
                             </div>
                         </form>
                         <div>
                             <a href="/signup">Don't have an account? <strong>Sign Up</strong></a>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>

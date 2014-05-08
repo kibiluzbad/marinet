@@ -9,7 +9,23 @@ angular
   ])
   .config(function ($routeProvider,$httpProvider) {
     var access = routingConfig.accessLevels;
+    
     $httpProvider.defaults.withCredentials = true;
+    
+    $httpProvider.interceptors.push(function($q) {
+    return {
+     'response': function(response) {
+         $('.btn').button('reset');
+         return response || $q.when(response);
+      },
+
+      'responseError': function(rejection) {
+         $('.btn').button('reset');
+        return $q.reject(rejection);
+      }
+    };
+  });
+      
     $routeProvider      
       .when('/apps', {
         templateUrl: 'views/apps.html',
@@ -35,8 +51,8 @@ angular
         redirectTo: '/apps'
       });
   })
-.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
-
+.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {    
+    
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (!Auth.authorize(next.access)) {
             if(Auth.isLoggedIn()) $location.path('/');

@@ -45,7 +45,7 @@ namespace Marinete.Web.Modules
                     return account.Apps.Last();
                 };
 
-            Post["/account/{appName}/purge"] = _ =>
+            Delete["/account/{appName}/purge"] = _ =>
                 {
                     string appName = _.appName;
 

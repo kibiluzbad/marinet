@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Marinete.Common.Domain;
 using Marinete.Web.Indexes;
 using Marinete.Web.Models;
 using Marinete.Web.Queries;
 using Marinete.Web.Security;
 using Nancy;
+using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
+using Nancy.Responses;
 using Nancy.Security;
 using Raven.Abstractions.Data;
 using Raven.Client;
@@ -120,6 +123,19 @@ namespace Marinete.Web.Modules
                                        .FirstOrDefault(c => c.UserName == Context.CurrentUser.UserName);
 
             return user;
+        }
+    }
+
+    public static class NancyModuleSecurityExtensions
+    {
+        public static Response LoginForAjax(this INancyModule module, MarinetUser user,
+            DateTime? cookieExpiry = null) 
+        {
+            var result = module.LoginWithoutRedirect(user.Id, cookieExpiry);
+            
+            var response = new JsonResponse(new {user.UserName, Role=2}, new DefaultJsonSerializer());
+            response.WithCookie(result.Cookies.First());
+            return response;
         }
     }
 }
