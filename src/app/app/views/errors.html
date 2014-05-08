@@ -97,21 +97,21 @@
                         No errors
                     </div>
                     <div class="box-section news with-icons" ng-repeat="error in errors">
-                        <div class="avatar" ng-class="{green: error.Solved, red: !error.Solved}">
-                            <i class="icon-2x" ng-class="{'icon-ok': error.Solved, 'icon-minus': !error.Solved}"></i>
+                        <div class="avatar" ng-class="{green: error.solved, red: !error.solved}">
+                            <i class="icon-2x" ng-class="{'icon-ok': error.solved, 'icon-minus': !error.solved}"></i>
                         </div>
                         <div class="news-time">
-                            <span>{{error.CreatedAt | normalizedate | date:'H:mm'}}</span>
-                            {{error.CreatedAt | normalizedate | date:'MMMM, dd'}}
+                            <span>{{error.createdAt | normalizedate | date:'H:mm'}}</span>
+                            {{error.createdAt | normalizedate | date:'MMMM, dd'}}
                         </div>
                         <div class="news-content">
                             <div class="news-title">
-                                <a ng-href="#/{{name}}/errors/{{error.Slug}}" class="pull-left" title="{{error.Message}}">{{error.Message | truncate:80}}</a>
-                                <span class="badge pull-left" ng-class="{'badge-green': error.Solved, 'badge-red': !error.Solved}" style="margin-left: 5px;">{{error.Count}}</span>
+                                <a ng-href="#/{{name}}/errors/{{error.slug}}" class="pull-left" title="{{error.message}}">{{error.message | truncate:80}}</a>
+                                <span class="badge pull-left" ng-class="{'badge-green': error.solved, 'badge-red': !error.solved}" style="margin-left: 5px;">{{error.count}}</span>
                                 <span class="clean">&nbsp;</span>
                             </div>
                             <div class="news-text">
-                                {{error.Exception | truncate:200}}
+                                {{error.exception | truncate:200}}
                             </div>
                         </div>
                     </div>

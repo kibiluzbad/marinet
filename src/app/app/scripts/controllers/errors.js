@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('marinetApp')
-  .controller('ErrorsCtrl', function ($scope, $routeParams, $http) {
-        $scope.errors = [{Solved:true, Slug: 'error1_message', Message:'Erro1 message', Exception: 'Stack trace', CreatedAt: '01/01/2014', Count: 1}];
+  .controller('ErrorsCtrl', function ($scope, $routeParams, Errors) {
+        $scope.errors = [];
         $scope.busy = false;
         $scope.page = 1;
         $scope.canLoad = true;
         $scope.name = $routeParams.appName;        
-        $scope.query = "";
+        $scope.query = '';
 
         $scope.search = function () {
             $scope.errors = [];
@@ -24,25 +24,22 @@ angular.module('marinetApp')
         $scope.nextPage = function() {
             if ($scope.busy || !$scope.canLoad) return;
             $scope.busy = true;
-
-            var urlErrors = "/errors/" + $scope.name + "?page=" + $scope.page + '&r=' + Math.random() * 99999;
-            if ($scope.query) urlErrors += "&query=" + $scope.query;
-
-            $http.get(urlErrors)
-                .success(function(data, status, headers, config) {
-                    if (200 == status) {
-                        var items = data.Data;
-                        for (var i = 0; i < items.length; i++) {
-                            $scope.errors.push(items[i]);
-                        }
+            
+            Errors.query($scope.name,$scope.page,$scope.query,function(data, status, headers, config) {
+                  
+                    var items = data.data;
+                    for (var i = 0; i < items.length; i++) {
+                        $scope.errors.push(items[i]);
                     }
+                
                     var pageInfo = data;
-                    var next = pageInfo.CurrentPage + 1;
-                    $scope.sugestions = pageInfo.Sugestions;
-                    $scope.canLoad = pageInfo.TotalPages >= next;
-                    $scope.page = pageInfo.TotalPages > next ? next : pageInfo.TotalPages;
-                    $scope.total = pageInfo.TotalSize;
+                    var next = pageInfo.currentPage + 1;
+                    $scope.sugestions = pageInfo.sugestions;
+                    $scope.canLoad = pageInfo.totalPages >= next;
+                    $scope.page = pageInfo.totalPages > next ? next : pageInfo.totalPages;
+                    $scope.total = pageInfo.totalSize;
                     $scope.busy = false;
                 });
         };
+        $scope.nextPage();
     });
