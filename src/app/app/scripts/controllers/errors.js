@@ -28,7 +28,7 @@ angular.module('marinetApp')
             Errors.query($scope.name,$scope.page,$scope.query,function(data, status, headers, config) {
                   
                     var items = data.data;
-                    for (var i = 0; i < items.length; i++) {
+                    for (var i = 0; i < items.length; i++) {                        
                         $scope.errors.push(items[i]);
                     }
                 

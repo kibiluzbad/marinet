@@ -12,7 +12,7 @@ angular
     
     $httpProvider.defaults.withCredentials = true;
     
-    $httpProvider.interceptors.push(function($q) {
+    $httpProvider.interceptors.push(function($q,$location) {
     return {
      'response': function(response) {
          $('.btn').button('reset');
@@ -20,7 +20,11 @@ angular
       },
 
       'responseError': function(rejection) {
-         $('.btn').button('reset');
+        if (401 === rejection.status){ 
+            window.location = '/';
+            return;
+        }
+        $('.btn').button('reset');
         return $q.reject(rejection);
       }
     };
@@ -47,8 +51,12 @@ angular
         controller: 'LoginCtrl',
         access: access.anon
       })
+      .when('/logout', {        
+        controller: 'LogoutCtrl',
+        access: access.anon
+      })
       .otherwise({
-        redirectTo: '/apps'
+        redirectTo: '/login'
       });
   })
 .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {    

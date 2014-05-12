@@ -19,6 +19,7 @@ namespace Marinete.Web.Modules
 
             Get["/setup"] = _ =>
                 {
+
                     var adminAccount = _documentSession.Query<Account>().FirstOrDefault();
                     var adminUser = _documentSession.Query<MarinetUser>().FirstOrDefault();
 

@@ -231,7 +231,6 @@
     <Compile Include="Modules\Applications.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Modules\Login.cs" />
-    <Compile Include="Modules\Main.cs" />
     <Compile Include="Queries\RavendbPagedQueryWithSuggestions.cs" />
     <Compile Include="Security\MarinetUserMapper.cs" />
     <Compile Include="Modules\Accounts.cs" />
