@@ -1,0 +1,15 @@
+{
+    "name": "marinet.api",
+    "version": "2.1.0",
+    "description": "Marinet api",
+    "main": "index.js",
+    "scripts": {
+        "start": "node --harmony ./server.js"
+    },
+    "author": "kibiluzbad kibiluzbad@gmail.com (marinet.me)",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.6.1",
+        "npmlog": "^0.1.1"
+    }
+}
