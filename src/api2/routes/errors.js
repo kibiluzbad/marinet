@@ -1,6 +1,7 @@
 'use strict';
 
-const Q = require('q'),
+const
+    Q = require('q'),
     crypto = require('crypto');
 
 function errors(app, promise) {
@@ -9,20 +10,16 @@ function errors(app, promise) {
             db.view('marinet', 'by_appName', {
                 'key': req.params.appName
             }, function (err, body) {
-                if (err) throw err;
+                if (err) {
+                    res.json(err.status_code, err.message);
+                }
                 let apps = [];
                 body.rows.forEach(function (doc) {
                     apps.push(doc.value);
                 });
                 res.json(apps);
             });
-        }).catch(function (err) {
-            console.log(err);
-            res.json(502, {
-                error: "bad_gateway",
-                reason: err.message
-            });
-        });
+        }).done();
     });
 
     app.post('/api/error', function (req, res) {

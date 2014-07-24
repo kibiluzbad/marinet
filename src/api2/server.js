@@ -14,7 +14,10 @@ app.use(bodyParser.json())
 app.use(logger('combined'));
 app.set('port', process.env.PORT || 3000);
 
-const errors = require('./routes/errors.js')(app, deferedDb);
+const
+    errors = require('./routes/errors.js')(app, deferedDb),
+    account = require('./routes/account.js')(app, deferedDb, config),
+    application = require('./routes/application.js')(app, deferedDb, config);
 
 app.get('/', function (req, res) {
     res.json('I\'m working...');
