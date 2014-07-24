@@ -1,15 +1,21 @@
 {
-    "name": "marinet.api",
-    "version": "2.1.0",
-    "description": "Marinet api",
-    "main": "index.js",
-    "scripts": {
-        "start": "node --harmony ./server.js"
-    },
-    "author": "kibiluzbad kibiluzbad@gmail.com (marinet.me)",
-    "license": "ISC",
-    "dependencies": {
-        "express": "^4.6.1",
-        "npmlog": "^0.1.1"
-    }
+  "name": "marinet.api",
+  "version": "2.1.0",
+  "description": "Marinet api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony ./server.js"
+  },
+  "author": "kibiluzbad kibiluzbad@gmail.com (marinet.me)",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^0.9.0",
+    "body-parser": "^1.5.0",
+    "express": "^4.6.1",
+    "morgan": "^1.2.0",
+    "nano": "^5.10.0",
+    "npmlog": "^0.1.1",
+    "q": "^1.0.1",
+    "request": "^2.39.0"
+  }
 }
