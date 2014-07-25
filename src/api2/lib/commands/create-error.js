@@ -9,6 +9,7 @@ module.exports = function (promise, Q) {
     return {
         'execute': function (error, appName) {
             error.hash = crypto.createHash('md5').update(JSON.stringify(error)).digest("hex");
+            error.solved = false;
 
             promise.then(function (db) {
 

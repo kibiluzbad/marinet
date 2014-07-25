@@ -4,8 +4,8 @@ function account(app, config, queries, commands) {
     app.get('/api/account/apps', function (req, res) {
         //TODO: Get account id from logged in user!        
         queries.getAccountApps.execute(config.account.defaultId)
-            .then(function (errors) {
-                res.json(errors)
+            .then(function (apps) {
+                res.json(apps);
             }).catch(function (err) {
                 res.json(502, {
                     error: "bad_gateway",
