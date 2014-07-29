@@ -47,9 +47,22 @@ function errors(app, queries, commands, authed) {
             });
     });
 
+    app.get('/api/error/:hash/:id', authed, function (req, res) {
+        queries.getErrorsById
+            .execute(req.params.id)
+            .then(function (error) {
+                res.json(error);
+            }).catch(function (err) {
+                res.json(502, {
+                    error: "bad_gateway",
+                    reason: err.message
+                });
+            });
+    });
+
     app.put('/api/error/:hash', authed, function (req, res) {
-        commands.solveErrorsByHash
-            .execute(req.params.hash)
+        commands.solveErrors
+            .execute(req.body.keys)
             .then(function (result) {
                 res.json(200, 'Solved');
             })

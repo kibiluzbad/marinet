@@ -39,12 +39,13 @@ const
         'getAppByName': require('./lib/queries/get-app-by-name.js')(deferedDb, Q),
         'getUserById': require('./lib/queries/get-user-by-id.js')(deferedDb, Q),
         'getUserByLogin': require('./lib/queries/get-user-by-login.js')(deferedDb, Q),
+        'getErrorsById': require('./lib/queries/get-errors-by-id.js')(deferedDb, Q),
     },
     commands = {
         'createError': require('./lib/commands/create-error.js')(deferedDb, Q),
         'initialSetup': require('./lib/commands/initial-setup.js')(deferedDb, Q),
         'createApp': require('./lib/commands/create-app.js')(deferedDb, Q),
-        'solveErrorsByHash': require('./lib/commands/solve-errors-by-hash.js')(deferedDb, Q),
+        'solveErrors': require('./lib/commands/solve-errors.js')(deferedDb, Q),
         'validatePassword': require('./lib/commands/validate-password.js')(Q),
     };
 
