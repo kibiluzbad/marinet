@@ -1,25 +1,40 @@
 'use strict';
 
 angular.module('marinetApp')
-  .factory('Errors', function ($resource) {
-    var d = new Date();
-        var errors = $resource(routingConfig.apiUrl+'/error/:slug',
-                             {cacheSlayer: d.getTime()},
-                             {
-                                 'find': {url: routingConfig.apiUrl+'/errors/:appName'},
-                                 'solve': {method: 'PUT', params: {slug: '@slug'}}
-                             }); 
+    .factory('Errors', function ($resource) {
+        var d = new Date();
+        var errors = $resource(routingConfig.apiUrl + '/error/:hash', {
+            cacheSlayer: d.getTime()
+        }, {
+            'find': {
+                url: routingConfig.apiUrl + '/:appName/errors'
+            },
+            'solve': {
+                method: 'PUT',
+                params: {
+                    hash: '@hash'
+                }
+            }
+        });
         return {
-                query: function(appName, page, query,success,error){
-                    return errors.find({appName: appName, page: page, query: query},
-                                      success,
-                                      error);
-                },
-                get: function(slug){
-                    return errors.get({slug: slug});
-                },                
-                solve: function(slug){
-                    return errors.solve({slug: slug});
-                },
-        };    
-  });
+            query: function (appName, page, query, success, error) {
+                return errors.find({
+                        appName: appName,
+                        page: page,
+                        query: query
+                    },
+                    success,
+                    error);
+            },
+            get: function (hash) {
+                return errors.get({
+                    hash: hash
+                });
+            },
+            solve: function (hash) {
+                return errors.solve({
+                    hash: hash
+                });
+            },
+        };
+    });

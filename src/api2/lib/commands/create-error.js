@@ -8,32 +8,22 @@ module.exports = function (promise, Q) {
 
     return {
         'execute': function (error, appName) {
-            error.hash = crypto.createHash('md5').update(JSON.stringify(error)).digest("hex");
-            error.solved = false;
+            let hash = crypto.createHash('md5').update(JSON.stringify(error.message + error.stackTrace)).digest("hex");
 
             promise.then(function (db) {
 
-                db.get(appName, function (err, body) {
-                    let app = body;
+                error.solved = false;
+                error.hash = hash;
+                error.type = "error";
 
-                    if (err && err.status_code === 404) {
-                        app = {
-                            errors: []
-                        };
-                    } else if (err) {
+                db.insert(error, function (err, body) {
+                    if (err) {
                         defered.reject(err);
-                    }
-
-                    app.errors.push(error);
-
-                    db.insert(app, appName, function (err, body) {
-                        if (err) {
-                            defered.reject(err);
-                        } else
-                            defered.resolve(body);
-                    });
+                    } else
+                        defered.resolve(body);
                 });
             });
+
             return defered.promise;
         }
     }

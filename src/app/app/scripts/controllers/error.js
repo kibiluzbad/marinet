@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('marinetApp')
-  .controller('ErrorCtrl', function($scope, $routeParams, Errors) {
+    .controller('ErrorCtrl', function ($scope, $routeParams, Errors) {
 
         $scope.name = $routeParams.appName;
-        $scope.slug = $routeParams.slug;
-        
-        $scope.error = Errors.get($scope.slug);
+        $scope.hash = $routeParams.hash;
+
+        $scope.error = Errors.get($scope.hash);
 
         $scope.solve = function () {
-            Errors.solve($scope.slug);
+            Errors.solve($scope.hash);
         };
     });

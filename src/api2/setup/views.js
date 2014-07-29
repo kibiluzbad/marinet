@@ -1,39 +1,63 @@
 module.exports = {
-    by_appName: {
+    unique_errors: {
         map: function (doc) {
-            //TODO: Performance test!
-            var emited = {};
-            var q = [];
-            if ('errors' in doc) {
-                for (var i in doc.errors) {
-                    var error = doc.errors[i];
-                    var key = doc._id + '_' + error.hash;
-                    if (!emited[key]) {
-                        q.push({
-                            'k': key,
-                            'd': error
-                        });
-                        emited[key] = 1;
-                    } else {
-                        emited[key]++;
-                    }
-                }
-                for (var c in q) {
-                    emit(q[c].k, {
-                        'count': emited[q[c].k],
-                        'error': q[c].d
-                    });
-                }
+            if (doc.type === 'error') {
+                var error = doc;
+                var key = [doc.appName, error.hash];
+                emit(key, error._id);
             }
+        }.toString(),
+        reduce: function (keys, values) {
+            return {
+                count: values.length,
+                id: values[0],
+                keys: values
+            };
         }.toString()
     },
     appName_by_appId: {
         map: function (doc) {
-            if ('apps' in doc) {
+            if (doc.type === 'account') {
                 for (var i in doc.apps) {
                     var app = doc.apps[i];
                     var key = app.id + '_' + app.key;
                     emit(key, app.name);
+                }
+            }
+        }.toString()
+    },
+    user_by_id: {
+        map: function (doc) {
+            if (doc.type === 'account') {
+                for (var i in doc.users) {
+                    var user = doc.users[i];
+                    var key = user.id;
+                    var value = {
+                        'accountId': doc._id,
+                        'id': key,
+                        'name': user.name,
+                        'password': user.password,
+                        'role': user.role
+                    };
+                    emit(key, value);
+                }
+            }
+        }.toString()
+    },
+    user_by_login: {
+        map: function (doc) {
+            if (doc.type === 'account') {
+                for (var i in doc.users) {
+                    var user = doc.users[i];
+                    var key = user.login;
+                    var value = {
+                        'accountId': doc._id,
+                        'id': key,
+                        'name': user.name,
+                        'password': user.password,
+                        'role': user.role
+                    };
+                    emit(key, value);
                 }
             }
         }.toString()

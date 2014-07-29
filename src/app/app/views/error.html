@@ -92,34 +92,9 @@
                     <tr>
                         <td colspan="2">
                             <ul class="pagination">
-                                <li>
+                                <li ng-repeat="date in error.dates">
                                     <a href="#" class="text-center">
-                                        12:40<br />October, 16
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-center">
-                                        12:40<br />October, 16
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-center">
-                                        12:40<br />October, 16
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-center">
-                                        12:40<br />October, 16
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-center">
-                                        12:40<br />October, 16
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-center">
-                                        12:40<br />October, 16
+                                        {{date | normalizedate | date:'MMMM, dd yyyy HH:mm:ss'}}
                                     </a>
                                 </li>
                             </ul>

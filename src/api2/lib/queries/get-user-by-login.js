@@ -4,22 +4,23 @@ module.exports = function (promise, Q) {
     let defered = Q.defer();
 
     return {
-        'execute': function (appName) {
+        'execute': function (login) {
             promise.then(function (db) {
-                db.view('marinet', 'by_appName', {
-                        startkey: appName,
-                        endkey: appName + '\ufff0'
+                db.view('marinet', 'user_by_login', {
+                        key: login
                     },
                     function (err, body) {
                         if (err) {
                             defered.reject(err);
                         }
-                        if (!body) return;
-                        let apps = [];
-                        body.rows.forEach(function (doc) {
-                            apps.push(doc.value);
+                        if (body && body.rows && body.rows[0])
+                            defered.resolve(body.rows[0].value);
+
+                        defered.reject({
+                            status_code: 404,
+                            message: 'Not found'
                         });
-                        defered.resolve(apps);
+
                     });
             });
 

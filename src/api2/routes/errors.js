@@ -1,8 +1,8 @@
 'use strict';
 
-function errors(app, queries, commands) {
-    app.get('/api/:appName/errors', function (req, res) {
-        queries.errorsByAppName
+function errors(app, queries, commands, authed) {
+    app.get('/api/:appName/errors', authed, function (req, res) {
+        queries.getAppErrors
             .execute(req.params.appName)
             .then(function (errors) {
                 res.json(errors);
@@ -34,7 +34,7 @@ function errors(app, queries, commands) {
             });
     });
 
-    app.get('/api/:appName/errors/:hash', function (req, res) {
+    app.get('/api/error/:hash', authed, function (req, res) {
         queries.getErrorsByHash
             .execute(req.params.appName, req.params.hash)
             .then(function (error) {
@@ -47,15 +47,13 @@ function errors(app, queries, commands) {
             });
     });
 
-    app.put('/api/:appName/errors/:hash', function (req, res) {
-        queries.getAppByName
-            .execute(req.params.appName)
-            .then(function (app) {
-                return commands.solveErrorsByHash(app, req.params.hash)
-                    .then(function (result) {
-                        res.json(200, 'Solved');
-                    });
-            }).catch(function (err) {
+    app.put('/api/error/:hash', authed, function (req, res) {
+        commands.solveErrorsByHash
+            .execute(req.params.hash)
+            .then(function (result) {
+                res.json(200, 'Solved');
+            })
+            .catch(function (err) {
                 res.json(502, {
                     error: "bad_gateway",
                     reason: err.message
