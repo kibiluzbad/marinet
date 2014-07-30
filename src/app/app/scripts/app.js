@@ -20,10 +20,7 @@ angular
                 },
 
                 'responseError': function (rejection) {
-                    if (401 === rejection.status) {
-                        window.location = '/';
-                        return;
-                    }
+
                     $('.btn').button('reset');
                     return $q.reject(rejection);
                 }

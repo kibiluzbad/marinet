@@ -92,9 +92,9 @@
                     <tr>
                         <td colspan="2">
                             <ul class="pagination">
-                                <li ng-repeat="date in error.dates">
+                                <li ng-class="{disabled: error.selected == key}" ng-repeat="key in error.keys">
                                     <a href="#" class="text-center">
-                                        {{date | normalizedate | date:'MMMM, dd yyyy HH:mm:ss'}}
+                                        {{key}}
                                     </a>
                                 </li>
                             </ul>

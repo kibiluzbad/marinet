@@ -61,5 +61,13 @@ module.exports = {
                 }
             }
         }.toString()
+    },
+    comments_by_error_hash: {
+        map: function (doc) {
+            if (doc.type === 'comment') {
+                var key = [doc.hash, doc._id];
+                emit(key, null);
+            }
+        }.toString()
     }
 };

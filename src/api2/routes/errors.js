@@ -34,7 +34,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.get('/api/error/:hash', authed, function (req, res) {
+    app.get('/api/:appName/error/:hash', authed, function (req, res) {
         queries.getErrorsByHash
             .execute(req.params.appName, req.params.hash)
             .then(function (error) {
@@ -60,7 +60,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.put('/api/error/:hash', authed, function (req, res) {
+    app.put('/api/:appName/error/:hash', authed, function (req, res) {
         commands.solveErrors
             .execute(req.body.keys)
             .then(function (result) {

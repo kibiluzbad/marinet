@@ -3,7 +3,7 @@
 angular.module('marinetApp')
     .factory('Errors', function ($resource) {
         var d = new Date();
-        var errors = $resource(routingConfig.apiUrl + '/error/:hash', {
+        var errors = $resource(routingConfig.apiUrl + '/:appName/error/:hash', {
             cacheSlayer: d.getTime()
         }, {
             'find': {
@@ -26,14 +26,16 @@ angular.module('marinetApp')
                     success,
                     error);
             },
-            get: function (hash) {
+            get: function (hash, appName) {
                 return errors.get({
-                    hash: hash
+                    hash: hash,
+                    appName: appName
                 });
             },
-            solve: function (hash) {
+            solve: function (hash, appName) {
                 return errors.solve({
-                    hash: hash
+                    hash: hash,
+                    appName: appName
                 });
             },
         };

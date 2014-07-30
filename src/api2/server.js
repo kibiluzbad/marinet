@@ -15,20 +15,8 @@ const
     RedisStore = require('connect-redis')(session),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    cors = require('express-cors'),
     app = express();
-
-const allowCrossDomain = function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.send(200);
-    } else {
-        next();
-    }
-};
 
 const
     queries = {
@@ -40,6 +28,7 @@ const
         'getUserById': require('./lib/queries/get-user-by-id.js')(deferedDb, Q),
         'getUserByLogin': require('./lib/queries/get-user-by-login.js')(deferedDb, Q),
         'getErrorsById': require('./lib/queries/get-errors-by-id.js')(deferedDb, Q),
+        'getCommentsByErrorHash': require('./lib/queries/get-comments-by-error-hash.js')(deferedDb, Q),
     },
     commands = {
         'createError': require('./lib/commands/create-error.js')(deferedDb, Q),
@@ -47,10 +36,15 @@ const
         'createApp': require('./lib/commands/create-app.js')(deferedDb, Q),
         'solveErrors': require('./lib/commands/solve-errors.js')(deferedDb, Q),
         'validatePassword': require('./lib/commands/validate-password.js')(Q),
+        'createComment': require('./lib/commands/create-comment.js')(deferedDb, Q),
     };
 
-//app.use(allowCrossDomain);
-app.use(bodyParser.json())
+app.use(cors({
+    allowedOrigins: [
+        'localhost:9003', 'localhost'
+    ]
+}));
+app.use(bodyParser.json());
 app.use(logger('combined'));
 app.set('port', process.env.PORT || 3000);
 
@@ -124,7 +118,8 @@ app.use(passport.session());
 const
     errors = require('./routes/errors.js')(app, queries, commands, authed),
     account = require('./routes/account.js')(app, config, queries, commands, authed, passport),
-    application = require('./routes/application.js')(app, config, commands, authed);
+    application = require('./routes/application.js')(app, config, commands, authed),
+    comments = require('./routes/comments.js')(app, queries, commands, authed);
 
 app.get('/', function (req, res) {
     res.json('I\'m working...');

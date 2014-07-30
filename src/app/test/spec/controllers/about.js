@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: LogoutCtrl', function () {
+describe('Controller: AboutCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('marinetApp'));
+  beforeEach(module('testApp'));
 
-  var LogoutCtrl,
+  var AboutCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    LogoutCtrl = $controller('LogoutCtrl', {
+    AboutCtrl = $controller('AboutCtrl', {
       $scope: scope
     });
   }));

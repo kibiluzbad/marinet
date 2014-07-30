@@ -1,49 +1,42 @@
-<div class="box">
-        <div class="box-header">
-            <div class="title">Solutions</div>
-        </div>
-        <div class="box-content">
-            <ul class="chat-box">
-                <ul class="chat-box">
-                    <li class="arrow-box-left">
-                        <div class="avatar">
-                            <i class="icon-user icon-3x"></i>
-                        </div>
-                        <div class="info">
-                            <span class="name"><strong>Michael</strong> <span class="badge badge-blue">designer</span></span>
-                            <span class="time">8 minutes ago</span>
-                        </div>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+<div class="box" ng-controller="CommentsCtrl">
+    <div class="box-header">
+        <div class="title">Comments</div>
+    </div>
+    <div class="box-content">
+
+        <ul class="chat-box">
+            <div ng-class-odd="arrow-box-right gray" ng-repeat="comment in comments">
+                <li ng-class-even="arrow-box-left" ng-class-odd="arrow-box-right gray" ng-repeat="comment in comments">
+                    <div class="avatar">
+                        <i class="icon-user icon-3x"></i>
+                    </div>
+                    <div class="info">
+                        <span class="name"><strong>{{comment.name}}</strong> <span class="badge badge-blue">{{comment.role}}</span></span>
+                        <span class="time">{{comment.createdAt}}</span>
+                    </div>
+                    {{comment.message}}
+                </li>
+                <li class="divider"></li>
+            </div>
+
+        </ul>
+
+    </div>
+    <p class="note text-center">{{lastMessageTime}}</p>
+    <hr class="divider">
+    <div class="box-footer flat padded">
+        <form>
+            <div class="input-group addon-right">
+                <input type="text" placeholder="Standard bootstrap append input here">
+                <ul class="input-group-addon">
+                    <li>
+                        <a href="#"><i class="icon-paper-clip"></i></a>
                     </li>
-                    <li class="divider"></li>
-                    <li class="arrow-box-right gray">
-                        <div class="avatar">
-                            <i class="icon-user icon-3x"></i>
-                        </div>
-                        <div class="info">
-                            <span class="name"><strong>Alex</strong> <span class="badge badge-gray">developer</span></span>
-                            <span class="time">3 minutes ago</span>
-                        </div>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    <li>
+                        <button ng-click="send()" class="btn btn-blue">Send</button>
                     </li>
                 </ul>
-            </ul>
-        </div>
-        <p class="note text-center">Last message received at 14:55</p>
-        <hr class="divider">
-        <div class="box-footer flat padded">
-            <form>
-                <div class="input-group addon-right">
-                    <input type="text" placeholder="Standard bootstrap append input here">
-                    <ul class="input-group-addon">
-                        <li>
-                            <a href="#"><i class="icon-paper-clip"></i></a>
-                        </li>
-                        <li>
-                            <button class="btn btn-blue">Send</button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>

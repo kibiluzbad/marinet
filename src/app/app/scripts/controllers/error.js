@@ -6,9 +6,9 @@ angular.module('marinetApp')
         $scope.name = $routeParams.appName;
         $scope.hash = $routeParams.hash;
 
-        $scope.error = Errors.get($scope.hash);
+        $scope.error = Errors.get($scope.hash, $scope.name);
 
         $scope.solve = function () {
-            Errors.solve($scope.hash);
+            Errors.solve($scope.hash, $scope.name);
         };
     });

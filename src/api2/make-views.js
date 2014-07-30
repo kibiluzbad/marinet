@@ -14,6 +14,7 @@ function (res, body, next) {
             next(null, JSON.parse(body));
         } else if (res.statusCode === 404) {
             next(null, {
+                language: 'javascript',
                 views: {}
             });
         }

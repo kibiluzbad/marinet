@@ -4,16 +4,18 @@ module.exports = function (promise, Q) {
     let defered = Q.defer();
 
     return {
-        'execute': function (accountId) {
+        'execute': function (comment) {
+
             promise.then(function (db) {
-                db.get(accountId, function (err, body) {
+                comment.type = 'comment';
+                db.insert(comment, function (err, body) {
                     if (err) {
                         defered.reject(err);
-                    } else {
-                        defered.resolve(body.apps);
-                    }
+                    } else
+                        defered.resolve(body);
                 });
             });
+
             return defered.promise;
         }
     }

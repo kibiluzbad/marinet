@@ -31,13 +31,17 @@ module.exports = function (promise, Q) {
                                 defered.reject(err2);
                             }
                             body2.rows.forEach(function (error) {
-                                errors.push({
-                                    'count': counts[error.id],
-                                    'error': error.doc
-                                });
+                                error.doc.count = counts[error.id];
+                                errors.push(error.doc);
                             });
 
-                            defered.resolve(errors);
+                            defered.resolve({
+                                currentPage: 1,
+                                sugestions: [],
+                                totalPages: 1,
+                                totalSize: errors.length,
+                                data: errors
+                            });
                         });
 
                     });

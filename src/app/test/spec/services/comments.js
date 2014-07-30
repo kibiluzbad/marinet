@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Auth', function () {
+describe('Service: Comments', function () {
 
   // load the service's module
   beforeEach(module('marinetApp'));
 
   // instantiate service
-  var Auth;
-  beforeEach(inject(function (_Auth_) {
-    Auth = _Auth_;
+  var Comments;
+  beforeEach(inject(function (_Comments_) {
+    Comments = _Comments_;
   }));
 
   it('should do something', function () {
-    expect(!!Auth).toBe(true);
+    expect(!!Comments).toBe(true);
   });
 
 });
