@@ -6,7 +6,7 @@ const
 async.waterfall([
  // get the existing design doc (if present)
 function (next) {
-        request.get('http://localhost:5984/marinetdb/_design/marinet', next);
+        request.get('http://162.243.118.8:5984/marinetdb/_design/marinet', next);
 },
  // create a new design doc or use existing
 function (res, body, next) {
@@ -26,7 +26,7 @@ function (doc, next) {
         });
         request({
             method: 'PUT',
-            url: 'http://localhost:5984/marinetdb/_design/marinet',
+            url: 'http://162.243.118.8:5984/marinetdb/_design/marinet',
             json: doc
         }, next);
 }

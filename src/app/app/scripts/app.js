@@ -5,7 +5,8 @@ angular
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngRoute'
+    'ngRoute',
+    'angularMoment',
   ])
     .config(function ($routeProvider, $httpProvider) {
         var access = routingConfig.accessLevels;

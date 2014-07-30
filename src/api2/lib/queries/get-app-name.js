@@ -2,9 +2,9 @@
 
 module.exports = function (promise, Q) {
 
-    let defered = Q.defer();
     return {
         'execute': function (appId, appKey) {
+            let defered = Q.defer();
             promise.then(function (db) {
                 db.view('marinet', 'appName_by_appId', {
                     'key': appId + '_' + appKey

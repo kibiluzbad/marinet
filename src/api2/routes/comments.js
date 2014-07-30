@@ -15,9 +15,12 @@ function comments(app, queries, commands, authed) {
     });
 
     app.post('/api/comment', function (req, res) {
-        let error = req.body;
+        let comment = req.body;
+        comment.name = req.user.name;
+        comment.role = req.user.role;
+        comment.createdAt = new Date();
 
-        commands.createComment.execute(req.body)
+        commands.createComment.execute(comment)
             .then(function (result) {
                 res.json(result);
             })

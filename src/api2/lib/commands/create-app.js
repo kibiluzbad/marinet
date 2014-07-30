@@ -5,10 +5,10 @@ const
     shortId = require('shortid');
 
 module.exports = function (promise, Q) {
-    let defered = Q.defer();
 
     return {
         'execute': function (accountId, app) {
+            let defered = Q.defer();
 
             promise.then(function (db) {
                 db.get(accountId, function (err, body) {
@@ -24,7 +24,7 @@ module.exports = function (promise, Q) {
                     db.insert(account, accountId, function (err2, body2) {
                         if (err2) defered.reject(err2);
 
-                        defered.resolve(body2);
+                        defered.resolve(app);
                     });
                 });
             });

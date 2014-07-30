@@ -5,14 +5,14 @@
     <div class="box-content">
 
         <ul class="chat-box">
-            <div ng-class-odd="arrow-box-right gray" ng-repeat="comment in comments">
-                <li ng-class-even="arrow-box-left" ng-class-odd="arrow-box-right gray" ng-repeat="comment in comments">
+            <div ng-repeat="comment in comments">
+                <li ng-class-even="'arrow-box-left'" ng-class-odd="'arrow-box-right gray'">
                     <div class="avatar">
                         <i class="icon-user icon-3x"></i>
                     </div>
                     <div class="info">
-                        <span class="name"><strong>{{comment.name}}</strong> <span class="badge badge-blue">{{comment.role}}</span></span>
-                        <span class="time">{{comment.createdAt}}</span>
+                        <span class="name"><strong>{{comment.name}}</strong> <span class="badge badge-blue">{{rotingConfig.roleDisplayName(comment.role)}}</span></span>
+                        <span class="time" am-time-ago="comment.createdAt"></span>
                     </div>
                     {{comment.message}}
                 </li>
@@ -25,15 +25,15 @@
     <p class="note text-center">{{lastMessageTime}}</p>
     <hr class="divider">
     <div class="box-footer flat padded">
-        <form>
+        <form ng-submit="send()">
             <div class="input-group addon-right">
-                <input type="text" placeholder="Standard bootstrap append input here">
+                <input type="text" required ng-model='message' placeholder="Type your comment">
                 <ul class="input-group-addon">
                     <li>
                         <a href="#"><i class="icon-paper-clip"></i></a>
                     </li>
                     <li>
-                        <button ng-click="send()" class="btn btn-blue">Send</button>
+                        <button type="submit" class="btn btn-blue">Send</button>
                     </li>
                 </ul>
             </div>

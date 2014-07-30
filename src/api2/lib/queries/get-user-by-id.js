@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = function (promise, Q) {
-    let defered = Q.defer();
-
     return {
         'execute': function (id) {
+            let defered = Q.defer();
             promise.then(function (db) {
                 db.view('marinet', 'user_by_id', {
                         key: id

@@ -3,9 +3,8 @@
 angular.module('marinetApp')
     .factory('Errors', function ($resource) {
         var d = new Date();
-        var errors = $resource(routingConfig.apiUrl + '/:appName/error/:hash', {
-            cacheSlayer: d.getTime()
-        }, {
+        console.log('criado');
+        var errors = $resource(routingConfig.apiUrl + '/:appName/error/:hash', {}, {
             'find': {
                 url: routingConfig.apiUrl + '/:appName/errors'
             },

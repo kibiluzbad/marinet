@@ -15,10 +15,7 @@ angular.module('marinetApp')
         }, {
             'comment': {
                 method: 'POST',
-                url: routingConfig.apiUrl + '/comment',
-                params: {
-                    hash: '@hash'
-                }
+                url: routingConfig.apiUrl + '/comment'
             }
         });
         return {
@@ -27,10 +24,8 @@ angular.module('marinetApp')
                     hash: hash
                 });
             },
-            comment: function (hash) {
-                return errors.comment({
-                    hash: hash
-                });
+            comment: function (data) {
+                return comments.comment(data).$promise;
             }
         };
     });

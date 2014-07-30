@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function (promise, Q) {
-    let defered = Q.defer();
 
     return {
         'execute': function (keys) {
+            let defered = Q.defer();
 
             promise.then(function (db) {
 
@@ -15,7 +15,7 @@ module.exports = function (promise, Q) {
                         defered.reject(err);
                     } else {
                         let
-                            erros = [];
+                            errors = [];
                         body.rows.forEach(function (item) {
                             item.doc.solved = true;
                             errors.push(item.doc);

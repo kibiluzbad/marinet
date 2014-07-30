@@ -4,10 +4,10 @@ const
     crypto = require('crypto');
 
 module.exports = function (promise, Q) {
-    let defered = Q.defer();
 
     return {
         'execute': function (error, appName) {
+            let defered = Q.defer();
             let hash = crypto.createHash('md5').update(JSON.stringify(error.message + error.stackTrace)).digest("hex");
 
             promise.then(function (db) {

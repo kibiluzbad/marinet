@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = function (promise, Q) {
-    let defered = Q.defer();
-
     return {
         'execute': function (accountId) {
+            let defered = Q.defer();
             promise.then(function (db) {
                 db.get(accountId, function (err, body) {
                     if (err) {

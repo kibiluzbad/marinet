@@ -11751,10 +11751,10 @@ li.divider + .vpadded {
 
 #breadcrumbs .breadcrumb-button.blue .breadcrumb-arrow span {
     background-color: #92cff5;
-    background: -moz-linear-gradient(135deg, #68a6ce, #92cff5);
-    background: -ms-linear-gradient(135deg, #68a6ce, #92cff5);
-    background: -o-linear-gradient(135deg, #68a6ce, #92cff5);
-    background: -webkit-gradient(linear, right bottom, left top, from(#68a6ce), to(#92cff5));
+    background: -moz-linear-gradient(135deg, #68a6ce, #92cff5) !important;
+    background: -ms-linear-gradient(135deg, #68a6ce, #92cff5) !important;
+    background: -o-linear-gradient(135deg, #68a6ce, #92cff5) !important;
+    background: -webkit-gradient(linear, right bottom, left top, from(#68a6ce), to(#92cff5)) !important;
 }
 /* line 87, /home/andrei/core-admin-release/core-admin/source/stylesheets/breadcrumbs.scss */
 

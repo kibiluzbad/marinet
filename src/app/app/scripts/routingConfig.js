@@ -7,6 +7,12 @@
         admin: 4 // 100
     };
 
+    var userRolesDisplayName = {
+        '1': 'public', // 001
+        '2': 'user', // 010
+        '4': 'admin' // 100
+    };
+
     exports.userRoles = userRoles;
     exports.accessLevels = {
         public: userRoles.public | // 111
@@ -18,5 +24,8 @@
         admin: userRoles.admin // 100    
     };
     exports.apiUrl = 'http://localhost:3000/api';
+    exports.roleDisplayName = function (id) {
+        return userRolesDisplayName[id];
+    }
 
 })(typeof exports === 'undefined' ? this['routingConfig'] = {} : exports);

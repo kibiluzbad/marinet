@@ -11,8 +11,16 @@ angular.module('marinetApp')
     .controller('CommentsCtrl', function ($scope, Comments) {
         $scope.comments = Comments.query($scope.hash);
         $scope.lastMessageTime = '';
+        $scope.message = '';
 
         $scope.send = function () {
-
+            Comments.comment({
+                hash: $scope.hash,
+                message: $scope.message
+            }).then(function (result) {
+                console.log(result);
+                $scope.comments.push(result);
+                $scope.message = '';
+            });
         };
     });

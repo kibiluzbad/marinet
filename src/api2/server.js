@@ -90,12 +90,12 @@ passport.use(new LocalStrategy(
             if (commands.validatePassword.execute(password, user))
                 done(null, user);
             else
-                done(null, false, {
+                done(403, false, {
                     message: 'Incorrect username or password.'
                 });
 
         }).catch(function (err) {
-            done(null, false, {
+            done(403, false, {
                 message: 'User not found.'
             });
         });

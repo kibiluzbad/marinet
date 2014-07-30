@@ -16,8 +16,6 @@ function errors(app, queries, commands, authed) {
 
     app.post('/api/error', function (req, res) {
         let error = req.body;
-        console.log(req.headers._marinetappid);
-        console.log(req.headers._marinetappkey);
 
         queries.getAppName.execute(req.headers._marinetappid, req.headers._marinetappkey)
             .then(function (appName) {
@@ -35,6 +33,7 @@ function errors(app, queries, commands, authed) {
     });
 
     app.get('/api/:appName/error/:hash', authed, function (req, res) {
+
         queries.getErrorsByHash
             .execute(req.params.appName, req.params.hash)
             .then(function (error) {
@@ -48,6 +47,7 @@ function errors(app, queries, commands, authed) {
     });
 
     app.get('/api/error/:hash/:id', authed, function (req, res) {
+
         queries.getErrorsById
             .execute(req.params.id)
             .then(function (error) {
@@ -60,7 +60,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.put('/api/:appName/error/:hash', authed, function (req, res) {
+    app.put('/api/error/:hash', authed, function (req, res) {
         commands.solveErrors
             .execute(req.body.keys)
             .then(function (result) {

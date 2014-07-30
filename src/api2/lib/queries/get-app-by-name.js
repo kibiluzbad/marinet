@@ -2,9 +2,9 @@
 
 module.exports = function (promise, Q) {
 
-    let defered = Q.defer();
     return {
         'execute': function (appName) {
+            let defered = Q.defer();
             promise.then(function (db) {
                 db.get(appName, function (err, body) {
                     if (err) {
