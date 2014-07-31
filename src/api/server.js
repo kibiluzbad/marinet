@@ -62,7 +62,8 @@ const authed = function (req, res, next) {
     }
 };
 
-redisClient
+if (environment === 'production')
+    redisClient
     .on('ready', function () {
         log.info('REDIS', 'ready');
     })
@@ -105,9 +106,9 @@ app.use(session({
     secret: 'eae79eb5-5a0d-4e14-9071-a38b02c4d712',
     saveUninitialized: true,
     resave: true,
-    store: new RedisStore({
+    store: environment === 'production' ? new RedisStore({
         client: redisClient
-    })
+    }) : null
 }));
 app.use(passport.initialize());
 app.use(passport.session());
