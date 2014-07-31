@@ -40,9 +40,7 @@ const
     };
 
 app.use(cors({
-    allowedOrigins: [
-        'localhost:9003', '162.243.118.8'
-    ]
+    allowedOrigins: config.allowedOrigins
 }));
 app.use(bodyParser.json());
 app.use(logger('combined'));
