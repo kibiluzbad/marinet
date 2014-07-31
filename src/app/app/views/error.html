@@ -93,7 +93,7 @@
                         <td colspan="2">
                             <ul class="pagination">
                                 <li ng-class="{disabled: error.selected == key}" ng-repeat="key in error.keys">
-                                    <a href="#" class="text-center">
+                                    <a ng-click="load(key)" class="text-center">
                                         {{key}}
                                     </a>
                                 </li>

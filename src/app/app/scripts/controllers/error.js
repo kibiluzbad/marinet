@@ -11,4 +11,14 @@ angular.module('marinetApp')
         $scope.solve = function () {
             Errors.solve($scope.hash, $scope.name);
         };
+
+        $scope.load = function (id) {
+            Errors.getById($scope.hash, id, function (result) {
+                result.keys = $scope.error.keys;
+                result.selected = id;
+                $scope.error = result;
+            }, function (err) {
+                console.log(err);
+            });
+        }
     });

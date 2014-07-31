@@ -11,7 +11,7 @@
                         <i class="icon-user icon-3x"></i>
                     </div>
                     <div class="info">
-                        <span class="name"><strong>{{comment.name}}</strong> <span class="badge badge-blue">{{rotingConfig.roleDisplayName(comment.role)}}</span></span>
+                        <span class="name"><strong>{{comment.name}}</strong> <span class="badge badge-blue">{{displayRole(comment.role)}}</span></span>
                         <span class="time" am-time-ago="comment.createdAt"></span>
                     </div>
                     {{comment.message}}
@@ -33,7 +33,7 @@
                         <a href="#"><i class="icon-paper-clip"></i></a>
                     </li>
                     <li>
-                        <button type="submit" class="btn btn-blue">Send</button>
+                        <button type="submit" btn-loading class="btn btn-blue">Send</button>
                     </li>
                 </ul>
             </div>

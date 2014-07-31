@@ -8,6 +8,9 @@ angular.module('marinetApp')
             'find': {
                 url: routingConfig.apiUrl + '/:appName/errors'
             },
+            'findOne': {
+                url: routingConfig.apiUrl + '/error/:hash/:id'
+            },
             'solve': {
                 method: 'PUT',
                 params: {
@@ -30,6 +33,14 @@ angular.module('marinetApp')
                     hash: hash,
                     appName: appName
                 });
+            },
+            getById: function (hash, id, success, error) {
+                return errors.findOne({
+                        hash: hash,
+                        id: id
+                    },
+                    success,
+                    error);
             },
             solve: function (hash, appName) {
                 return errors.solve({

@@ -13,6 +13,9 @@ angular.module('marinetApp')
         $scope.lastMessageTime = '';
         $scope.message = '';
 
+        $scope.displayRole = function (role) {
+            return routingConfig.roleDisplayName(role);
+        };
         $scope.send = function () {
             Comments.comment({
                 hash: $scope.hash,
