@@ -125,6 +125,6 @@ app.get('/', function (req, res) {
     res.json('I\'m working...');
 });
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), 'localhost', function () {
     log.info('SERVER', 'Express server listening on port ' + app.get('port'));
 });

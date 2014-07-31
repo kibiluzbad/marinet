@@ -2,7 +2,7 @@
     <div class="row">
         <div class="area-top clearfix">
             <div class="pull-left header">
-                <h3 class="title"><i class="icon-minus-sign"></i>{{error.message | truncate:25}}</h3>
+                <h3 class="title"><i ng-class="{'icon-ok-sign': error.solved, 'icon-minus-sign': !error.solved}"></i>{{error.message | truncate:25}}</h3>
                 <h5><span>A subtitle can go here</span></h5>
             </div>
         </div>
@@ -20,7 +20,7 @@
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
             <div class="breadcrumb-button">
-                <span class="breadcrumb-label"><i class="icon-minus-sign"></i> {{error.message | truncate:25}}</span>
+                <span class="breadcrumb-label"><i ng-class="{'icon-ok-sign': error.solved, 'icon-minus-sign': !error.solved}"></i> {{error.message | truncate:25}}</span>
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
         </div>

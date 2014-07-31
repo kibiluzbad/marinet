@@ -38,7 +38,7 @@ function account(app, config, queries, commands, authed, passport) {
             });
         });
 
-    app.get('/api/logout', authed, function (req, res) {
+    app.delete('/api/logout', authed, function (req, res) {
         req.logout();
         res.json(200, 'OK');
     });

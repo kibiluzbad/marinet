@@ -2,11 +2,13 @@
 const
     async = require('async'),
     request = require('request'),
+    environment = process.env.NODE_ENV || 'development',
+    config = require('./config/' + environment + '.js'),
     views = require('./setup/views.js');
 async.waterfall([
  // get the existing design doc (if present)
 function (next) {
-        request.get('http://162.243.118.8:5984/marinetdb/_design/marinet', next);
+        request.get(config.db + config.dbName + '/_design/marinet', next);
 },
  // create a new design doc or use existing
 function (res, body, next) {
@@ -26,7 +28,7 @@ function (doc, next) {
         });
         request({
             method: 'PUT',
-            url: 'http://162.243.118.8:5984/marinetdb/_design/marinet',
+            url: config.db + config.dbName + '/_design/marinet',
             json: doc
         }, next);
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('marinetApp')
-  .controller('MainCtrl', function ($scope) {
-       
-  });
+    .controller('MainCtrl', ['$scope',
+            function ($scope) {
+
+  }]);
