@@ -41,7 +41,7 @@ const
 
 app.use(cors({
     allowedOrigins: [
-        'localhost:9003', 'localhost'
+        'localhost:9003', '162.243.118.8'
     ]
 }));
 app.use(bodyParser.json());
