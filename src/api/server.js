@@ -125,4 +125,5 @@ app.get('/', function (req, res) {
 
 app.listen(app.get('port'), 'localhost', function () {
     log.info('SERVER', 'Express server listening on port ' + app.get('port'));
+    log.info('SERVER', environment + ' mode.');
 });
