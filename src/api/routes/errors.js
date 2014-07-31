@@ -1,7 +1,7 @@
 'use strict';
 
 function errors(app, queries, commands, authed) {
-    app.get('/api/:appName/errors', authed, function (req, res) {
+    app.get('/:appName/errors', authed, function (req, res) {
         queries.getAppErrors
             .execute(req.params.appName)
             .then(function (errors) {
@@ -14,7 +14,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.post('/api/error', function (req, res) {
+    app.post('/error', function (req, res) {
         let error = req.body;
 
         queries.getAppName.execute(req.headers._marinetappid, req.headers._marinetappkey)
@@ -32,7 +32,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.get('/api/:appName/error/:hash', authed, function (req, res) {
+    app.get('/:appName/error/:hash', authed, function (req, res) {
 
         queries.getErrorsByHash
             .execute(req.params.appName, req.params.hash)
@@ -46,7 +46,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.get('/api/error/:hash/:id', authed, function (req, res) {
+    app.get('/error/:hash/:id', authed, function (req, res) {
 
         queries.getErrorsById
             .execute(req.params.id)
@@ -60,7 +60,7 @@ function errors(app, queries, commands, authed) {
             });
     });
 
-    app.put('/api/error/:hash', authed, function (req, res) {
+    app.put('/error/:hash', authed, function (req, res) {
         commands.solveErrors
             .execute(req.body.keys)
             .then(function (result) {

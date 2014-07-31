@@ -1,7 +1,7 @@
 'use strict';
 
 function account(app, config, queries, commands, authed, passport) {
-    app.get('/api/account/apps', authed, function (req, res) {
+    app.get('/account/apps', authed, function (req, res) {
         queries.getAccountApps.execute(req.user.accountId)
             .then(function (apps) {
                 res.json(apps);
@@ -13,7 +13,7 @@ function account(app, config, queries, commands, authed, passport) {
             });
     });
 
-    app.post('/api/account/app', authed, function (req, res) {
+    app.post('/account/app', authed, function (req, res) {
         let
             app = req.body,
             accountId = req.user.accountId;
@@ -29,7 +29,7 @@ function account(app, config, queries, commands, authed, passport) {
             });
     });
 
-    app.post('/api/login',
+    app.post('/login',
         passport.authenticate('local'),
         function (req, res) {
             res.json(200, {
@@ -38,7 +38,7 @@ function account(app, config, queries, commands, authed, passport) {
             });
         });
 
-    app.delete('/api/logout', authed, function (req, res) {
+    app.delete('/logout', authed, function (req, res) {
         req.logout();
         res.json(200, 'OK');
     });

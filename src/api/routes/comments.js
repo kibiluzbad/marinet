@@ -1,7 +1,7 @@
 'use strict';
 
 function comments(app, queries, commands, authed) {
-    app.get('/api/comments/:hash', authed, function (req, res) {
+    app.get('/comments/:hash', authed, function (req, res) {
         queries.getCommentsByErrorHash
             .execute(req.params.hash)
             .then(function (errors) {
@@ -14,7 +14,7 @@ function comments(app, queries, commands, authed) {
             });
     });
 
-    app.post('/api/comment', function (req, res) {
+    app.post('/comment', function (req, res) {
         let comment = req.body;
         comment.name = req.user.name;
         comment.role = req.user.role;
