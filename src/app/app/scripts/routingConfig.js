@@ -21,9 +21,9 @@
         anon: userRoles.public, // 001
         user: userRoles.user | // 110
         userRoles.admin,
-        admin: userRoles.admin // 100    
+        admin: userRoles.admin // 100
     };
-    exports.apiUrl = 'http://localhost:3000/api';
+    exports.apiUrl = 'http://localhost:3000';
     exports.roleDisplayName = function (id) {
         return userRolesDisplayName[id];
     }
