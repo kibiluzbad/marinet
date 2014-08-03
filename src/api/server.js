@@ -11,12 +11,18 @@ const
     Q = require('q'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
-    redisClient = require('redis').createClient(),
-    RedisStore = require('connect-redis')(session),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     cors = require('express-cors'),
     app = express();
+
+let redisClient = {},
+    RedisStore = {};
+
+if ('production' === environment) {
+    redisClient = require('redis').createClient();
+    RedisStore = require('connect-redis')(session);
+}
 
 const
     queries = {
