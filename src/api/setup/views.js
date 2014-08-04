@@ -1,18 +1,11 @@
 module.exports = {
     unique_errors: {
         map: function (doc) {
-            if (doc.type === 'error') {
+            if (doc.type === 'grouped_error') {
                 var error = doc;
-                var key = [doc.appName, error.hash];
+                var key = doc.appName;
                 emit(key, error._id);
             }
-        }.toString(),
-        reduce: function (keys, values) {
-            return {
-                count: values.length,
-                id: values[0],
-                keys: values
-            };
         }.toString()
     },
     appName_by_appId: {

@@ -35,6 +35,7 @@ const
         'getUserByLogin': require('./lib/queries/get-user-by-login.js')(deferedDb, Q),
         'getErrorsById': require('./lib/queries/get-errors-by-id.js')(deferedDb, Q),
         'getCommentsByErrorHash': require('./lib/queries/get-comments-by-error-hash.js')(deferedDb, Q),
+        'searchErrors': require('./lib/queries/search-errors.js')(Q, config),
     },
     commands = {
         'createError': require('./lib/commands/create-error.js')(deferedDb, Q),

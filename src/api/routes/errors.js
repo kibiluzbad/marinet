@@ -7,16 +7,25 @@ function errors(app, queries, commands, authed) {
             .then(function (errors) {
                 res.json(errors);
             }).catch(function (err) {
-                res.json(502, {
-                    error: "bad_gateway",
-                    reason: err.message
-                });
+                res.json(err);
+            });
+    });
+
+    app.get('/:appName/errors/search', authed, function (req, res) {
+        queries.searchErrors
+            .execute(req.query.q, req.params.appName, req.query.page)
+            .then(function (errors) {
+                res.json(errors);
+            }).catch(function (err) {
+                res.json(err);
             });
     });
 
     app.post('/error', function (req, res) {
         let error = req.body;
 
+        console.log(req.headers._marinetappid);
+        console.log(req.headers._marinetappkey);
         queries.getAppName.execute(req.headers._marinetappid, req.headers._marinetappkey)
             .then(function (appName) {
                 return commands.createError.execute(error, appName)
@@ -25,10 +34,7 @@ function errors(app, queries, commands, authed) {
                     });
             })
             .catch(function (err) {
-                res.json(502, {
-                    error: "bad_gateway",
-                    reason: err.message
-                });
+                res.json(err);
             });
     });
 
@@ -39,10 +45,7 @@ function errors(app, queries, commands, authed) {
             .then(function (error) {
                 res.json(error);
             }).catch(function (err) {
-                res.json(502, {
-                    error: "bad_gateway",
-                    reason: err.message
-                });
+                res.json(err);
             });
     });
 
@@ -53,10 +56,7 @@ function errors(app, queries, commands, authed) {
             .then(function (error) {
                 res.json(error);
             }).catch(function (err) {
-                res.json(502, {
-                    error: "bad_gateway",
-                    reason: err.message
-                });
+                res.json(err);
             });
     });
 
@@ -64,13 +64,10 @@ function errors(app, queries, commands, authed) {
         commands.solveErrors
             .execute(req.body.keys)
             .then(function (result) {
-                res.json(200, 'Solved');
+                res.status(200).json('Solved');
             })
             .catch(function (err) {
-                res.json(502, {
-                    error: "bad_gateway",
-                    reason: err.message
-                });
+                res.json(err);
             });
     });
 }
