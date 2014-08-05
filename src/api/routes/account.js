@@ -32,8 +32,8 @@ function account(app, config, queries, commands, authed, passport) {
     app.post('/login',
         passport.authenticate('local'),
         function (req, res) {
-            res.json(200, {
-                'username': req.user.login,
+            res.json({
+                'username': req.user.id,
                 'role': req.user.role
             });
         });
@@ -41,6 +41,13 @@ function account(app, config, queries, commands, authed, passport) {
     app.delete('/logout', authed, function (req, res) {
         req.logout();
         res.json(200, 'OK');
+    });
+
+    app.get('/user', authed, function (req, res) {
+        res.json({
+            'username': req.user.id,
+            'role': req.user.role
+        });
     });
 }
 

@@ -24,7 +24,7 @@ angular.module('marinetApp')
                     return errors.find({
                             appName: appName,
                             page: page,
-                            query: query
+                            q: query
                         },
                         success,
                         error);

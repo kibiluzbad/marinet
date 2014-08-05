@@ -1,32 +1,42 @@
 'use strict';
 
 angular.module('marinetApp')
-    .factory('Auth', ['$http', '$rootScope', '$cookieStore',
-        function ($http, $rootScope, $cookieStore) {
+    .factory('Auth', ['$http', '$rootScope', '$cookieStore', '$q',
+        function ($http, $rootScope, $cookieStore, $q) {
 
             var accessLevels = routingConfig.accessLevels,
-                userRoles = routingConfig.userRoles,
-                currentUser = {
-                    username: '',
-                    role: userRoles.public
-                };
+                userRoles = routingConfig.userRoles;
+
+            var deferred = $q.defer();
+
+            $http.get(routingConfig.apiUrl + '/user')
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function (err) {
+                    console.log(err);
+                    deferred.resolve({
+                        username: '',
+                        role: userRoles.public
+                    });
+                });
 
             $rootScope.loggedIn = false;
-            $rootScope.user = currentUser;
+            $rootScope.user = deferred.promise;
+
             $rootScope.accessLevels = accessLevels;
             $rootScope.userRoles = userRoles;
 
             return {
                 authorize: function (accessLevel, role) {
+                    console.log($rootScope.user);
                     if (role === undefined)
                         role = $rootScope.user.role;
                     return accessLevel & role;
                 },
 
                 isLoggedIn: function (user) {
-                    if (user === undefined)
-                        user = $rootScope.user;
-                    return user.role === userRoles.user || user.role === userRoles.admin;
+                    return $rootScope.user.role === userRoles.user || $rootScope.user.role === userRoles.admin;
                 },
 
                 register: function (user, success, error) {
@@ -56,6 +66,6 @@ angular.module('marinetApp')
 
                 accessLevels: accessLevels,
                 userRoles: userRoles,
-                user: currentUser
+                user: $rootScope.user
             };
 }]);
