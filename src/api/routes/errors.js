@@ -52,7 +52,7 @@ function errors(app, queries, commands, authed) {
 
     app.put('/error/:hash', authed, function (req, res) {
         commands.solveErrors
-            .execute(req.body.keys)
+            .execute(req.params.hash)
             .then(function (result) {
                 res.status(200).json('Solved');
             })

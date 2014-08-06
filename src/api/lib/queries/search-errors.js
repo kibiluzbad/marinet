@@ -16,7 +16,7 @@ module.exports = function (Q, config) {
 
                 if (result.code && result.code === 500) defered.reject(body);
                 console.log(result);
-                //if (res.statusCode === 200) {
+
                 let errors = [];
                 result.rows.forEach(function (item) {
                     errors.push(item.doc);
@@ -27,10 +27,7 @@ module.exports = function (Q, config) {
                     totalPages: Math.ceil(result.total_rows / 25),
                     totalSize: result.total_rows,
                     data: errors
-                })
-                //} else {
-                //defered.reject(res);
-                //}
+                });
             });
 
             return defered.promise;
