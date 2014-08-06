@@ -13,7 +13,7 @@ module.exports = function (promise, Q) {
                         defered.reject(err);
                     } else {
 
-                        body.solve = true;
+                        body.solved = true;
 
                         db.insert(body, hash, function (err2, body2) {
                             if (err2) {

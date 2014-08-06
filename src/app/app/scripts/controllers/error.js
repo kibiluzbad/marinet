@@ -8,10 +8,13 @@ angular.module('marinetApp')
             $scope.hash = $routeParams.hash;
 
             $scope.error = Errors.get($scope.hash, $scope.name);
+            $scope.solve = $scope.error.solve;
 
             $scope.solve = function () {
                 $scope.$root.$emit('message', 'Erro solucionado.');
-                Errors.solve($scope.hash, $scope.name);
+                Errors.solve($scope.hash, $scope.name).then(function (data) {
+                    $scope.solve = true;
+                });
             };
 
             $scope.load = function (id) {

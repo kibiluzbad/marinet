@@ -50,7 +50,7 @@ angular.module('marinetApp')
                     return errors.solve({
                         hash: hash,
                         appName: appName
-                    });
+                    }).$promise;
                 },
             };
     }]);
