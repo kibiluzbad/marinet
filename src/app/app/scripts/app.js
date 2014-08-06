@@ -7,6 +7,7 @@ angular
     'ngSanitize',
     'ngRoute',
     'angularMoment',
+    'infinite-scroll',
   ])
     .config(['$routeProvider', '$httpProvider',
         function ($routeProvider, $httpProvider) {
@@ -22,7 +23,7 @@ angular
                     },
 
                     'responseError': function (rejection) {
-
+                        if (403 === response.status) window.location = "/login";
                         $('.btn').button('reset');
                         return $q.reject(rejection);
                     }

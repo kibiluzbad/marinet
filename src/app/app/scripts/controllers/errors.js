@@ -34,7 +34,7 @@ angular.module('marinetApp')
                     }
 
                     var pageInfo = data;
-                    var next = pageInfo.currentPage + 1;
+                    var next = parseInt(pageInfo.currentPage) + 1;
                     $scope.sugestions = pageInfo.sugestions;
                     $scope.canLoad = pageInfo.totalPages >= next;
                     $scope.page = pageInfo.totalPages > next ? next : pageInfo.totalPages;

@@ -5,7 +5,9 @@ angular.module('marinetApp')
         function ($resource) {
             var d = new Date();
             console.log('criado');
-            var errors = $resource(routingConfig.apiUrl + '/:appName/error/:hash', {}, {
+            var errors = $resource(routingConfig.apiUrl + '/:appName/error/:hash', {
+                cacheSlayer: d.getTime()
+            }, {
                 'find': {
                     url: routingConfig.apiUrl + '/:appName/errors'
                 },
@@ -24,7 +26,8 @@ angular.module('marinetApp')
                     return errors.find({
                             appName: appName,
                             page: page,
-                            q: query
+                            q: query,
+                            cacheSlayer: d.getTime()
                         },
                         success,
                         error);

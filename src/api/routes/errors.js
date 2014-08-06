@@ -2,16 +2,7 @@
 
 function errors(app, queries, commands, authed) {
     app.get('/:appName/errors', authed, function (req, res) {
-        if (!req.query.q)
-            queries.getAppErrors
-            .execute(req.params.appName, req.query.page || 1)
-            .then(function (errors) {
-                res.json(errors);
-            }).catch(function (err) {
-                res.json(err);
-            });
-        else
-            queries.searchErrors
+        queries.searchErrors
             .execute(req.query.q, req.params.appName, req.query.page)
             .then(function (errors) {
                 res.json(errors);

@@ -56,7 +56,7 @@ app.set('port', process.env.PORT || 3000);
 const authed = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
-    } else if (redisClient.ready) {
+    } else if (redisClient.ready || 'production' !== environment) {
         res.json(403, {
             error: "forbidden",
             reason: "not_authenticated"
