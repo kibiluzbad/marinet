@@ -13,6 +13,8 @@ module.exports = function (Q, config) {
 
             request.get(url, function (res, body) {
                 let result = JSON.parse(body.body);
+
+                if (result.code && result.code === 500) defered.reject(body);
                 console.log(result);
                 //if (res.statusCode === 200) {
                 let errors = [];
