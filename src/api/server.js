@@ -57,12 +57,12 @@ const authed = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else if (redisClient.ready || 'production' !== environment) {
-        res.json(403, {
+        res.status(403).json({
             error: "forbidden",
             reason: "not_authenticated"
         });
     } else {
-        res.json(503, {
+        res.status(503).json({
             error: "service_unavailable",
             reason: "authentication_unavailable"
         });

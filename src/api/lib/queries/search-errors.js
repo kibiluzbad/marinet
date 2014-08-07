@@ -3,14 +3,15 @@ const request = require('request');
 
 module.exports = function (Q, config) {
     return {
-        'execute': function (query, appName, page) {
+        'execute': function (filter, page) {
             let defered = Q.defer(),
-                url = config.db + '_fti/local/' + config.dbName + '/_design/errors/by_message?sort=%5CcreatedAt%3Cdate%3E&include_docs=true&limit=25&skip=' + ((page - 1) * 25) + '&q=appName:' + appName;
+                url = config.db + '_fti/local/' + config.dbName + '/_design/errors/by_message?sort=' + encodeURIComponent(filter.sort) + 'createdAt%3Cdate%3E&include_docs=true&limit=25&skip=' + ((page - 1) * 25) + '&q=appName:' + filter.appName;
+
+
+            if (filter.query) url += ' AND message:' + filter.query + '~';
+            url += ' AND solved:' + filter.solved.toString();
 
             console.log(url);
-            if (query) url += ' AND message:' + query + '~';
-
-
             request.get(url, function (res, body) {
                 let result = JSON.parse(body.body);
 

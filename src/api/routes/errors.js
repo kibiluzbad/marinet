@@ -3,7 +3,12 @@
 function errors(app, queries, commands, authed) {
     app.get('/:appName/errors', authed, function (req, res) {
         queries.searchErrors
-            .execute(req.query.q, req.params.appName, req.query.page)
+            .execute({
+                query: req.query.q,
+                appName: req.params.appName,
+                solved: req.query.solved ? true : false,
+                sort: req.query.sort !== 'asc' ? "\\" : "/",
+            }, req.query.page)
             .then(function (errors) {
                 res.json(errors);
             }).catch(function (err) {

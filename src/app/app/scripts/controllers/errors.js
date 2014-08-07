@@ -22,11 +22,33 @@ angular.module('marinetApp')
                 $scope.search();
             };
 
+            $scope.default = function () {
+                $scope.solved = null;
+                $scope.query = '';
+                $scope.search();
+            }
+
+            $scope.orderAsc = function () {
+                $scope.sort = 'asc';
+                $scope.search();
+            }
+
+            $scope.onlySolved = function () {
+                $scope.solved = true;
+                $scope.search();
+            }
+
             $scope.nextPage = function () {
                 if ($scope.busy || !$scope.canLoad) return;
                 $scope.busy = true;
 
-                Errors.query($scope.name, $scope.page, $scope.query, function (data, status, headers, config) {
+                Errors.query({
+                    appName: $scope.name,
+                    page: $scope.page,
+                    query: $scope.query,
+                    solved: $scope.solved,
+                    sort: $scope.sort
+                }, function (data, status, headers, config) {
 
                     var items = data.data;
                     for (var i = 0; i < items.length; i++) {

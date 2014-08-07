@@ -15,20 +15,25 @@ angular
 
             $httpProvider.defaults.withCredentials = true;
 
-            $httpProvider.interceptors.push(function ($q, $location) {
-                return {
-                    'response': function (response) {
-                        $('.btn').button('reset');
-                        return response || $q.when(response);
-                    },
+            $httpProvider.interceptors.push(['$q', '$location', '$rootScope',
+                function ($q, $location, $rootScope) {
+                    return {
+                        'response': function (response) {
+                            $('.btn').button('reset');
+                            return response || $q.when(response);
+                        },
 
-                    'responseError': function (rejection) {
-                        if (403 === response.status) window.location = "/login";
-                        $('.btn').button('reset');
-                        return $q.reject(rejection);
-                    }
-                };
-            });
+                        'responseError': function (rejection) {
+                            if (rejection.status === 403) {
+
+                                $rootScope.loggedIn = false;
+                                $location.path('/login');
+                            }
+                            $('.btn').button('reset');
+                            return $q.reject(rejection);
+                        }
+                    };
+            }]);
 
             $routeProvider
                 .when('/apps', {
@@ -62,11 +67,6 @@ angular
     .run(['$rootScope', '$location', 'Auth',
         function ($rootScope, $location, Auth) {
 
-            $rootScope.$on("$routeChangeStart", function (event, next, current) {
-                if (!Auth.authorize(next.access)) {
-                    if (Auth.isLoggedIn()) $location.path('/');
-                    else $location.path('/login');
-                }
-            });
+
 
 }]);

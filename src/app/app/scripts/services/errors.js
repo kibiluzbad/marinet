@@ -22,11 +22,13 @@ angular.module('marinetApp')
                 }
             });
             return {
-                query: function (appName, page, query, success, error) {
+                query: function (filter, success, error) {
                     return errors.find({
-                            appName: appName,
-                            page: page,
-                            q: query,
+                            appName: filter.appName,
+                            page: filter.page,
+                            q: filter.query,
+                            solved: filter.solved,
+                            sort: filter.sort,
                             cacheSlayer: d.getTime()
                         },
                         success,

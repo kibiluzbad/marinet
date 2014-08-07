@@ -28,7 +28,7 @@
             <div class="action-nav-normal">
                 <div class="row action-nav-row">
                     <div class="col-sm-11 action-nav-button">
-                        <a title="Messages" href="#">
+                        <a title="Messages" ng-click="default()">
                             <i class="icon-filter"></i>
                             <span>Default</span>
                         </a>
@@ -37,16 +37,16 @@
                 </div>
                 <div class="row action-nav-row">
                     <div class="col-sm-11 action-nav-button">
-                        <a title="Files" href="#">
-                            <i class="icon-sort-down"></i>
-                            <span>Order by desc</span>
+                        <a title="Files" ng-click="orderAsc()">
+                            <i class="icon-sort-up"></i>
+                            <span>Order by asc</span>
                         </a>
                         <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
                     </div>
                 </div>
                 <div class="row action-nav-row">
                     <div class="col-sm-11 action-nav-button">
-                        <a title="Friends" href="#">
+                        <a title="Friends" ng-click="onlySolved()">
                             <i class="icon-ok-sign"></i>
                             <span>Only solved</span>
                         </a>

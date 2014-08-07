@@ -6,7 +6,7 @@ function account(app, config, queries, commands, authed, passport) {
             .then(function (apps) {
                 res.json(apps);
             }).catch(function (err) {
-                res.json(502, {
+                res.status(503).json({
                     error: "bad_gateway",
                     reason: err.message
                 });
@@ -22,7 +22,7 @@ function account(app, config, queries, commands, authed, passport) {
             .then(function (errors) {
                 res.json(errors)
             }).catch(function (err) {
-                res.json(502, {
+                res.status(503).json({
                     error: "bad_gateway",
                     reason: err.message
                 });
@@ -40,14 +40,22 @@ function account(app, config, queries, commands, authed, passport) {
 
     app.delete('/logout', authed, function (req, res) {
         req.logout();
-        res.json(200, 'OK');
+        res.status(200).json({
+            message: 'OK'
+        });
     });
 
-    app.get('/user', authed, function (req, res) {
-        res.json({
-            'username': req.user.id,
-            'role': req.user.role
-        });
+    app.get('/user', function (req, res) {
+        if (req.user)
+            res.json({
+                'username': req.user.id,
+                'role': req.user.role
+            });
+        else
+            res.status(403).json({
+                error: "forbidden",
+                reason: "not_authenticated"
+            });
     });
 }
 

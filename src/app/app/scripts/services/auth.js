@@ -11,6 +11,7 @@ angular.module('marinetApp')
 
             $http.get(routingConfig.apiUrl + '/user')
                 .success(function (data) {
+                    $rootScope.loggedIn = true;
                     deferred.resolve(data);
                 })
                 .error(function (err) {
