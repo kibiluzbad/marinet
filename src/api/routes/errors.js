@@ -1,6 +1,6 @@
 'use strict';
 
-function errors(app, queries, commands, authed) {
+function errors(app, queries, commands, authed, publisher) {
     app.get('/:appName/errors', authed, function (req, res) {
         queries.searchErrors
             .execute({
@@ -19,18 +19,20 @@ function errors(app, queries, commands, authed) {
     app.post('/error', function (req, res) {
         let error = req.body;
 
-        console.log(req.headers._marinetappid);
-        console.log(req.headers._marinetappkey);
-        queries.getAppName.execute(req.headers._marinetappid, req.headers._marinetappkey)
-            .then(function (appName) {
-                return commands.createError.execute(error, appName)
-                    .then(function (error) {
-                        res.json(error)
-                    });
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
+        publisher.send(JSON.stringify({
+            type: 'newerror',
+            error: error,
+            app: {
+                id: req.headers._marinetappid,
+                key: req.headers._marinetappkey
+            },
+            date: Date.now()
+        }));
+
+        res.json({
+            'message': 'queued'
+        });
+
     });
 
     app.get('/:appName/error/:hash', authed, function (req, res) {

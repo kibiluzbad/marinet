@@ -9,8 +9,8 @@ angular
     'angularMoment',
     'infinite-scroll',
   ])
-    .config(['$routeProvider', '$httpProvider',
-        function ($routeProvider, $httpProvider) {
+    .config(['$routeProvider', '$httpProvider', '$locationProvider',
+        function ($routeProvider, $httpProvider, $locationProvider) {
             var access = routingConfig.accessLevels;
 
             $httpProvider.defaults.withCredentials = true;
@@ -34,6 +34,8 @@ angular
                         }
                     };
             }]);
+
+            $locationProvider.hashPrefix('!');
 
             $routeProvider
                 .when('/apps', {

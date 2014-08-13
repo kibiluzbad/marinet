@@ -14,7 +14,10 @@ const
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     cors = require('express-cors'),
-    app = express();
+    app = express(),
+    zmq = require('zmq'),
+    publisher = zmq.socket('pub');
+
 
 let redisClient = {},
     RedisStore = {};
@@ -122,13 +125,20 @@ app.use(passport.session());
 
 
 const
-    errors = require('./routes/errors.js')(app, queries, commands, authed),
+    errors = require('./routes/errors.js')(app, queries, commands, authed, publisher),
     account = require('./routes/account.js')(app, config, queries, commands, authed, passport),
     application = require('./routes/application.js')(app, config, commands, authed),
     comments = require('./routes/comments.js')(app, queries, commands, authed);
 
 app.get('/', function (req, res) {
     res.json('I\'m working...');
+});
+
+publisher.bind('tcp://*:5432', function (err) {
+    if (!err)
+        log.info('0MQ', 'Listening for zmq subscribers...');
+    else
+        log.error(err);
 });
 
 app.listen(app.get('port'), function () {

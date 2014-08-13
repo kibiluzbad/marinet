@@ -15,20 +15,20 @@ module.exports = function (Q, config) {
             request.get(url, function (res, body) {
                 let result = JSON.parse(body.body);
 
-                if (result.code && result.code === 500) defered.reject(body);
-                console.log(result);
-
-                let errors = [];
-                result.rows.forEach(function (item) {
-                    errors.push(item.doc);
-                });
-                defered.resolve({
-                    currentPage: page,
-                    sugestions: [],
-                    totalPages: Math.ceil(result.total_rows / 25),
-                    totalSize: result.total_rows,
-                    data: errors
-                });
+                if (!result.rows) defered.reject(body);
+                else {
+                    let errors = [];
+                    result.rows.forEach(function (item) {
+                        errors.push(item.doc);
+                    });
+                    defered.resolve({
+                        currentPage: page,
+                        sugestions: [],
+                        totalPages: Math.ceil(result.total_rows / 25),
+                        totalSize: result.total_rows,
+                        data: errors
+                    });
+                }
             });
 
             return defered.promise;
