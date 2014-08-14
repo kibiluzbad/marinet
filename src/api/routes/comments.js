@@ -4,8 +4,8 @@ function comments(app, queries, commands, authed) {
     app.get('/comments/:hash', authed, function (req, res) {
         queries.getCommentsByErrorHash
             .execute(req.params.hash)
-            .then(function (errors) {
-                res.json(errors);
+            .then(function (comments) {
+                res.json(comments);
             }).catch(function (err) {
                 res.json(502, {
                     error: "bad_gateway",
@@ -22,7 +22,7 @@ function comments(app, queries, commands, authed) {
 
         commands.createComment.execute(comment)
             .then(function (result) {
-                res.json(result);
+                res.status(201).json(result);
             })
             .catch(function (err) {
                 res.json(502, {

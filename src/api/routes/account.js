@@ -19,8 +19,8 @@ function account(app, config, queries, commands, authed, passport) {
             accountId = req.user.accountId;
 
         commands.createApp.execute(accountId, app)
-            .then(function (errors) {
-                res.json(errors)
+            .then(function (app) {
+                res.status(201).json(app);
             }).catch(function (err) {
                 res.status(503).json({
                     error: "bad_gateway",
@@ -40,7 +40,7 @@ function account(app, config, queries, commands, authed, passport) {
 
     app.delete('/logout', authed, function (req, res) {
         req.logout();
-        res.status(200).json({
+        res.status(204).json({
             message: 'OK'
         });
     });

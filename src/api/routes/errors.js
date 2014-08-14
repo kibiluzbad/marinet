@@ -29,7 +29,7 @@ function errors(app, queries, commands, authed, publisher) {
             date: Date.now()
         }));
 
-        res.json({
+        res.status(201).json({
             'message': 'queued'
         });
 
