@@ -16,8 +16,11 @@ const
     cors = require('express-cors'),
     app = express(),
     zmq = require('zmq'),
-    publisher = zmq.socket('pub');
+    publisher = zmq.socket('pub'),
+    Marinet = require('marinet-provider-nodejs'),
+    provider = new Marinet(config.marinet);
 
+console.log(provider);
 
 let redisClient = {},
     RedisStore = {};
@@ -53,7 +56,7 @@ app.use(cors({
     allowedOrigins: config.allowedOrigins
 }));
 app.use(bodyParser.json());
-app.use(logger('combined'));
+//app.use(logger('combined'));
 app.set('port', process.env.PORT || 3000);
 
 const authed = function (req, res, next) {
@@ -123,7 +126,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 const
     errors = require('./routes/errors.js')(app, queries, commands, authed, publisher),
     account = require('./routes/account.js')(app, config, queries, commands, authed, passport),
@@ -133,6 +135,21 @@ const
 app.get('/', function (req, res) {
     res.json('I\'m working...');
 });
+
+
+app.use(function (err, req, res, next) {
+    if (err.message && err.stack) {
+        provider.error({
+            currentUser: req.user ? req.user.name : 'unauthenticated',
+            message: err.message,
+            exception: err.stack,
+            createdAt: new Date().toISOString().replace(/\..+/, '')
+        });
+    }
+
+    next(err);
+});
+
 
 publisher.bind('tcp://*:5432', function (err) {
     if (!err)

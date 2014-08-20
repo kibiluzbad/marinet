@@ -67,6 +67,11 @@ function errors(app, queries, commands, authed, publisher) {
                 res.json(err);
             });
     });
+
+    app.get('/error/throw', function (req, res) {
+        throw new Error("Error test! Try to catch this!");
+
+    });
 }
 
 module.exports = errors;
