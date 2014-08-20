@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-    .controller('LoginCtrl', ['$scope', '$location', 'Auth',
-        function ($scope, $location, Auth) {
+    .controller('LoginCtrl', ['$scope', '$location', 'Auth', 'toaster',
+        function ($scope, $location, Auth, toaster) {
             $scope.user = {
                 username: '',
                 password: ''
@@ -13,7 +13,7 @@ angular.module('marinetApp')
                     $location.path('/apps');
                     $scope.$root.$emit('hidemessage', '');
                 }, function () {
-                    $scope.$root.$emit('message', 'Usuário e/ou senha inválido.');
+                    toaster.pop('warning', '', 'Usuário e/ou senha inválido');
                 });
             };
   }]);

@@ -8,8 +8,8 @@
  * Controller of the marinetApp
  */
 angular.module('marinetApp')
-    .controller('CommentsCtrl', ['$scope', 'Comments',
-        function ($scope, Comments) {
+    .controller('CommentsCtrl', ['$scope', 'Comments', 'toaster',
+        function ($scope, Comments, toaster) {
             $scope.comments = Comments.query($scope.hash);
             $scope.lastMessageTime = '';
             $scope.message = '';
@@ -22,7 +22,7 @@ angular.module('marinetApp')
                     hash: $scope.hash,
                     message: $scope.message
                 }).then(function (result) {
-                    $scope.$root.$emit('message', 'Comentario enviado.');
+                    toaster.pop('success', '', 'Comentário salvo');
                     $scope.comments.push(result);
                     $scope.message = '';
                 });

@@ -18,6 +18,7 @@
     <!-- build:css(./) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'>
@@ -46,6 +47,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Add your site or application content here -->
+    <toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'position-class': 'toast-bottom-right'}"></toaster-container>
     <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand" href="#/apps">
@@ -63,7 +65,7 @@
     </nav>
 
     <ng-include src="'/views/sidemenu.html'"></ng-include>
-    <ng-include src="'/views/message.html'"></ng-include>
+
     <div class="main-content" butterbar>
         <div style="padding: 10px;">Loading...</div>
     </div>
@@ -107,6 +109,7 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/angularjs-toaster/toaster.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->

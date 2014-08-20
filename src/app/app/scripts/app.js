@@ -8,6 +8,7 @@ angular
     'ngRoute',
     'angularMoment',
     'infinite-scroll',
+    'toaster',
   ])
     .config(['$routeProvider', '$httpProvider', '$locationProvider',
         function ($routeProvider, $httpProvider, $locationProvider) {

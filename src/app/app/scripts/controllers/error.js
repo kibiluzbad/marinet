@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-    .controller('ErrorCtrl', ['$scope', '$routeParams', 'Errors',
-        function ($scope, $routeParams, Errors) {
+    .controller('ErrorCtrl', ['$scope', '$routeParams', 'Errors', 'toaster',
+        function ($scope, $routeParams, Errors, toaster) {
 
             $scope.name = $routeParams.appName;
             $scope.hash = $routeParams.hash;
@@ -11,7 +11,7 @@ angular.module('marinetApp')
             $scope.solve = $scope.error.solve;
 
             $scope.solve = function () {
-                $scope.$root.$emit('message', 'Erro solucionado.');
+                toaster.pop('success', '', 'Erro solucionado');
                 Errors.solve($scope.hash, $scope.name).then(function (data) {
                     $scope.solve = true;
                 });

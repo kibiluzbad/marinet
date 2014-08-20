@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-    .controller('NewappCtrl', ['$scope', 'Apps',
-        function ($scope, Apps) {
+    .controller('NewappCtrl', ['$scope', 'Apps', 'toaster',
+        function ($scope, Apps, toaster) {
             $scope.appName = "";
             $scope.show = false;
 
@@ -15,13 +15,14 @@ angular.module('marinetApp')
                     "name": $scope.appName
                 })
                     .then(function (obj) {
-                        $scope.$root.$emit('message', 'Aplicação criada com sucesso');
+                        toaster.pop('success', '', 'Aplicação criada com sucesso');
                         $scope.$root.$emit('newapp-created', '');
                         $scope.appName = "";
                         $scope.$root.apps.push(obj);
                         $scope.show = false;
-                    }, function () {
-                        $scope.$root.$emit('message', 'Erro ao criar a aplicação');
+                    }, function (err) {
+                        console.log(err);
+                        toaster.pop('error', '', 'Erro ao criar a aplicação');
                     });
             };
     }]);

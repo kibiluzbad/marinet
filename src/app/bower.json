@@ -14,7 +14,8 @@
     "angular-touch": "1.2.16",
     "angular-route": "1.2.16",
     "angular-moment": "~0.8.0",
-    "ngInfiniteScroll": "~1.1.2"
+    "ngInfiniteScroll": "~1.1.2",
+    "angularjs-toaster": "~0.4.7"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
