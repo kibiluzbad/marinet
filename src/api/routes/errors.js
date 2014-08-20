@@ -23,8 +23,8 @@ function errors(app, queries, commands, authed, publisher) {
             type: 'newerror',
             error: error,
             app: {
-                id: req.headers._marinetappid,
-                key: req.headers._marinetappkey
+                id: req.headers.marinetappid,
+                key: req.headers.marinetappkey
             },
             date: Date.now()
         }));
