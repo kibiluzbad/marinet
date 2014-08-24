@@ -1,42 +1,57 @@
-<div class="box" ng-controller="CommentsCtrl">
-    <div class="box-header">
-        <div class="title">Comments</div>
-    </div>
-    <div class="box-content">
+<div ng-controller="CommentsCtrl">
+    <ul class="chat-box timeline">
+        <div ng-repeat="comment in comments">
 
-        <ul class="chat-box">
-            <div ng-repeat="comment in comments">
-                <li ng-class-even="'arrow-box-left'" ng-class-odd="'arrow-box-right gray'">
-                    <div class="avatar">
-                        <i class="icon-user icon-3x"></i>
-                    </div>
-                    <div class="info">
-                        <span class="name"><strong>{{comment.name}}</strong> <span class="badge badge-blue">{{displayRole(comment.role)}}</span></span>
-                        <span class="time" am-time-ago="comment.createdAt"></span>
-                    </div>
-                    {{comment.message}}
-                </li>
-                <li class="divider"></li>
-            </div>
-
-        </ul>
-
-    </div>
+            <li class="arrow-box-left gray">
+                <div class="avatar">
+                    <i class="icon-user icon-3x"></i>
+                </div>
+                <div class="info">
+                    <span class="name">
+                        <span class="label label-green">{{displayRole(comment.role)}}</span> <strong class="indent">{{comment.name}}</strong>
+                    </span>
+                    <span class="time"><i class="icon-time"></i> <span am-time-ago="comment.createdAt"></span></span>
+                </div>
+                <div class="content">
+                    <blockquote>
+                        {{comment.message}}
+                    </blockquote>
+                </div>
+            </li>                
+        </div>
+    </ul>
+    
     <p class="note text-center">{{lastMessageTime}}</p>
-    <hr class="divider">
-    <div class="box-footer flat padded">
-        <form ng-submit="send()">
-            <div class="input-group addon-right">
-                <input type="text" required ng-model='message' placeholder="Type your comment">
-                <ul class="input-group-addon">
-                    <li>
-                        <a href="#"><i class="icon-paper-clip"></i></a>
-                    </li>
-                    <li>
-                        <button type="submit" btn-loading class="btn btn-blue">Send</button>
-                    </li>
+    
+    <div class="box closable-chat-box open">
+        
+        <div class="box-content padded">
+
+            <div class="fields">
+                <div class="avatar">
+                    <i class="icon-user icon-3x"></i>
+                </div>
+                <ul>
+                    <li><b>Add a comment for error</b></li>
+                    <li class="note">...</li>
                 </ul>
             </div>
-        </form>
+
+            <form class="fill-up" ng-submit="send()">
+
+                <div class="chat-message-box">
+                    <input type="text" required ng-model="message" style="height: 50px; border: none; box-shadow: none; margin: 5px; width: 97% !important; background: #fff;" placeholder="add a comment">
+                </div>
+
+                <div class="clearfix actions">
+                    <div class="pull-right faded-toolbar">
+                        <button type="submit" btn-loading class="btn btn-blue btn-xs">Send</button>
+                    </div>
+                </div>
+                
+            </form>
+
+        </div>
+        
     </div>
 </div>

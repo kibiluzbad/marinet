@@ -45,7 +45,7 @@ function account(app, config, queries, commands, authed, passport) {
         });
     });
 
-    app.get('/user', function (req, res) {
+    app.get('/user', authed, function (req, res) {
         if (req.user)
             res.json({
                 'username': req.user.id,

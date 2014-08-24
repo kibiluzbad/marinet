@@ -28,7 +28,7 @@
             <div class="action-nav-normal">
                 <div class="row action-nav-row">
                     <div class="col-sm-11 action-nav-button">
-                        <a title="Messages" ng-click="default()">
+                        <a title="Messages" ng-click="default()" ng-class="{active: !solved}">
                             <i class="icon-filter"></i>
                             <span>Default</span>
                         </a>
@@ -37,16 +37,7 @@
                 </div>
                 <div class="row action-nav-row">
                     <div class="col-sm-11 action-nav-button">
-                        <a title="Files" ng-click="orderAsc()">
-                            <i class="icon-sort-up"></i>
-                            <span>Order by asc</span>
-                        </a>
-                        <span class="triangle-button blue"><i class="icon-question-sign"></i></span>
-                    </div>
-                </div>
-                <div class="row action-nav-row">
-                    <div class="col-sm-11 action-nav-button">
-                        <a title="Friends" ng-click="onlySolved()">
+                        <a title="Friends" ng-click="onlySolved()" ng-class="{active: solved}">
                             <i class="icon-ok-sign"></i>
                             <span>Only solved</span>
                         </a>
@@ -90,6 +81,12 @@
                     <span class="title">Errors</span>
                     <ul class="box-toolbar">
                         <li><span class="label label-red">{{total}}</span>
+                        </li>
+                        <li class="toolbar-link">
+                            <a href="#" data-toggle="dropdown">Order by &nbsp; <i class="icon-sort"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="orderAsc()"><i class="icon-sort-up"></i>&nbsp;&nbsp; asc</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

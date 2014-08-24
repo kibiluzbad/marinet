@@ -32,13 +32,13 @@
             <span class="title text-error">Error</span>
             <ul class="box-toolbar">
                 <li>
-                    <div class="onoffswitch">
-                        <input type="checkbox" name="onoffswitch" ng-change="solve()" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="error.solved">
-                        <label class="onoffswitch-label" for="myonoffswitch">
-                            <div class="onoffswitch-inner"></div>
-                            <div class="onoffswitch-switch"></div>
-                        </label>
-                    </div>
+                    <a href="#" class="btn btn-sm btn-green" ng-if="error.solved" disabled="disabled">
+                        <i class="icon-ok-sign"></i> solved
+                    </a>
+                    
+                    <a ng-click="solve()" class="btn btn-sm btn-red" ng-if="!error.solved">
+                        <i class="icon-minus-sign"></i> unsolved
+                    </a>
                 </li>
             </ul>
         </div>
@@ -94,7 +94,7 @@
                             <ul class="pagination">
                                 <li ng-class="{disabled: error.selected == key}" ng-repeat="key in error.keys">
                                     <a ng-click="load(key)" class="text-center">
-                                        {{key}}
+                                        {{error.createdAt | normalizedate | date:'MMMM, dd'}}
                                     </a>
                                 </li>
                             </ul>

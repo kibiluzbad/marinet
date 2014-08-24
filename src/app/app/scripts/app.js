@@ -64,7 +64,7 @@ angular
                     access: access.anon
                 })
                 .otherwise({
-                    redirectTo: '/login'
+                    redirectTo: '/apps'
                 });
     }])
     .run(['$rootScope', '$location', 'Auth',
