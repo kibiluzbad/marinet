@@ -40,6 +40,15 @@ function errors(app, queries, commands, authed, publisher) {
         queries.getErrorsByHash
             .execute(req.params.appName, req.params.hash)
             .then(function (error) {
+                let fields = [],
+                    restrictions = ['_id', '_rev', 'appName', 'count', 'exception', 'keys', 'message', 'solved', 'type', 'selected'];
+                
+                Object.keys(error).forEach(function(key) {
+                    if (restrictions.indexOf(key) === -1)
+                        fields.push({ name: key, val: error[key] });
+                });
+                
+                error.fields = fields;
                 res.json(error);
             }).catch(function (err) {
                 res.json(err);

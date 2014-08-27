@@ -45,45 +45,22 @@
         <div class="box-content padded">
             <table style="clear: both" class="table table-bordered table-striped responsive">
                 <tbody>
-                    <tr>
-                        <td width="20%">User</td>
-                        <td width="80%">{{error.currentUser}}</td>
+                    <tr ng-repeat="field in error.fields">
+                        <td width="20%">{{field.name}}</td>
+                        <td width="80%">{{displayVal(field.val)}}</td>
                     </tr>
                     <tr>
-                        <td>OS</td>
-                        <td>{{error.osVersion}}</td>
-                    </tr>
-                    <tr>
-                        <td>Plataform</td>
-                        <td>{{error.platform}}</td>
-                    </tr>
-                    <tr>
-                        <td>Service Pack</td>
-                        <td>{{error.servicePack}}</td>
-                    </tr>
-                    <tr>
-                        <td>Processors</td>
-                        <td>{{error.processors}}</td>
-                    </tr>
-                    <tr>
-                        <td>Date/Time
-                        </td>
-                        <td>{{error.createdAt | normalizedate | date:'MMMM, dd yyyy HH:mm:ss'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Message
-                        </td>
+                        <td>message</td>
                         <td>
                             <span class="text-error">{{error.message}}</span>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">Stack Trace</td>
+                        <td colspan="2">stack trace</td>
                     </tr>
                     <tr>
                         <td class="stacktrace" colspan="2">
-                            <pre>{{ error.exception }}</pre>
+                            <pre>{{error.exception}}</pre>
                         </td>
                     </tr>
                     <tr>

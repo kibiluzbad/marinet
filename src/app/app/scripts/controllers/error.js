@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-    .controller('ErrorCtrl', ['$scope', '$routeParams', 'Errors', 'toaster',
-        function ($scope, $routeParams, Errors, toaster) {
+    .controller('ErrorCtrl', ['$scope', '$routeParams', 'Errors', 'toaster', '$filter',
+        function ($scope, $routeParams, Errors, toaster, $filter) {
 
             $scope.name = $routeParams.appName;
             $scope.hash = $routeParams.hash;
@@ -25,5 +25,23 @@ angular.module('marinetApp')
                 }, function (err) {
                     console.log(err);
                 });
+            };
+            
+            $scope.displayVal = function (val) {                
+                if (isDate(val))
+                    return $filter('date')(new Date(val), 'MMMM, dd yyyy HH:mm:ss');
+                
+                return val;
+            };
+            
+            function isDate(val){
+                var d = new Date(val);
+                
+                if (Object.prototype.toString.call(d) === "[object Date]") 
+                    if (!isNaN(d.getTime()))
+                        if (typeof(val) !== 'number')
+                            return true;
+                
+                return false;
             }
     }]);
