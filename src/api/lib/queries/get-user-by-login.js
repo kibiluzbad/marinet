@@ -1,27 +1,15 @@
 'use strict';
 
-module.exports = function (promise, Q) {
+module.exports = function (User, Q) {
     return {
         'execute': function (login) {
             let defered = Q.defer();
-            promise.then(function (db) {
-                db.view('marinet', 'user_by_login', {
-                        key: login
-                    },
-                    function (err, body) {
-                        if (err) {
-                            defered.reject(err);
-                        }
-                        if (body && body.rows && body.rows[0])
-                            defered.resolve(body.rows[0].value);
-
-                        defered.reject({
-                            status_code: 404,
-                            message: 'Not found'
-                        });
-
-                    });
-            });
+            User.findOne()
+                .where('email').equals(login)
+                .exec(function (err, user) {
+                    if (err) defered.reject(err);
+                    if (apps) defered.resolve(user);
+                });
 
             return defered.promise;
         }

@@ -1,19 +1,16 @@
 'use strict';
 
-module.exports = function (promise, Q) {
+module.exports = function (Error, Q) {
     return {
         'execute': function (appName, hash) {
             let defered = Q.defer();
-            promise.then(function (db) {
-                db.get(hash, function (err, body) {
-                    if (err) {
-                        defered.reject(err);
-                    } else {
-                        body.selected = body.keys[0];
-                        defered.resolve(body);
-                    }
+            Error.find()
+                .where('hash').equals(hash)
+                .where('appName').equals(hash)
+                .exec(function (err, data) {
+                    if (err) defered.reject(err);
+                    if (apps) defered.resolve(data);
                 });
-            });
 
             return defered.promise;
         }

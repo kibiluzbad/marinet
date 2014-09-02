@@ -1,11 +1,10 @@
 'use strict';
-const request = require('request');
 
-module.exports = function (Q, config) {
+module.exports = function (Q, Error) {
     return {
         'execute': function (filter, page) {
             let defered = Q.defer(),
-                url = config.db + '_fti/local/' + config.dbName + '/_design/errors/by_message?sort=' + encodeURIComponent(filter.sort) + 'createdAt%3Cdate%3E&include_docs=true&limit=25&skip=' + ((page - 1) * 25) + '&q=appName:' + filter.appName;
+                /*    url = config.db + '_fti/local/' + config.dbName + '/_design/errors/by_message?sort=' + encodeURIComponent(filter.sort) + 'createdAt%3Cdate%3E&include_docs=true&limit=25&skip=' + ((page - 1) * 25) + '&q=appName:' + filter.appName;
 
 
             if (filter.query) url += ' AND message:' + filter.query + '~';
@@ -29,7 +28,30 @@ module.exports = function (Q, config) {
                         data: errors
                     });
                 }
-            });
+            });*/
+
+                Error.aggregate({
+                        $group: {
+                            _id: {
+                                hash: "$hash",
+                                appName: "$appName"
+                            },
+                            message: {
+                                $last: "$message"
+                            },
+                            createdAt: {
+                                $last: "$createdAt"
+                            },
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    },
+                    function (err, errors) {
+                        if (err) defered.reject(err);
+                        if (errors) defered.resolve(errors);
+                    });
+
 
             return defered.promise;
         }

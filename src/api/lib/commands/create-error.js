@@ -12,7 +12,6 @@ module.exports = function (promise, Q) {
 
             promise.then(function (db) {
                 error.appName = appName;
-                error.solved = false;
                 error.type = 'error';
                 db.get(hash, function (err, body) {
                     if (err && err.status_code === 404) {
@@ -29,6 +28,7 @@ module.exports = function (promise, Q) {
                                 body.keys.push(body2.id);
                                 body.count++;
                                 body.type = 'grouped_error';
+                                body.solved = false;
                                 db.insert(body, hash, function (err3, body3) {
                                     if (err3) {
                                         defered.reject(err3);
