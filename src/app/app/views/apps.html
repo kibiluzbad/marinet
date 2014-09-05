@@ -37,6 +37,7 @@
                                 <thead>
                                     <tr>
                                         <td>Name</td>
+                                        <td>Id</td>
                                         <td>Key</td>
                                         <td style="width: 110px;"></td>
                                     </tr>
@@ -44,6 +45,7 @@
                                 <tbody>
                                     <tr ng-repeat="app in apps">
                                         <td ng-bind="app.name"></td>
+                                        <td ng-bind="app._id"></td>
                                         <td ng-bind="app.key"></td>
                                         <td class="text-center">
                                             <div class="btn-group">

@@ -1,21 +1,19 @@
 'use strict';
 
-const Q = require('q'),
-    mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 module.exports = function (config, log) {
-    let deferred = Q.defer();
 
-    var db = mongoose.connection(config.db);
+    let db = mongoose.connection;
+    mongoose.connect(config.db);
 
     db.on('error', function (err) {
 
-        deferred.reject(err);
         log.error('mongodb', err);
     });
     db.once('open', function () {
-        defered.resolve(mongoose);
+        log.info('mongodb', 'Connected succefully!');
     });
 
-    return deferred.promise;
+    return mongoose;
 }

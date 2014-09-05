@@ -17,6 +17,7 @@
     "express-cors": "0.0.3",
     "express-session": "^1.7.0",
     "marinet-provider-nodejs": "git+ssh://git@github.com:junioro/marinet-provider-nodejs.git",
+    "mongoose": "^3.8.15",
     "morgan": "^1.2.0",
     "nano": "^5.10.0",
     "npm": "^1.4.21",

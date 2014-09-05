@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function (Q, Error) {
+module.exports = function (Models, Q) {
     return {
         'execute': function (filter, page) {
-            let defered = Q.defer(),
-                /*    url = config.db + '_fti/local/' + config.dbName + '/_design/errors/by_message?sort=' + encodeURIComponent(filter.sort) + 'createdAt%3Cdate%3E&include_docs=true&limit=25&skip=' + ((page - 1) * 25) + '&q=appName:' + filter.appName;
+            let defered = Q.defer();
+            /*    url = config.db + '_fti/local/' + config.dbName + '/_design/errors/by_message?sort=' + encodeURIComponent(filter.sort) + 'createdAt%3Cdate%3E&include_docs=true&limit=25&skip=' + ((page - 1) * 25) + '&q=appName:' + filter.appName;
 
 
             if (filter.query) url += ' AND message:' + filter.query + '~';
@@ -30,27 +30,46 @@ module.exports = function (Q, Error) {
                 }
             });*/
 
-                Error.aggregate({
-                        $group: {
-                            _id: {
-                                hash: "$hash",
-                                appName: "$appName"
-                            },
-                            message: {
-                                $last: "$message"
-                            },
-                            createdAt: {
-                                $last: "$createdAt"
-                            },
-                            count: {
-                                $sum: 1
-                            }
+            Models.Error.aggregate([
+                {
+                    $match: {
+                        appName: {
+                            $eq: filter.appName
                         }
+                    }
                     },
-                    function (err, errors) {
-                        if (err) defered.reject(err);
-                        if (errors) defered.resolve(errors);
-                    });
+                {
+                    $group: {
+                        _id: {
+                            hash: "$hash",
+                            appName: "$appName"
+                        },
+                        hash: {
+                            $last: "$hash"
+                        },
+                        message: {
+                            $last: "$message"
+                        },
+                        exception: {
+                            $last: "$exception"
+                        },
+                        createdAt: {
+                            $last: "$createdAt"
+                        },
+                        count: {
+                            $sum: 1
+                        }
+                    }
+                }]).exec(function (err, errors) {
+                if (err) defered.reject(err);
+                if (errors) defered.resolve({
+                    currentPage: page,
+                    sugestions: [],
+                    totalPages: 1, //Math.ceil(errors.length/ 25),
+                    totalSize: errors.length,
+                    data: errors
+                });
+            });
 
 
             return defered.promise;

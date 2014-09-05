@@ -104,7 +104,7 @@
                         </div>
                         <div class="news-content">
                             <div class="news-title">
-                                <a ng-href="#!/{{name}}/errors/{{error._id}}" class="pull-left" title="{{error.message}}">{{error.message | truncate:80}}</a>
+                                <a ng-href="#!/{{name}}/errors/{{error._id.hash}}" class="pull-left" title="{{error.message}}">{{error.message | truncate:80}}</a>
                                 <span class="badge pull-left" ng-class="{'badge-green': error.solved, 'badge-red': !error.solved}" style="margin-left: 5px;">{{error.count}}</span>
                                 <span class="clean">&nbsp;</span>
                             </div>

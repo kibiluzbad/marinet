@@ -1,17 +1,17 @@
 'use strict';
 
-module.exports = function (App, Q) {
+module.exports = function (Models, Q) {
 
     return {
         'execute': function (appId, appKey) {
             let defered = Q.defer();
-
-            App.findOne()
-                .where('id').equals(appId)
-                .where('key').equals(appKey)
+            Models.App.findById(appId).where('key').equals(appKey)
                 .exec(function (err, app) {
                     if (err) defered.reject(err);
-                    if (apps) defered.resolve(app.name);
+                    if (app) defered.resolve(app.name);
+                    else defered.reject({
+                        message: 'App not found'
+                    });
                 });
 
             return defered.promise;

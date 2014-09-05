@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function (App, Q) {
+module.exports = function (Models, Q) {
     return {
         'execute': function (accountId) {
             let defered = Q.defer();
-            App.find()
+            Models.App.find()
                 .where('accountId')
                 .equals(accountId)
                 .exec(function (err, apps) {

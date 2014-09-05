@@ -1,15 +1,14 @@
 'use strict';
 
-module.exports = function (Error, Q) {
+module.exports = function (Models, Q) {
 
     return {
         'execute': function (id) {
             let defered = Q.defer();
-            Error.findOne()
-                .where('id').equals(id)
+            Models.Error.findById(id)
                 .exec(function (err, data) {
                     if (err) defered.reject(err);
-                    if (apps) defered.resolve(data);
+                    defered.resolve(data);
                 });
 
             return defered.promise;

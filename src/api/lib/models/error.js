@@ -9,6 +9,8 @@ module.exports = function (mongoose) {
         createdAt: Date,
         solved: Boolean,
         appName: String,
+        selected: String,
+        keys: [String],
     });
 
     return mongoose.model('Error', schema);

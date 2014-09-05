@@ -30,33 +30,35 @@ if ('production' === environment) {
     RedisStore = require('connect-redis')(session);
 }
 
+const Models = require('./lib/models.js')(deferedDb);
+
 const
     queries = {
-        'getAppErrors': require('./lib/queries/get-app-errors.js')(deferedDb, Q),
-        'getAccountApps': require('./lib/queries/get-account-apps.js')(deferedDb, Q),
-        'getAppName': require('./lib/queries/get-app-name.js')(deferedDb, Q),
-        'getErrorsByHash': require('./lib/queries/get-errors-by-hash.js')(deferedDb, Q),
-        'getAppByName': require('./lib/queries/get-app-by-name.js')(deferedDb, Q),
-        'getUserById': require('./lib/queries/get-user-by-id.js')(deferedDb, Q),
-        'getUserByLogin': require('./lib/queries/get-user-by-login.js')(deferedDb, Q),
-        'getErrorsById': require('./lib/queries/get-errors-by-id.js')(deferedDb, Q),
-        'getCommentsByErrorHash': require('./lib/queries/get-comments-by-error-hash.js')(deferedDb, Q),
-        'searchErrors': require('./lib/queries/search-errors.js')(Q, config),
+        //'getAppErrors': require('./lib/queries/get-app-errors.js')(deferedDb, Q),
+        'getAccountApps': require('./lib/queries/get-account-apps.js')(Models, Q),
+        'getAppName': require('./lib/queries/get-app-name.js')(Models, Q),
+        'getErrorsByHash': require('./lib/queries/get-errors-by-hash.js')(Models, Q),
+        //'getAppByName': require('./lib/queries/get-app-by-name.js')(Models, Q),
+        //'getUserById': require('./lib/queries/get-user-by-id.js')(deferedDb, Q),
+        'getUserByLogin': require('./lib/queries/get-user-by-login.js')(Models, Q),
+        'getErrorsById': require('./lib/queries/get-errors-by-id.js')(Models, Q),
+        'getCommentsByErrorHash': require('./lib/queries/get-comments-by-error-hash.js')(Models, Q),
+        'searchErrors': require('./lib/queries/search-errors.js')(Models, Q),
     },
     commands = {
-        'createError': require('./lib/commands/create-error.js')(deferedDb, Q),
-        'initialSetup': require('./lib/commands/initial-setup.js')(deferedDb, Q),
-        'createApp': require('./lib/commands/create-app.js')(deferedDb, Q),
-        'solveErrors': require('./lib/commands/solve-errors.js')(deferedDb, Q),
+        'createError': require('./lib/commands/create-error.js')(Models, Q),
+        'initialSetup': require('./lib/commands/initial-setup.js')(Models, Q),
+        'createApp': require('./lib/commands/create-app.js')(Models, Q),
+        //'solveErrors': require('./lib/commands/solve-errors.js')(deferedDb, Q),
         'validatePassword': require('./lib/commands/validate-password.js')(Q),
-        'createComment': require('./lib/commands/create-comment.js')(deferedDb, Q),
+        //'createComment': require('./lib/commands/create-comment.js')(deferedDb, Q),
     };
 
 app.use(cors({
     allowedOrigins: config.allowedOrigins
 }));
 app.use(bodyParser.json());
-//app.use(logger('combined'));
+app.use(logger('combined'));
 app.set('port', process.env.PORT || 3000);
 
 const authed = function (req, res, next) {
@@ -85,7 +87,7 @@ if (environment === 'production')
     });
 
 passport.serializeUser(function (user, done) {
-    done(null, user.id);
+    done(null, user.email);
 });
 passport.deserializeUser(function (username, done) {
     queries.getUserByLogin.execute(username)
@@ -107,6 +109,7 @@ passport.use(new LocalStrategy(
                 });
 
         }).catch(function (err) {
+            console.log(err);
             done(403, false, {
                 message: 'User not found.'
             });

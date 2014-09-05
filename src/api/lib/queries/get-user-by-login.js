@@ -1,14 +1,15 @@
 'use strict';
 
-module.exports = function (User, Q) {
+module.exports = function (Models, Q) {
     return {
         'execute': function (login) {
             let defered = Q.defer();
-            User.findOne()
+            Models.User.findOne()
                 .where('email').equals(login)
                 .exec(function (err, user) {
                     if (err) defered.reject(err);
-                    if (apps) defered.resolve(user);
+                    defered.resolve(user);
+
                 });
 
             return defered.promise;
