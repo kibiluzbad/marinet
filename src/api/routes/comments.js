@@ -16,11 +16,8 @@ function comments(app, queries, commands, authed) {
 
     app.post('/comment', function (req, res) {
         let comment = req.body;
-        comment.name = req.user.name;
-        comment.role = req.user.role;
-        comment.createdAt = new Date();
 
-        commands.createComment.execute(comment)
+        commands.createComment.execute(comment, req.user)
             .then(function (result) {
                 res.status(201).json(result);
             })

@@ -7,13 +7,14 @@ function errors(app, queries, commands, authed, publisher) {
                 query: req.query.q,
                 appName: req.params.appName,
                 solved: req.query.solved ? true : false,
-                sort: req.query.sort !== 'asc' ? "\\" : "/",
+                sort: req.query.sort !== 'asc' ? 1 : -1,
             }, req.query.page)
             .then(function (errors) {
                 res.json(errors);
             }).catch(function (err) {
                 res.json(err);
-            });
+            })
+            .done();
     });
 
     app.post('/error', function (req, res) {
@@ -52,7 +53,7 @@ function errors(app, queries, commands, authed, publisher) {
                 res.json(error);
             }).catch(function (err) {
                 res.json(err);
-            });
+            }).done();
     });
 
     app.get('/error/:hash/:id', authed, function (req, res) {
@@ -63,7 +64,7 @@ function errors(app, queries, commands, authed, publisher) {
                 res.json(error);
             }).catch(function (err) {
                 res.json(err);
-            });
+            }).done();
     });
 
     app.put('/error/:hash', authed, function (req, res) {
@@ -74,7 +75,7 @@ function errors(app, queries, commands, authed, publisher) {
             })
             .catch(function (err) {
                 res.json(err);
-            });
+            }).done();
     });
 
     app.get('/error/throw', function (req, res) {

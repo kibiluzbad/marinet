@@ -5,7 +5,7 @@ module.exports = function (Models, Q) {
         'execute': function (hash) {
             let defered = Q.defer();
             Models.Comment.find()
-                .where('hash').equals(hash)
+                .where('errorHash').equals(hash)
                 .exec(function (err, comments) {
                     if (err) defered.reject(err);
                     defered.resolve(comments);

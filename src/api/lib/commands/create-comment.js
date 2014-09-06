@@ -1,21 +1,19 @@
 'use strict';
 
-module.exports = function (promise, Q) {
+module.exports = function (Models, Q) {
 
     return {
-        'execute': function (comment) {
+        'execute': function (data, user) {
             let defered = Q.defer();
+            let comment = new Models.Comment(data);
+            comment.userName = user.name;
+            comment.userRole = user.roles[0];
+            comment.createdAt = new Date();
+            console.log(comment);
 
-            promise.then(function (db) {
-                comment.type = 'comment';
-                db.insert(comment, function (err, body) {
-                    if (err) {
-                        defered.reject(err);
-                    } else {
-                        comment._id = body._id;
-                        defered.resolve(comment);
-                    }
-                });
+            comment.save(function (err, comment) {
+                if (err) defered.reject(err);
+                defered.resolve(comment);
             });
 
             return defered.promise;

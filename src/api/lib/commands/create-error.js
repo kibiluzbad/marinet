@@ -20,6 +20,16 @@ module.exports = function (Models, Q) {
                 defered.resolve(error);
             });
 
+            Models.Error.update({
+                hash: hash
+            }, {
+                solved: false
+            }, {
+                multi: true
+            }).exec(function (err, numberAffected, raw) {
+                console.log("Error with hash %s unsolved", hash);
+            });
+
             return defered.promise;
         }
     }

@@ -1,28 +1,20 @@
 'use strict';
 
-module.exports = function (promise, Q) {
+module.exports = function (Models, Q) {
 
     return {
         'execute': function (hash) {
             let defered = Q.defer();
-
-            promise.then(function (db) {
-
-                db.get(hash, function (err, body) {
-                    if (err) {
-                        defered.reject(err);
-                    } else {
-
-                        body.solved = true;
-
-                        db.insert(body, hash, function (err2, body2) {
-                            if (err2) {
-                                defered.reject(err2);
-                            } else
-                                defered.resolve(body);
-                        });
-                    }
-                });
+            Models.Error.update({
+                hash: hash
+            }, {
+                solved: true
+            }, {
+                multi: true
+            }).exec(function (err, numberAffected, raw) {
+                console.log("Updated %s docs", numberAffected);
+                if (err) defered.reject(err);
+                defered.resolve(raw);
             });
 
             return defered.promise;

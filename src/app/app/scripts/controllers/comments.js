@@ -19,7 +19,7 @@ angular.module('marinetApp')
             };
             $scope.send = function () {
                 Comments.comment({
-                    hash: $scope.hash,
+                    errorHash: $scope.hash,
                     message: $scope.message
                 }).then(function (result) {
                     toaster.pop('success', '', 'Comentário salvo');

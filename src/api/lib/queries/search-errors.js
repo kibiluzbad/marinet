@@ -30,14 +30,25 @@ module.exports = function (Models, Q) {
                 }
             });*/
 
-            Models.Error.aggregate([
-                {
-                    $match: {
-                        appName: {
-                            $eq: filter.appName
-                        }
-                    }
+            let match = {
+                $match: {
+                    appName: {
+                        $eq: filter.appName
                     },
+                    solved: {
+                        $eq: filter.solved
+                    }
+                }
+            };
+            if (filter.query) {
+                match.$match.$text = {
+                    $search: filter.query,
+                    $language: "en"
+                }
+            }
+
+            Models.Error.aggregate([
+                match,
                 {
                     $group: {
                         _id: {
@@ -56,11 +67,20 @@ module.exports = function (Models, Q) {
                         createdAt: {
                             $last: "$createdAt"
                         },
+                        solved: {
+                            $last: "$solved"
+                        },
                         count: {
                             $sum: 1
                         }
                     }
-                }]).exec(function (err, errors) {
+                },
+                {
+                    $sort: {
+                        createdAt: filter.sort
+                    }
+                },
+            ]).exec(function (err, errors) {
                 if (err) defered.reject(err);
                 if (errors) defered.resolve({
                     currentPage: page,
@@ -70,7 +90,6 @@ module.exports = function (Models, Q) {
                     data: errors
                 });
             });
-
 
             return defered.promise;
         }

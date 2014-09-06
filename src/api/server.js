@@ -16,11 +16,7 @@ const
     cors = require('express-cors'),
     app = express(),
     zmq = require('zmq'),
-    publisher = zmq.socket('pub'),
-    Marinet = require('marinet-provider-nodejs'),
-    provider = new Marinet(config.marinet);
-
-console.log(provider);
+    publisher = zmq.socket('pub');
 
 let redisClient = {},
     RedisStore = {};
@@ -49,9 +45,9 @@ const
         'createError': require('./lib/commands/create-error.js')(Models, Q),
         'initialSetup': require('./lib/commands/initial-setup.js')(Models, Q),
         'createApp': require('./lib/commands/create-app.js')(Models, Q),
-        //'solveErrors': require('./lib/commands/solve-errors.js')(deferedDb, Q),
+        'solveErrors': require('./lib/commands/solve-errors.js')(Models, Q),
         'validatePassword': require('./lib/commands/validate-password.js')(Q),
-        //'createComment': require('./lib/commands/create-comment.js')(deferedDb, Q),
+        'createComment': require('./lib/commands/create-comment.js')(Models, Q),
     };
 
 app.use(cors({
@@ -140,18 +136,7 @@ app.get('/', function (req, res) {
 });
 
 
-app.use(function (err, req, res, next) {
-    if (err.message && err.stack) {
-        provider.error({
-            currentUser: req.user ? req.user.name : 'unauthenticated',
-            message: err.message,
-            exception: err.stack,
-            createdAt: new Date().toISOString().replace(/\..+/, '')
-        });
-    }
-
-    next(err);
-});
+app.use(require('./lib/marinet-handler'));
 
 
 publisher.bind('tcp://*:5432', function (err) {
