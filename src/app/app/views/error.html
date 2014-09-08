@@ -12,11 +12,11 @@
     <div class="row">
         <div id="breadcrumbs">
             <div class="breadcrumb-button blue">
-                <a href="#!/apps" class="breadcrumb-label"><i class="icon-dashboard"></i> Dashboard</a>
+                <a href="#!/{{user.accountName}}/apps" class="breadcrumb-label"><i class="icon-cog"></i> Aplicações</a>
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
             <div class="breadcrumb-button">
-                <a href="#!/{{name}}/errors" class="breadcrumb-label"><i class="icon-cog"></i> {{name | truncate:25}}</a>
+                <a href="#!/{{user.accountName}}/{{name}}/errors" class="breadcrumb-label"><i class="icon-cog"></i> {{name | truncate:25}}</a>
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
             <div class="breadcrumb-button">

@@ -13,6 +13,7 @@ module.exports = function (mongoose) {
         password: String,
         email: String,
         accountId: String,
+        accountName: String,
         roles: [String],
         providers: [provider],
     });

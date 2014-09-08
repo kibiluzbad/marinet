@@ -13,8 +13,8 @@ const
     subscriber = zmq.socket('sub');
 
 let
-    success = 0,
-    error = 0;
+    countSuccess = 0,
+    countError = 0;
 
 subscriber.subscribe("");
 
@@ -24,23 +24,22 @@ subscriber.on("message", function (data) {
     console.log('Processing message at ' + message.date);
     console.log("Id: %s, Key: %s", message.app.id, message.app.key);
     getAppName.execute(message.app.id, message.app.key)
-        .then(function (appName) {
-            return createError.execute(message.error, appName)
+        .then(function (app) {
+            return createError.execute(message.error, app)
                 .then(function (error) {
-                    console.log(error);
-                    success++;
+                    countSuccess++;
                     console.log({
-                        sucess: success,
-                        error: error
+                        sucess: countSuccess,
+                        error: countError
                     });
                 });
         })
         .catch(function (err) {
             console.log(err);
-            error++;
+            countError++;
             console.log({
-                sucess: success,
-                error: error
+                sucess: countSuccess,
+                error: countError
             });
         });
 

@@ -12,7 +12,7 @@
     <div class="row">
         <div id="breadcrumbs">
             <div class="breadcrumb-button blue">
-                <a href="#!/apps" class="breadcrumb-label"><i class="icon-dashboard"></i> Dashboard</a>
+                <a href="#!/{{user.accountName}}/apps" class="breadcrumb-label"><i class="icon-cog"></i> Aplicações</a>
                 <span class="breadcrumb-arrow"><span></span></span>
             </div>
             <div class="breadcrumb-button">
@@ -104,7 +104,7 @@
                         </div>
                         <div class="news-content">
                             <div class="news-title">
-                                <a ng-href="#!/{{name}}/errors/{{error._id.hash}}" class="pull-left" title="{{error.message}}">{{error.message | truncate:80}}</a>
+                                <a ng-href="#!/{{user.accountName}}/{{name}}/errors/{{error._id.hash}}" class="pull-left" title="{{error.message}}">{{error.message | truncate:80}}</a>
                                 <span class="badge pull-left" ng-class="{'badge-green': error.solved, 'badge-red': !error.solved}" style="margin-left: 5px;">{{error.count}}</span>
                                 <span class="clean">&nbsp;</span>
                             </div>

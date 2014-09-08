@@ -6,12 +6,13 @@ const
 module.exports = function (Models, Q) {
 
     return {
-        'execute': function (data, appName) {
+        'execute': function (data, app) {
             console.log('creating error');
             let defered = Q.defer();
-            let hash = crypto.createHash('md5').update(JSON.stringify(data.message + data.exception + data.appName)).digest("hex");
+            let hash = crypto.createHash('md5').update(JSON.stringify(data.message + data.exception + app.name)).digest("hex");
             let error = new Models.Error(data);
-            error.appName = appName;
+            error.appName = app.name;
+            error.accountId = app.accountId;
             error.solved = false;
             error.hash = hash;
 

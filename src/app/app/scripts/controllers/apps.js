@@ -3,7 +3,7 @@
 angular.module('marinetApp')
     .controller('AppsCtrl', ['$scope', 'Apps',
         function ($scope, Apps) {
-            $scope.$root.apps = Apps.find();
+
             $scope.showNewApp = false;
             $scope.$root.$on('newapp', function () {
                 $scope.showNewApp = true;

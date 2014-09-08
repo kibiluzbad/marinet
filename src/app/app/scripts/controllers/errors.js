@@ -24,7 +24,8 @@ angular.module('marinetApp')
 
             $scope.default = function () {
                 $scope.solved = null;
-                $scope.query = '';
+                $scope.query = null;
+                $scope.sort = null;
                 $scope.search();
             }
 

@@ -33,8 +33,9 @@ function account(app, config, queries, commands, authed, passport) {
         passport.authenticate('local'),
         function (req, res) {
             res.json({
-                'username': req.user.id,
-                'role': req.user.role
+                'username': req.user.name,
+                'role': req.user.roles[0],
+                'accountName': req.user.accountName,
             });
         });
 
@@ -48,8 +49,9 @@ function account(app, config, queries, commands, authed, passport) {
     app.get('/user', authed, function (req, res) {
         if (req.user)
             res.json({
-                'username': req.user.id,
-                'role': req.user.role
+                'username': req.user.name,
+                'role': req.user.roles[0],
+                'accountName': req.user.accountName,
             });
         else
             res.status(403).json({

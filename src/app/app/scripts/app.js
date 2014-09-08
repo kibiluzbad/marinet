@@ -39,17 +39,17 @@ angular
             $locationProvider.hashPrefix('!');
 
             $routeProvider
-                .when('/apps', {
+                .when('/:account/apps', {
                     templateUrl: 'views/apps.html',
                     controller: 'AppsCtrl',
                     access: access.user
                 })
-                .when('/:appName/errors', {
+                .when('/:account/:appName/errors', {
                     templateUrl: 'views/errors.html',
                     controller: 'ErrorsCtrl',
                     access: access.user
                 })
-                .when('/:appName/errors/:hash', {
+                .when('/:account/:appName/errors/:hash', {
                     templateUrl: 'views/error.html',
                     controller: 'ErrorCtrl',
                     access: access.user
@@ -62,6 +62,10 @@ angular
                 .when('/logout', {
                     controller: 'LogoutCtrl',
                     access: access.anon
+                })
+                .when('/:account/dashboard', {
+                    templateUrl: 'views/dashboard.html',
+                    controller: 'DashboardCtrl'
                 })
                 .otherwise({
                     redirectTo: '/apps'

@@ -10,6 +10,7 @@ module.exports = function (Models, Q) {
 
                 function (next) {
                     let account = new Models.Account({
+                        name: 'marinet',
                         status: 1
                     });
 

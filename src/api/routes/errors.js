@@ -7,7 +7,7 @@ function errors(app, queries, commands, authed, publisher) {
                 query: req.query.q,
                 appName: req.params.appName,
                 solved: req.query.solved ? true : false,
-                sort: req.query.sort !== 'asc' ? 1 : -1,
+                sort: req.query.sort === 'asc' ? 1 : -1,
             }, req.query.page)
             .then(function (errors) {
                 res.json(errors);

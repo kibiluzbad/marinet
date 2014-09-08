@@ -10,7 +10,7 @@ angular.module('marinetApp')
             $scope.login = function () {
                 Auth.login($scope.user, function (user) {
                     $scope.$root.user = user;
-                    $location.path('/apps');
+                    $location.path(user.accountName + '/dashboard');
                     $scope.$root.$emit('hidemessage', '');
                 }, function () {
                     toaster.pop('warning', '', 'Usuário e/ou senha inválido');

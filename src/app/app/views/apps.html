@@ -11,10 +11,6 @@
 <div class="container padded">
     <div class="row">
         <div id="breadcrumbs">
-            <div class="breadcrumb-button blue">
-                <a href="#" class="breadcrumb-label"><i class="icon-dashboard"></i> Dashboard</a>
-                <span class="breadcrumb-arrow"><span></span></span>
-            </div>
             <div class="breadcrumb-button">
                 <span class="breadcrumb-label"><i class="icon-cogs"></i> Applications</span>
                 <span class="breadcrumb-arrow"><span></span></span>
@@ -49,7 +45,7 @@
                                         <td ng-bind="app.key"></td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a ng-href="#!/{{app.name}}/errors" class="btn btn-xs btn-success">Erros</a>
+                                                <a ng-href="#!/{{user.accountName}}/{{app.name}}/errors" class="btn btn-xs btn-success">Erros</a>
                                                 <a class="btn btn-xs btn-danger" ng-click="purge(app.name)">Excluir</a>
                                             </div>
                                         </td>
