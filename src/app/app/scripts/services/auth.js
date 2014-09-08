@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('marinetApp')
-    .factory('Auth', ['$http', '$rootScope', '$cookieStore', '$q',
+    .service('Auth', ['$http', '$rootScope', '$cookieStore', '$q',
         function ($http, $rootScope, $cookieStore, $q) {
 
             var accessLevels = routingConfig.accessLevels,
@@ -11,6 +11,7 @@ angular.module('marinetApp')
 
             $http.get(routingConfig.apiUrl + '/user')
                 .success(function (data) {
+                    console.log(data);
                     $rootScope.loggedIn = true;
                     deferred.resolve(data);
                 })

@@ -1,25 +1,28 @@
 <div class="collapse navbar-collapse navbar-collapse-top" ng-controller="TopbarCtrl" ng-if="loggedIn">
     <div class="navbar-right">
         <ul class="nav navbar-nav navbar-left">
-            <li class="cdrop">
-                <a ng-click="newApp()"><i class="icon-plus-sign"></i>Create New Application</a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-left">
             <li class="dropdown">
                 <a class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
                     <span>
-                        <i class="icon-user icon-2x"></i><span>Conta <i class="icon-caret-down"></i></span>
+                        <img gravatar-src="user.email" class="menu-avatar"><span>{{user.username}} <i class="icon-caret-down"></i></span>
                     </span>
                 </a>
                 <ul class="dropdown-menu">
                     <li class="with-image">
-                        <div class="avatar"><i class="icon-user icon-3x"></i>
+                        <div class="avatar">
+                            <img gravatar-src="user.email">
+
                         </div>
-                        <span>Conta</span>
+                        <span>{{user.username}}</span>
                     </li>
                     <li class="divider"></li>
-                    <li><a ng-click="logout()"><i class="icon-off"></i><span>Logout</span></a>
+                    <li><a href="#"><i class="icon-user"></i> <span>Perfil</span></a>
+                    </li>
+                    <li><a href="#"><i class="icon-cog"></i> <span>Configurações</span></a>
+                    </li>
+                    <li><a href="#"><i class="icon-envelope"></i> <span>Mensagens</span> <span class="label label-dark-red pull-right">5</span></a>
+                    </li>
+                    <li><a ng-click="logout()"><i class="icon-off"></i> <span>Sair</span></a>
                     </li>
                 </ul>
             </li>

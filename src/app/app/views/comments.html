@@ -2,14 +2,14 @@
     <ul class="chat-box timeline">
         <div ng-repeat="comment in comments">
 
-<<<<<<< HEAD
+
             <li class="arrow-box-left gray">
                 <div class="avatar">
-                    <i class="icon-user icon-3x"></i>
+                    <img class="avatar-small" gravatar-src="comment.userEmail">
                 </div>
                 <div class="info">
                     <span class="name">
-                        <span class="label label-green">{{displayRole(comment.role)}}</span> <strong class="indent">{{comment.name}}</strong>
+                        <span class="label label-green">{{comment.userRole}}</span>  <strong class="indent">{{comment.userName}}</strong>
                     </span>
                     <span class="time"><i class="icon-time"></i> <span am-time-ago="comment.createdAt"></span></span>
                 </div>
@@ -18,42 +18,24 @@
                         {{comment.message}}
                     </blockquote>
                 </div>
-            </li>                
+            </li>
         </div>
     </ul>
-    
-=======
-        <ul class="chat-box">
-            <div ng-repeat="comment in comments">
-                <li ng-class-even="'arrow-box-left'" ng-class-odd="'arrow-box-right gray'">
-                    <div class="avatar">
-                        <i class="icon-user icon-3x"></i>
-                    </div>
-                    <div class="info">
-                        <span class="name"><strong>{{comment.userName}}</strong> <span class="badge badge-blue">{{comment.userRole}}</span></span>
-                        <span class="time" am-time-ago="comment.createdAt"></span>
-                    </div>
-                    {{comment.message}}
-                </li>
-                <li class="divider"></li>
-            </div>
 
-        </ul>
-
-    </div>
->>>>>>> Fixing queries and commands
     <p class="note text-center">{{lastMessageTime}}</p>
-    
+
     <div class="box closable-chat-box open">
-        
+
         <div class="box-content padded">
 
             <div class="fields">
                 <div class="avatar">
-                    <i class="icon-user icon-3x"></i>
+                    <img gravatar-src="user.email">
+                    </i>
                 </div>
                 <ul>
-                    <li><b>Add a comment for error</b></li>
+                    <li><b>Add a comment for error</b>
+                    </li>
                     <li class="note">...</li>
                 </ul>
             </div>
@@ -69,10 +51,10 @@
                         <button type="submit" btn-loading class="btn btn-blue btn-xs">Send</button>
                     </div>
                 </div>
-                
+
             </form>
 
         </div>
-        
+
     </div>
 </div>

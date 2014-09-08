@@ -32,21 +32,23 @@
                             <table class="table table-normal">
                                 <thead>
                                     <tr>
-                                        <td>Name</td>
+                                        <td>Nome</td>
                                         <td>Id</td>
                                         <td>Key</td>
+                                        <td>Total Errors</td>
                                         <td style="width: 110px;"></td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="app in apps">
                                         <td ng-bind="app.name"></td>
-                                        <td ng-bind="app._id"></td>
+                                        <td ng-bind="app.id"></td>
                                         <td ng-bind="app.key"></td>
+                                        <td ng-bind="app.errors"></td>
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a ng-href="#!/{{user.accountName}}/{{app.name}}/errors" class="btn btn-xs btn-success">Erros</a>
-                                                <a class="btn btn-xs btn-danger" ng-click="purge(app.name)">Excluir</a>
+                                                <a ng-href="#!/{{user.accountName}}/{{app.name}}/errors" class="btn btn-success">Erros</a>
+
                                             </div>
                                         </td>
                                     </tr>

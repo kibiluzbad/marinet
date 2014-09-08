@@ -5,6 +5,7 @@ module.exports = function (mongoose) {
         message: String,
         userName: String,
         userRole: String,
+        userEmail: String,
         createdAt: Date,
         errorHash: String
     });

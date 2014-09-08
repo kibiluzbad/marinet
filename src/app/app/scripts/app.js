@@ -9,6 +9,7 @@ angular
     'angularMoment',
     'infinite-scroll',
     'toaster',
+    'ui.gravatar',
   ])
     .config(['$routeProvider', '$httpProvider', '$locationProvider',
         function ($routeProvider, $httpProvider, $locationProvider) {
@@ -68,7 +69,7 @@ angular
                     controller: 'DashboardCtrl'
                 })
                 .otherwise({
-                    redirectTo: '/apps'
+                    redirectTo: '/login'
                 });
     }])
     .run(['$rootScope', '$location', 'Auth',

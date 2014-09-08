@@ -8,6 +8,7 @@ module.exports = function (Models, Q) {
             let comment = new Models.Comment(data);
             comment.userName = user.name;
             comment.userRole = user.roles[0];
+            comment.userEmail = user.email;
             comment.createdAt = new Date();
             console.log(comment);
 

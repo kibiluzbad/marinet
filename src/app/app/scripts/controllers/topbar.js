@@ -1,14 +1,10 @@
 'use strict';
 
 angular.module('marinetApp')
-    .controller('TopbarCtrl', ['$scope', '$location', 'Auth',
-        function ($scope, $location, Auth) {
+    .controller('TopbarCtrl', ['$scope', '$location', 'Auth', 'toaster',
+
+        function ($scope, $location, Auth, toaster) {
             $scope.showNewApp = false;
-
-
-            $scope.newApp = function () {
-                $scope.$root.$emit('newapp', '');
-            };
 
             $scope.logout = function () {
                 Auth.logout(function () {

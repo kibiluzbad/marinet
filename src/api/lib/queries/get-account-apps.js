@@ -38,11 +38,21 @@ module.exports = function (Models, Q) {
                             if (err) defered.reject(err);
                             let values = [];
 
-                            for (let i = 0; i < result.length; i++) {
+                            for (let i = 0; i < apps.length; i++) {
                                 values.push({
-                                    name: result[i]._id.appName,
-                                    errors: result[i].count
+                                    name: apps[i].name,
+                                    id: apps[i]._id,
+                                    key: apps[i].key,
+                                    errors: 0
                                 });
+                            }
+
+                            for (let i = 0; i < result.length; i++) {
+                                for (let j = 0; j < values.length; j++) {
+                                    if (values[j].name === result[i]._id.appName) {
+                                        values[j].errors = result[i].count;
+                                    }
+                                }
                             }
 
                             defered.resolve(values);

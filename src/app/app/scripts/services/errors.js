@@ -34,11 +34,11 @@ angular.module('marinetApp')
                         success,
                         error);
                 },
-                get: function (hash, appName) {
+                get: function (hash, appName, success) {
                     return errors.get({
                         hash: hash,
                         appName: appName
-                    });
+                    }, success);
                 },
                 getById: function (hash, id, success, error) {
                     return errors.findOne({

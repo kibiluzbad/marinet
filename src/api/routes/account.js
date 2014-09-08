@@ -36,6 +36,7 @@ function account(app, config, queries, commands, authed, passport) {
                 'username': req.user.name,
                 'role': req.user.roles[0],
                 'accountName': req.user.accountName,
+                'email': req.user.email,
             });
         });
 
@@ -52,6 +53,7 @@ function account(app, config, queries, commands, authed, passport) {
                 'username': req.user.name,
                 'role': req.user.roles[0],
                 'accountName': req.user.accountName,
+                'email': req.user.email,
             });
         else
             res.status(403).json({

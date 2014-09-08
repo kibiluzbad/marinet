@@ -30,11 +30,11 @@
                 <span class="triangle-button red"><i class="icon-plus"></i></span>
             </div>
             <div class="col-sm-2 action-nav-button">
-                <a href="#" title="Messages">
-                    <i class="icon-comments-alt"></i>
-                    <span>Errors</span>
+                <a ng-href="#!/{{user.accountName}}/apps" title="Messages">
+                    <i class="icon-cogs"></i>
+                    <span>Applicações</span>
                 </a>
-                <span class="label label-black">14</span>
+                <span class="label label-black" ng-if="apps.length > 0">{{apps.length}}</span>
             </div>
         </div>
 
@@ -55,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="app in apps| orderBy:'errors':true">
+                                <tr ng-repeat="app in apps| limitTo:5 |orderBy:'errors':true">
                                     <td ng-bind="app.name"></td>
                                     <td ng-bind="app.errors"></td>
                                     <td ng-bind="app.openErrors"></td>
