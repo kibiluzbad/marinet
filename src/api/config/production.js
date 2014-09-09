@@ -10,7 +10,7 @@ module.exports = {
     'marinet': {
         app: {
             key: 'ac0c0afe317621c1dfae6645bcf7d855b9ecf40f1162952ee3676edbba79f80b',
-            id: 'ask0DsWqyU6wb5-ggvyZvA'
+            id: '540a26f033026ce20a07ec33'
         },
         rootUrl: 'http://api.marinet.me'
     }
