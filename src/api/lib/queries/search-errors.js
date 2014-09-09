@@ -87,7 +87,7 @@ module.exports = function (Models, Q) {
                 console.log(res);
                 if (err) defered.reject(err);
                 else if (res) {
-                    let total = res[0].count;
+                    let total = res ? res[0].count : 0;
                     query.skip(((page || 1) - 1) * 25).limit(25).exec(function (err, errors) {
                         if (err) defered.reject(err);
                         if (errors) defered.resolve({
