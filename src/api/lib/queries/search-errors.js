@@ -58,27 +58,57 @@ module.exports = function (Models, Q) {
 
 
             Models.Error.aggregate([match, {
-                $group: {
-                    _id: {
-                        hash: "$hash",
-                        appName: "$appName"
+                    $project: {
+                        hash: 1,
+                        appName: 1,
+                        count: {
+                            $ifNull: ['$count', 1]
+                        }
                     }
-                }
+                }, {
+                    $group: {
+                        _id: {
+                            hash: "$hash",
+                            appName: "$appName"
+                        },
+                        count: {
+                            $last: '$count'
+                        }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        count: {
+                            $sum: "$count"
+                        }
+                    }
                 }]).exec(function (err, res) {
-
+                console.log(res);
                 if (err) defered.reject(err);
-                let total = res.length;
-                query.skip(((page || 1) - 1) * 25).limit(25).exec(function (err, errors) {
-                    if (err) defered.reject(err);
-                    if (errors) defered.resolve({
+                else if (res) {
+                    let total = res[0].count;
+                    query.skip(((page || 1) - 1) * 25).limit(25).exec(function (err, errors) {
+                        if (err) defered.reject(err);
+                        if (errors) defered.resolve({
+                            currentPage: page++,
+                            sugestions: [],
+                            totalPages: Math.ceil(total / 25),
+                            totalSize: total,
+                            data: errors,
+                            sort: filter.sort
+                        });
+                    });
+                } else
+                    defered.resolve({
                         currentPage: page++,
                         sugestions: [],
-                        totalPages: Math.ceil(total / 25),
-                        totalSize: total,
-                        data: errors,
+                        totalPages: 0,
+                        totalSize: 0,
+                        data: [],
                         sort: filter.sort
-                    });
-                });
+                    })
+
             });
 
             return defered.promise;

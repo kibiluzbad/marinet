@@ -23,14 +23,14 @@
         <div class="row action-nav-row">
 
             <div class="col-sm-2 action-nav-button">
-                <a href="#" title="New Project">
+                <a href="#!/{{user.accountName}}/newapp" title="Nova aplicação">
                     <i class="icon-file-alt"></i>
                     <span>Nova aplicação</span>
                 </a>
                 <span class="triangle-button red"><i class="icon-plus"></i></span>
             </div>
             <div class="col-sm-2 action-nav-button">
-                <a ng-href="#!/{{user.accountName}}/apps" title="Messages">
+                <a ng-href="#!/{{user.accountName}}/apps" title="Aplicações">
                     <i class="icon-cogs"></i>
                     <span>Applicações</span>
                 </a>
@@ -55,7 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="app in apps| limitTo:5 |orderBy:'errors':true">
+                                <tr ng-repeat="app in apps| limitTo:5 |orderBy:'openErrors':true">
                                     <td ng-bind="app.name"></td>
                                     <td ng-bind="app.errors"></td>
                                     <td ng-bind="app.openErrors"></td>

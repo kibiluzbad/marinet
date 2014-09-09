@@ -17,45 +17,66 @@ module.exports = function (Models, Q) {
                         }
 
                         Models.Error.aggregate([{
-                                $match: {
-                                    appName: {
-                                        $in: names
-                                    },
-                                    accountId: accountId
-                                }
-                            },
-                            {
-                                $group: {
-                                    _id: {
-                                        accountId: '$accountId',
-                                        appName: '$appName'
-                                    },
-                                    count: {
-                                        $sum: 1
+                            $match: {
+                                appName: {
+                                    $in: names
+                                },
+                                accountId: accountId
+                            }
+                            }, {
+                            $project: {
+                                accountId: '$accountId',
+                                appName: '$appName',
+                                open: {
+
+                                    $cond: {
+                                        if :{
+                                            $eq: ["$solved", false]
+                                        }, then: 1,
+                                        else :0
                                     }
                                 }
-                        }]).exec(function (err, result) {
+                            }
+                            }, {
+                            $group: {
+                                _id: {
+                                    accountId: '$accountId',
+                                    appName: '$appName'
+                                },
+                                count: {
+                                    $sum: 1
+                                },
+                                open: {
+                                    $sum: '$open'
+                                }
+                            }
+                            }]).exec(function (err, result) {
                             if (err) defered.reject(err);
-                            let values = [];
+                            else if (!result) defered.resolve([]);
+                            else {
+                                let values = [];
 
-                            for (let i = 0; i < apps.length; i++) {
-                                values.push({
-                                    name: apps[i].name,
-                                    id: apps[i]._id,
-                                    key: apps[i].key,
-                                    errors: 0
-                                });
-                            }
+                                for (let i = 0; i < apps.length; i++) {
+                                    values.push({
+                                        name: apps[i].name,
+                                        id: apps[i]._id,
+                                        key: apps[i].key,
+                                        errors: 0,
+                                        openErrors: 0,
+                                    });
+                                }
 
-                            for (let i = 0; i < result.length; i++) {
-                                for (let j = 0; j < values.length; j++) {
-                                    if (values[j].name === result[i]._id.appName) {
-                                        values[j].errors = result[i].count;
+                                for (let i = 0; i < result.length; i++) {
+                                    for (let j = 0; j < values.length; j++) {
+                                        if (values[j].name === result[i]._id.appName) {
+                                            values[j].errors = result[i].count;
+                                            values[j].openErrors = result[i].open;
+                                        }
                                     }
                                 }
-                            }
 
-                            defered.resolve(values);
+                                defered.resolve(values);
+                            }
                         });
                     } else defered.resolve([]);
                 });

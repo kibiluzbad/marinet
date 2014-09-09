@@ -1,24 +1,54 @@
-<div class="col-lg-5" ng-show="show" ng-controller="NewappCtrl">
-    <div class="box">
-        <div class="box-header">
-            <span class="title">Create new</span>
+<div class="container">
+    <div class="row">
+        <div class="area-top clearfix">
+            <div class="pull-left header">
+                <h3 class="title"><i class="icon-dashboard"></i>Nova aplicação</h3>
+                <h5><span>A subtitle can go here</span></h5>
+            </div>
         </div>
-        <div class="box-content">
-            <form name="appForm" ng-submit="saveApp()" class="form-horizontal fill-up">
-                <div class="padded">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Name</label>
-                        <div class="col-lg-10">
-                            <input type="text" name="appName" ng-model="appName" placeholder="Aplication name…" required focus />
+    </div>
+</div>
+<div class="container padded">
+    <div class="row">
+        <div id="breadcrumbs">
+            <div class="breadcrumb-button blue">
+                <a href="#!/{{user.accountName}}/dashboard" class="breadcrumb-label"><i class="icon-dashboard"></i> Dashboard</a>
+                <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label"><i class="icon-cog"></i> Nova aplicação</span>
+                <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-12" ng-controller="NewappCtrl">
+            <div class="box">
+                <div class="box-header">
+                    <span class="title">Create new</span>
+                </div>
+                <div class="box-content">
+                    <form name="appForm" ng-submit="saveApp()" class="form-horizontal fill-up">
+                        <div class="padded">
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">Name</label>
+                                <div class="col-lg-10">
+                                    <input type="text" name="appName" ng-model="appName" placeholder="Aplication name…" required focus />
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-actions">
+                            <button type="submit" btn-loading class="btn btn-blue">
+                                <i class="icon-ok-sign"></i> Save
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-actions">
-                    <button type="submit" btn-loading class="btn btn-blue">
-                        <i class="icon-ok-sign"></i> Save
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

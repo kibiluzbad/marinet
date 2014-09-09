@@ -25,6 +25,8 @@ module.exports = function (mongoose) {
         },
         selected: String,
         keys: [String],
+    }, {
+        strict: false
     });
 
 

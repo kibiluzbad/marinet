@@ -12,7 +12,9 @@ function errors(app, queries, commands, authed, publisher) {
             .then(function (errors) {
                 res.json(errors);
             }).catch(function (err) {
-                res.json(err);
+                require('../lib/marinet-handler')(err, req, res, function (err) {
+                    res.status(500).json(err);
+                });
             })
             .done();
     });
@@ -43,12 +45,15 @@ function errors(app, queries, commands, authed, publisher) {
             .then(function (error) {
                 let fields = [],
                     restrictions = ['_id', '_rev', 'appName', 'count', 'exception', 'keys', 'message', 'solved', 'type', 'selected'];
-                
-                Object.keys(error).forEach(function(key) {
+
+                Object.keys(error).forEach(function (key) {
                     if (restrictions.indexOf(key) === -1)
-                        fields.push({ name: key, val: error[key] });
+                        fields.push({
+                            name: key,
+                            val: error[key]
+                        });
                 });
-                
+
                 error.fields = fields;
                 res.json(error);
             }).catch(function (err) {

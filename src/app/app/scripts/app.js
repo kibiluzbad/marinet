@@ -45,6 +45,11 @@ angular
                     controller: 'AppsCtrl',
                     access: access.user
                 })
+                .when('/:account/newapp', {
+                    templateUrl: 'views/newapp.html',
+                    controller: 'NewappCtrl',
+                    access: access.user
+                })
                 .when('/:account/:appName/errors', {
                     templateUrl: 'views/errors.html',
                     controller: 'ErrorsCtrl',

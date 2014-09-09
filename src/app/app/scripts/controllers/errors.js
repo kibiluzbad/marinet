@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('marinetApp')
-    .controller('ErrorsCtrl', ['$scope', '$routeParams', 'Errors',
-        function ($scope, $routeParams, Errors) {
+    .controller('ErrorsCtrl', ['$scope', '$routeParams', 'Errors', 'toaster',
+        function ($scope, $routeParams, Errors, toaster) {
             $scope.errors = [];
             $scope.busy = false;
             $scope.page = 1;
@@ -63,6 +63,11 @@ angular.module('marinetApp')
                     $scope.page = pageInfo.totalPages > next ? next : pageInfo.totalPages;
                     $scope.total = pageInfo.totalSize;
                     $scope.busy = false;
+                }, function (err) {
+                    console.log(err);
+                    toaster.pop('error', 'Erros', 'Ocorreu uma falha ao listar os erros');
+                    $scope.busy = false;
+                    $scope.canLoad = false;
                 });
             };
             $scope.nextPage();
